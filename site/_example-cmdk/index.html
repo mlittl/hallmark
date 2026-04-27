@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <title>Lectern — a personal library</title>
+  <meta name="description" content="A keyboard-first command palette for a personal reading list. Press ⌘K to find any book in seconds." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+
+  <style>
+    /*
+      Lectern — keyboard-first book library.
+      Tone: technical, calm. Anchor hue: 240 (cool slate).
+      Structure: single column, hairline rules, typographic-only CTAs, no reveals.
+    */
+
+    :root {
+      --color-paper:    oklch(97% 0.005 250);
+      --color-paper-2:  oklch(94% 0.007 250);
+      --color-paper-3:  oklch(91% 0.008 250);
+      --color-rule:     oklch(86% 0.008 245);
+      --color-rule-2:   oklch(74% 0.010 240);
+      --color-muted:    oklch(54% 0.012 245);
+      --color-neutral:  oklch(40% 0.014 245);
+      --color-ink-2:    oklch(28% 0.014 245);
+      --color-ink:      oklch(18% 0.016 245);
+      --color-accent:   oklch(48% 0.16 240);
+      --color-focus:    oklch(48% 0.16 240);
+      --color-mark-bg:  oklch(92% 0.06 95);
+      --color-row-hover: oklch(94% 0.012 245);
+      --color-row-active: oklch(88% 0.030 240);
+
+      --font-sans: "IBM Plex Sans", "Söhne", ui-sans-serif, sans-serif;
+      --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+      --text-xs:   0.75rem;
+      --text-sm:   0.8125rem;
+      --text-base: 0.9375rem;
+      --text-md:   1.0625rem;
+      --text-lg:   1.25rem;
+      --text-xl:   1.5rem;
+
+      --lh-tight:  1.1;
+      --lh-snug:   1.3;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.65;
+
+      --tracking-label: 0.10em;
+
+      --space-2xs: 0.25rem;
+      --space-xs:  0.5rem;
+      --space-sm:  0.75rem;
+      --space-md:  1rem;
+      --space-lg:  1.5rem;
+      --space-xl:  2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4.5rem;
+
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long:  300ms;
+
+      --page-max:   58rem;
+      --page-gutter: clamp(1rem, 4vw, 2.5rem);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, dl, dd { margin: 0; }
+    button, input { font: inherit; color: inherit; }
+    button { background: none; border: 0; padding: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+
+    /* Focus rings — instant, never animated in/out */
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 2px;
+      border-radius: 1px;
+    }
+
+    html {
+      background: var(--color-paper);
+      color: var(--color-ink);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-weight: 400;
+      font-size: var(--text-base);
+      line-height: var(--lh-relaxed);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100dvh;
+      padding-inline: max(var(--page-gutter), env(safe-area-inset-left));
+      padding-block-end: env(safe-area-inset-bottom);
+    }
+
+    ::selection {
+      background: var(--color-accent);
+      color: var(--color-paper);
+    }
+
+    /* Page scaffold */
+    .page {
+      max-width: var(--page-max);
+      margin-inline: auto;
+      padding-block: var(--space-xl) var(--space-3xl);
+    }
+
+    /* Header */
+    .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      padding-block: var(--space-md);
+      border-bottom: 1px solid var(--color-ink);
+      margin-bottom: var(--space-xl);
+    }
+
+    .wordmark {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-ink);
+    }
+
+    .wordmark .count {
+      color: var(--color-muted);
+      font-weight: 400;
+      margin-left: 0.6rem;
+    }
+
+    .meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+    }
+
+    /* Status legend */
+    .legend {
+      display: flex;
+      gap: var(--space-lg);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+      padding-bottom: var(--space-md);
+      margin-bottom: var(--space-xs);
+    }
+    .legend__item { display: inline-flex; align-items: center; gap: 0.4em; }
+
+    /* Book list (ambient) */
+    .books { display: grid; gap: 0; }
+
+    .book {
+      display: grid;
+      grid-template-columns: 4rem 1fr 1.25rem;
+      gap: var(--space-md);
+      padding: 0.6rem 0.4rem;
+      align-items: baseline;
+      border-top: 0.5px solid var(--color-rule);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .book:last-child { border-bottom: 0.5px solid var(--color-rule); }
+
+    @media (hover: hover) and (pointer: fine) {
+      .book:hover { background-color: var(--color-row-hover); }
+    }
+
+    .book__year {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .book__title {
+      font-size: var(--text-md);
+      font-weight: 500;
+      color: var(--color-ink);
+      letter-spacing: -0.005em;
+      line-height: 1.25;
+    }
+
+    .book__author {
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
+      margin-left: 0.6rem;
+      font-weight: 400;
+    }
+
+    .book__status {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-align: center;
+      color: var(--color-muted);
+      font-weight: 400;
+    }
+
+    .book__status[data-state="reading"] { color: var(--color-accent); }
+    .book__status[data-state="read"]    { color: var(--color-muted); }
+    .book__status[data-state="queued"]  { color: var(--color-rule-2); }
+
+    /* ⌘K invitation — visible, persistent, never animated */
+    .invite {
+      position: fixed;
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      right: max(1rem, env(safe-area-inset-right));
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.85rem;
+      background: var(--color-paper);
+      border: 1px solid var(--color-ink);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      color: var(--color-ink);
+      cursor: pointer;
+      min-height: 36px;
+      transition: background-color var(--dur-micro) var(--ease-out),
+                  color var(--dur-micro) var(--ease-out);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .invite:hover { background: var(--color-ink); color: var(--color-paper); }
+    }
+
+    .invite:active { transition-duration: 60ms; }
+
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2em;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0;
+      padding: 0.05rem 0.4rem;
+      border: 1px solid currentColor;
+      opacity: 0.7;
+      font-weight: 500;
+      min-height: 1.2em;
+    }
+
+    /* Footer hint */
+    .foot {
+      margin-top: var(--space-3xl);
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-ink);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+
+    /*  ─────────────────────────────────────────────────────────
+        Command palette — the heart of this demo
+        ───────────────────────────────────────────────────────── */
+
+    /* Native <dialog> as palette */
+    dialog.palette {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      max-width: 36rem;
+      width: calc(100% - 2rem);
+      margin-top: 12vh;
+      color: var(--color-ink);
+    }
+
+    dialog.palette::backdrop {
+      background-color: oklch(20% 0.012 245 / 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    /* Entrance animation — content + backdrop, ease-out, 300ms */
+    dialog.palette[open] {
+      animation: palette-in var(--dur-long) var(--ease-out) forwards;
+    }
+    dialog.palette[open]::backdrop {
+      animation: backdrop-in var(--dur-long) var(--ease-out) forwards;
+    }
+
+    @keyframes palette-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes backdrop-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Exit — applied via .closing class for the brief moment before close */
+    dialog.palette.closing {
+      animation: palette-out 220ms var(--ease-in) forwards;
+    }
+    dialog.palette.closing::backdrop {
+      animation: backdrop-out 220ms var(--ease-in) forwards;
+    }
+    @keyframes palette-out {
+      to { opacity: 0; transform: scale(0.98); }
+    }
+    @keyframes backdrop-out {
+      to { opacity: 0; }
+    }
+
+    .pal {
+      background: var(--color-paper);
+      border: 1px solid var(--color-rule-2);
+      box-shadow: 0 24px 60px -20px oklch(20% 0.05 245 / 0.25);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      max-height: 70vh;
+    }
+
+    /* Input row */
+    .pal__input-row {
+      display: grid;
+      grid-template-columns: 2.25rem 1fr auto;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--color-rule);
+    }
+
+    .pal__leading {
+      font-family: var(--font-mono);
+      font-size: var(--text-md);
+      color: var(--color-muted);
+      text-align: center;
+      line-height: 1;
+    }
+
+    .pal__input {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      padding: 0.4rem 0;
+      font-family: var(--font-sans);
+      font-size: var(--text-md);
+      color: var(--color-ink);
+      letter-spacing: -0.005em;
+      min-height: 32px;
+    }
+
+    .pal__input:focus { outline: none; }
+    .pal__input::placeholder { color: var(--color-muted); }
+
+    .pal__count {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      letter-spacing: 0.06em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Results scroll area */
+    .pal__results {
+      position: relative;
+      overflow-y: auto;
+      padding: 0.4rem 0;
+      scroll-padding-block: 0.4rem;
+      scrollbar-color: var(--color-rule-2) transparent;
+    }
+
+    .pal__results::-webkit-scrollbar { width: 6px; }
+    .pal__results::-webkit-scrollbar-track { background: transparent; }
+    .pal__results::-webkit-scrollbar-thumb { background: var(--color-rule-2); }
+
+    /* The selection tracker — single element, transitions translateY between rows.
+       Linear / Raycast / Vercel pattern: items don't move, the tracker does. */
+    .pal__tracker {
+      position: absolute;
+      left: 0.4rem;
+      right: 0.4rem;
+      height: 2.4rem;
+      background: var(--color-row-active);
+      pointer-events: none;
+      transform: translateY(0);
+      transition: transform 120ms var(--ease-out),
+                  opacity var(--dur-micro) var(--ease-out);
+    }
+
+    .pal__results[data-empty="true"] .pal__tracker { opacity: 0; }
+
+    /* Result row */
+    .pal__row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 3.25rem 1fr auto 1.5rem;
+      gap: var(--space-sm);
+      align-items: baseline;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      height: 2.4rem;
+      transition: background-color 0ms; /* hover is instant */
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .pal__row:hover { background-color: var(--color-row-hover); }
+    }
+
+    .pal__row[aria-selected="true"] { background: transparent; /* tracker shows selection */ }
+
+    .pal__row__year {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pal__row__title {
+      font-size: var(--text-base);
+      color: var(--color-ink);
+      font-weight: 500;
+      letter-spacing: -0.003em;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .pal__row__author {
+      font-size: var(--text-sm);
+      color: var(--color-neutral);
+      font-weight: 400;
+      margin-left: 0.5rem;
+    }
+
+    .pal__row__status {
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      text-align: center;
+      color: var(--color-muted);
+    }
+
+    .pal__row__status[data-state="reading"] { color: var(--color-accent); }
+    .pal__row__status[data-state="queued"]  { color: var(--color-rule-2); }
+
+    /* Match highlighting */
+    .pal__row mark {
+      background: var(--color-mark-bg);
+      color: inherit;
+      padding: 0;
+      border-radius: 1px;
+      box-shadow: 0 -1px 0 var(--color-accent) inset;
+    }
+
+    /* Empty state */
+    .pal__empty {
+      padding: 2rem 1rem;
+      text-align: center;
+      font-family: var(--font-sans);
+      color: var(--color-muted);
+      font-size: var(--text-sm);
+      line-height: var(--lh-relaxed);
+    }
+    .pal__empty .q {
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+
+    /* Footer (kbd hints) */
+    .pal__foot {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0.55rem 1rem;
+      border-top: 1px solid var(--color-rule);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+
+    .pal__hint { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .pal__hint .kbd { color: var(--color-ink-2); border-color: var(--color-rule-2); opacity: 1; }
+
+    /* Reduced motion: collapse spatial motion to opacity */
+    @media (prefers-reduced-motion: reduce) {
+      dialog.palette[open],
+      dialog.palette[open]::backdrop,
+      dialog.palette.closing,
+      dialog.palette.closing::backdrop {
+        animation-duration: 150ms !important;
+      }
+      @keyframes palette-in  { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes palette-out { to { opacity: 0; } }
+
+      .pal__tracker { transition: none; }
+      *, *::before, *::after {
+        animation-duration: 150ms !important;
+        transition-duration: 150ms !important;
+      }
+    }
+
+    /* Mobile palette tweaks */
+    @media (max-width: 36rem) {
+      dialog.palette { margin-top: 4vh; max-height: 92vh; }
+      .pal { max-height: 90vh; }
+      .pal__row { grid-template-columns: 2.5rem 1fr 1.5rem; }
+      .pal__row__author { display: block; margin-left: 0; }
+      .pal__row__status { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="page">
+
+    <header class="head">
+      <h1 class="wordmark">
+        Lectern
+        <span class="count" id="library-count"></span>
+      </h1>
+      <p class="meta">A personal library</p>
+    </header>
+
+    <div class="legend" aria-label="Status legend">
+      <span class="legend__item"><span style="color: var(--color-accent)">●</span> reading</span>
+      <span class="legend__item"><span style="color: var(--color-muted)">✓</span> read</span>
+      <span class="legend__item"><span style="color: var(--color-rule-2)">○</span> queued</span>
+    </div>
+
+    <ul class="books" id="library" role="list" aria-label="Books"></ul>
+
+    <footer class="foot">
+      <span>Press <span class="kbd">⌘K</span> to find a book</span>
+      <span>esc to close · ↵ to open</span>
+    </footer>
+
+  </main>
+
+  <button class="invite" type="button" id="invite" aria-label="Open command palette">
+    <span>Find a book</span>
+    <span class="kbd">⌘K</span>
+  </button>
+
+  <dialog class="palette" id="palette" aria-label="Command palette">
+    <div class="pal">
+
+      <div class="pal__input-row">
+        <span class="pal__leading" aria-hidden="true">/</span>
+        <input
+          class="pal__input"
+          id="pal-input"
+          type="search"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+          placeholder="Search 31 books"
+          aria-label="Search books"
+          aria-controls="pal-results"
+          aria-activedescendant=""
+        />
+        <span class="pal__count" id="pal-count">31</span>
+      </div>
+
+      <div class="pal__results" id="pal-results" role="listbox" aria-label="Search results">
+        <div class="pal__tracker" aria-hidden="true"></div>
+      </div>
+
+      <div class="pal__foot">
+        <span class="pal__hint"><span class="kbd">↑</span><span class="kbd">↓</span> navigate</span>
+        <span class="pal__hint"><span class="kbd">↵</span> open</span>
+        <span class="pal__hint"><span class="kbd">esc</span> close</span>
+      </div>
+
+    </div>
+  </dialog>
+
+  <script type="module">
+    /* ─── Data: ~31 books a developer might keep on a personal reading list ── */
+    const BOOKS = [
+      { y: 1968, t: "The Art of Computer Programming",                a: "Donald E. Knuth",                   s: "queued"  },
+      { y: 1974, t: "Zen and the Art of Motorcycle Maintenance",       a: "Robert M. Pirsig",                  s: "read"    },
+      { y: 1975, t: "The Mythical Man-Month",                          a: "Frederick P. Brooks Jr.",           s: "read"    },
+      { y: 1977, t: "A Pattern Language",                              a: "Christopher Alexander",             s: "read"    },
+      { y: 1979, t: "Gödel, Escher, Bach",                             a: "Douglas R. Hofstadter",             s: "reading" },
+      { y: 1981, t: "The Soul of a New Machine",                       a: "Tracy Kidder",                      s: "read"    },
+      { y: 1983, t: "The Visual Display of Quantitative Information",  a: "Edward R. Tufte",                   s: "read"    },
+      { y: 1985, t: "Structure and Interpretation of Computer Programs", a: "Abelson & Sussman",               s: "queued"  },
+      { y: 1985, t: "Tools for Thought",                               a: "Howard Rheingold",                  s: "read"    },
+      { y: 1988, t: "The Design of Everyday Things",                   a: "Don Norman",                        s: "read"    },
+      { y: 1989, t: "The Cuckoo's Egg",                                a: "Cliff Stoll",                       s: "read"    },
+      { y: 1990, t: "Envisioning Information",                         a: "Edward R. Tufte",                   s: "read"    },
+      { y: 1992, t: "The Elements of Typographic Style",               a: "Robert Bringhurst",                 s: "read"    },
+      { y: 1994, t: "Out of Control",                                  a: "Kevin Kelly",                       s: "queued"  },
+      { y: 1996, t: "Where Wizards Stay Up Late",                      a: "Hafner & Lyon",                     s: "read"    },
+      { y: 1997, t: "The Innovator's Dilemma",                         a: "Clayton M. Christensen",            s: "read"    },
+      { y: 1998, t: "Seeing Like a State",                             a: "James C. Scott",                    s: "reading" },
+      { y: 1999, t: "Code",                                            a: "Charles Petzold",                   s: "read"    },
+      { y: 1999, t: "The Pragmatic Programmer",                        a: "Hunt & Thomas",                     s: "read"    },
+      { y: 1999, t: "Refactoring",                                     a: "Martin Fowler",                     s: "read"    },
+      { y: 2000, t: "Don't Make Me Think",                             a: "Steve Krug",                        s: "read"    },
+      { y: 2003, t: "Domain-Driven Design",                            a: "Eric Evans",                        s: "read"    },
+      { y: 2003, t: "Universal Principles of Design",                  a: "Lidwell, Holden & Butler",          s: "queued"  },
+      { y: 2004, t: "Hackers and Painters",                            a: "Paul Graham",                       s: "read"    },
+      { y: 2004, t: "Working Effectively with Legacy Code",            a: "Michael Feathers",                  s: "read"    },
+      { y: 2008, t: "Clean Code",                                      a: "Robert C. Martin",                  s: "read"    },
+      { y: 2011, t: "The Information",                                 a: "James Gleick",                      s: "read"    },
+      { y: 2017, t: "Designing Data-Intensive Applications",           a: "Martin Kleppmann",                  s: "reading" },
+      { y: 2019, t: "Software Engineering at Google",                  a: "Winters, Manshreck & Wright",       s: "queued"  },
+      { y: 2021, t: "A Philosophy of Software Design",                 a: "John Ousterhout",                   s: "read"    },
+      { y: 2024, t: "Tidy First?",                                     a: "Kent Beck",                         s: "queued"  }
+    ];
+
+    /* ─── Render ambient library list ── */
+    const STATUS_GLYPH = { reading: "●", read: "✓", queued: "○" };
+
+    const lib = document.getElementById("library");
+    const libraryCount = document.getElementById("library-count");
+    libraryCount.textContent = `· ${BOOKS.length} books`;
+
+    function renderLibrary() {
+      const sorted = [...BOOKS].sort((a, b) => b.y - a.y);
+      lib.innerHTML = sorted.map((b) => `
+        <li class="book" role="listitem">
+          <span class="book__year">${b.y}</span>
+          <span><span class="book__title">${escape(b.t)}</span><span class="book__author">${escape(b.a)}</span></span>
+          <span class="book__status" data-state="${b.s}" title="${b.s}" aria-label="${b.s}">${STATUS_GLYPH[b.s]}</span>
+        </li>
+      `).join("");
+    }
+
+    function escape(s) {
+      return s.replace(/[&<>"']/g, (c) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+    }
+
+    renderLibrary();
+
+    /* ─── Fuzzy match: in-order character match, score by spread + length ── */
+    function fuzzyMatch(query, text) {
+      if (!query) return { match: true, score: 0, positions: [] };
+      const q = query.toLowerCase();
+      const t = text.toLowerCase();
+      const positions = [];
+      let qi = 0;
+      for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+        if (t[ti] === q[qi]) {
+          positions.push(ti);
+          qi++;
+        }
+      }
+      if (qi !== q.length) return { match: false };
+      const spread = positions[positions.length - 1] - positions[0];
+      // Lower score is better
+      const score = spread + text.length * 0.2;
+      return { match: true, score, positions };
+    }
+
+    function highlight(text, positions) {
+      if (!positions.length) return escape(text);
+      const set = new Set(positions);
+      let out = "";
+      let inMark = false;
+      for (let i = 0; i < text.length; i++) {
+        if (set.has(i) && !inMark) { out += "<mark>"; inMark = true; }
+        if (!set.has(i) && inMark) { out += "</mark>"; inMark = false; }
+        const c = text[i];
+        out += ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]) || c;
+      }
+      if (inMark) out += "</mark>";
+      return out;
+    }
+
+    /* ─── Palette state ── */
+    const dlg     = document.getElementById("palette");
+    const input   = document.getElementById("pal-input");
+    const results = document.getElementById("pal-results");
+    const tracker = results.querySelector(".pal__tracker");
+    const count   = document.getElementById("pal-count");
+    const invite  = document.getElementById("invite");
+
+    let currentResults = [];
+    let selectedIndex = 0;
+    let debounce = null;
+
+    function search(query) {
+      const matches = BOOKS
+        .map((b, i) => {
+          const titleHit  = fuzzyMatch(query, b.t);
+          const authorHit = fuzzyMatch(query, b.a);
+          // Best of (title, author); prefer title hits
+          if (titleHit.match) return { book: b, on: "title",  hit: titleHit, score: titleHit.score };
+          if (authorHit.match) return { book: b, on: "author", hit: authorHit, score: authorHit.score + 100 };
+          return null;
+        })
+        .filter(Boolean)
+        .sort((a, z) => a.score - z.score);
+
+      return matches;
+    }
+
+    function render() {
+      const q = input.value.trim();
+      currentResults = search(q);
+      count.textContent = String(currentResults.length);
+
+      // clamp selection
+      if (selectedIndex >= currentResults.length) selectedIndex = currentResults.length - 1;
+      if (selectedIndex < 0) selectedIndex = 0;
+
+      // Empty state
+      if (!currentResults.length) {
+        results.dataset.empty = "true";
+        // Preserve the tracker element when re-rendering
+        results.innerHTML = "";
+        results.appendChild(tracker);
+        const empty = document.createElement("div");
+        empty.className = "pal__empty";
+        empty.innerHTML = q
+          ? `Nothing matches <span class="q">“${escape(q)}”</span>. Try a shorter query, or check the year.`
+          : `Start typing to search.`;
+        results.appendChild(empty);
+        input.setAttribute("aria-activedescendant", "");
+        return;
+      }
+
+      results.dataset.empty = "false";
+      const html = currentResults.map((m, i) => {
+        const { book, on, hit } = m;
+        const titleHtml  = on === "title"  ? highlight(book.t, hit.positions) : escape(book.t);
+        const authorHtml = on === "author" ? highlight(book.a, hit.positions) : escape(book.a);
+        return `
+          <div class="pal__row" role="option" id="pal-row-${i}" data-index="${i}" aria-selected="${i === selectedIndex}">
+            <span class="pal__row__year">${book.y}</span>
+            <span><span class="pal__row__title">${titleHtml}</span><span class="pal__row__author">${authorHtml}</span></span>
+            <span></span>
+            <span class="pal__row__status" data-state="${book.s}" aria-label="${book.s}" title="${book.s}">${STATUS_GLYPH[book.s]}</span>
+          </div>
+        `;
+      }).join("");
+
+      results.innerHTML = "";
+      results.appendChild(tracker);
+      const wrap = document.createElement("div");
+      wrap.innerHTML = html;
+      while (wrap.firstChild) results.appendChild(wrap.firstChild);
+
+      input.setAttribute("aria-activedescendant", `pal-row-${selectedIndex}`);
+      moveTracker();
+    }
+
+    function moveTracker() {
+      const row = results.querySelector(`[data-index="${selectedIndex}"]`);
+      if (!row) { tracker.style.opacity = "0"; return; }
+      tracker.style.opacity = "1";
+      // Position the tracker over the selected row
+      const rowOffset = row.offsetTop;
+      tracker.style.transform = `translateY(${rowOffset}px)`;
+      // Ensure visible in scroll area
+      row.scrollIntoView({ block: "nearest", behavior: "instant" });
+    }
+
+    function move(delta) {
+      if (!currentResults.length) return;
+      selectedIndex = (selectedIndex + delta + currentResults.length) % currentResults.length;
+      results.querySelectorAll(".pal__row").forEach((el) => {
+        el.setAttribute("aria-selected", el.dataset.index == selectedIndex ? "true" : "false");
+      });
+      input.setAttribute("aria-activedescendant", `pal-row-${selectedIndex}`);
+      moveTracker();
+    }
+
+    function commit() {
+      const m = currentResults[selectedIndex];
+      if (!m) return;
+      // "Open the book" — silent success: just close the palette.
+      // In a real app, this would route to /book/<slug>.
+      console.log("Open:", m.book.t);
+      close();
+    }
+
+    function open() {
+      input.value = "";
+      selectedIndex = 0;
+      render();
+      dlg.showModal();
+      // Auto-focus input — already handled by autofocus+ showModal
+      requestAnimationFrame(() => input.focus());
+    }
+
+    function close() {
+      // Apply a brief exit animation then close
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) {
+        dlg.close();
+        return;
+      }
+      dlg.classList.add("closing");
+      const onEnd = () => {
+        dlg.classList.remove("closing");
+        dlg.close();
+        dlg.removeEventListener("animationend", onEnd);
+      };
+      dlg.addEventListener("animationend", onEnd);
+    }
+
+    /* ─── Event wiring ── */
+
+    // ⌘K / Ctrl+K to open
+    document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        if (dlg.open) close(); else open();
+      }
+    });
+
+    invite.addEventListener("click", open);
+
+    // Click outside to close (the dialog backdrop)
+    dlg.addEventListener("click", (e) => {
+      const rect = dlg.getBoundingClientRect();
+      const inDialog = e.clientX >= rect.left && e.clientX <= rect.right
+                    && e.clientY >= rect.top  && e.clientY <= rect.bottom;
+      if (!inDialog) close();
+    });
+
+    // Cancel (Escape) — let dialog handle its native close, but use our exit animation
+    dlg.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      close();
+    });
+
+    // Input — search-as-you-type, debounced 180ms
+    input.addEventListener("input", () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(render, 180);
+      // Also reset selection to top on each keystroke
+      selectedIndex = 0;
+    });
+
+    // Keyboard nav on the input
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown")    { e.preventDefault(); move(1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); move(-1); }
+      else if (e.key === "Home")    { e.preventDefault(); selectedIndex = 0; move(0); }
+      else if (e.key === "End")     { e.preventDefault(); selectedIndex = currentResults.length - 1; move(0); }
+      else if (e.key === "Enter")   { e.preventDefault(); commit(); }
+    });
+
+    // Click a result to select + open
+    results.addEventListener("click", (e) => {
+      const row = e.target.closest(".pal__row");
+      if (!row) return;
+      selectedIndex = Number(row.dataset.index);
+      commit();
+    });
+
+    // Hover updates selection visually (matches Linear / Raycast behaviour)
+    results.addEventListener("mousemove", (e) => {
+      const row = e.target.closest(".pal__row");
+      if (!row) return;
+      const idx = Number(row.dataset.index);
+      if (idx !== selectedIndex) {
+        selectedIndex = idx;
+        results.querySelectorAll(".pal__row").forEach((el) => {
+          el.setAttribute("aria-selected", el.dataset.index == selectedIndex ? "true" : "false");
+        });
+        input.setAttribute("aria-activedescendant", `pal-row-${selectedIndex}`);
+        moveTracker();
+      }
+    });
+
+  </script>
+</body>
+</html>

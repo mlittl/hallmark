@@ -1,0 +1,619 @@
+/*
+  Hallmark — tokens
+  Twelve themes. Each one a complete palette + type + spacing + structural fingerprint.
+  Switched via [data-theme="..."] on <html>.
+
+  Theme index:
+   01 specimen   — workshop / typographic specimen, warm oat
+   02 midnight   — dark technical
+   03 brutal     — high-contrast statement
+   04 garden     — soft botanical, italic serif
+   05 atelier    — luxury fashion-house, cream + gold
+   06 newsprint  — broadsheet newspaper
+   07 terminal   — phosphor CRT monospace
+   08 manifesto  — political poster
+   09 salon      — boutique apothecary, restrained ornament
+   10 linen      — quietly modern, natural fibres
+   11 almanac    — encyclopaedic data density
+   12 sport      — italic energy, condensed numerals
+*/
+
+/* ——————————————————————————————————————————————————————————— */
+/*  01 · SPECIMEN — default                                       */
+/* ——————————————————————————————————————————————————————————— */
+
+:root,
+[data-theme="specimen"] {
+  --color-paper:    oklch(96%  0.012 80);
+  --color-paper-2:  oklch(93%  0.014 80);
+  --color-paper-3:  oklch(89%  0.016 75);
+  --color-rule:     oklch(82%  0.010 75);
+  --color-rule-2:   oklch(72%  0.008 70);
+  --color-muted:    oklch(52%  0.008 65);
+  --color-neutral:  oklch(38%  0.008 60);
+  --color-ink-2:    oklch(26%  0.010 60);
+  --color-ink:      oklch(18%  0.010 60);
+  --color-accent:   #FC4C02;
+  --color-accent-ink: oklch(55% 0.21 32);
+  --color-focus:    #FC4C02;
+
+  --font-display: "Fraunces", "Tiempos", "Newsreader", ui-serif, Georgia, serif;
+  --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
+  --font-serif:   "Fraunces", ui-serif, Georgia, serif;
+  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+
+  --display-weight: 340;
+  --display-optical: 144;
+  --display-style: normal;
+  --display-soft: 20;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.125rem;
+  --text-lg:   1.375rem;
+  --text-xl:   1.75rem;
+  --text-2xl:  2.25rem;
+  --text-3xl:  2.75rem;
+  --text-display:   clamp(3rem, 5.5vw + 1rem, 5.75rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
+
+  --lh-tight:   1.02;
+  --lh-snug:    1.18;
+  --lh-normal:  1.45;
+  --lh-relaxed: 1.6;
+
+  --tracking-display: -0.025em;
+  --tracking-tight:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-label:   0.12em;
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6.5rem;
+  --space-4xl: 10rem;
+  --space-5xl: 13rem;
+
+  --section-gap: 8rem;
+  --section-head-gap: 2rem;
+
+  --page-max:      76rem;
+  --page-gutter:   clamp(1.25rem, 4vw, 3rem);
+  --measure:       62ch;
+  --rule-hair:     0.5px;
+  --rule-fine:     1px;
+
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  02 · MIDNIGHT                                                 */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="midnight"] {
+  --color-paper:    oklch(14%  0.010 40);
+  --color-paper-2:  oklch(18%  0.012 40);
+  --color-paper-3:  oklch(22%  0.014 40);
+  --color-rule:     oklch(30%  0.010 40);
+  --color-rule-2:   oklch(40%  0.010 40);
+  --color-muted:    oklch(56%  0.010 45);
+  --color-neutral:  oklch(70%  0.008 60);
+  --color-ink-2:    oklch(82%  0.008 70);
+  --color-ink:      oklch(94%  0.006 80);
+  --color-accent:   #FC4C02;
+  --color-accent-ink: oklch(72% 0.18 50);
+  --color-focus:    oklch(72% 0.18 50);
+
+  --font-display: "The Future", "Futura", "Avenir Next", ui-sans-serif, sans-serif;
+  --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
+  --font-serif:   "Instrument Serif", "Tiempos", ui-serif, Georgia, serif;
+  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+
+  --display-weight: 300;
+  --display-optical: 144;
+  --display-soft: 0;
+
+  --text-display:   clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-display-s: clamp(1.75rem, 2.5vw + 1rem, 2.75rem);
+
+  --tracking-display: -0.03em;
+  --tracking-label:   0.16em;
+
+  --section-gap: 7rem;
+  --section-head-gap: 1.75rem;
+  --measure: 60ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  03 · BRUTAL                                                   */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="brutal"] {
+  --color-paper:    oklch(98%  0.003 90);
+  --color-paper-2:  oklch(95%  0.004 85);
+  --color-paper-3:  oklch(91%  0.004 80);
+  --color-rule:     oklch(15%  0.005 60);
+  --color-rule-2:   oklch(12%  0.005 60);
+  --color-muted:    oklch(40%  0.008 60);
+  --color-neutral:  oklch(28%  0.008 60);
+  --color-ink-2:    oklch(15%  0.008 60);
+  --color-ink:      oklch(10%  0.005 60);
+  --color-accent:   #FF2E2E;
+  --color-accent-ink: oklch(58% 0.24 25);
+  --color-focus:    #FF2E2E;
+
+  --font-display: "Space Grotesk", "GT America", "Söhne", ui-sans-serif, sans-serif;
+  --font-body:    "Space Grotesk", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-label:   "JetBrains Mono", "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", "The Future Mono", ui-monospace, monospace;
+
+  --display-weight: 700;
+  --display-soft: 0;
+
+  --text-display:   clamp(3.5rem, 8vw + 1rem, 8rem);
+  --text-display-s: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --text-2xl: 2.75rem;
+  --text-xl:  2rem;
+  --text-lg:  1.5rem;
+
+  --tracking-display: -0.045em;
+  --tracking-tight:   -0.02em;
+  --tracking-label:   0.04em;
+
+  --lh-tight: 0.94;
+  --lh-snug:  1.08;
+
+  --section-gap: 6rem;
+  --section-head-gap: 1.5rem;
+
+  --rule-hair: 1px;
+  --rule-fine: 2px;
+  --measure: 58ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  04 · GARDEN                                                   */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="garden"] {
+  --color-paper:    oklch(96%  0.020 115);
+  --color-paper-2:  oklch(93%  0.024 115);
+  --color-paper-3:  oklch(89%  0.028 120);
+  --color-rule:     oklch(80%  0.020 120);
+  --color-rule-2:   oklch(68%  0.028 130);
+  --color-muted:    oklch(52%  0.040 150);
+  --color-neutral:  oklch(38%  0.050 155);
+  --color-ink-2:    oklch(30%  0.050 158);
+  --color-ink:      oklch(24%  0.050 160);
+  --color-accent:   #B6485E;
+  --color-accent-ink: oklch(55% 0.14 18);
+  --color-focus:    #B6485E;
+
+  --font-display: "Instrument Serif", "Fraunces", "Newsreader", ui-serif, Georgia, serif;
+  --font-body:    "The Future", "Söhne", ui-sans-serif, sans-serif;
+  --font-serif:   "Instrument Serif", "Fraunces", ui-serif, Georgia, serif;
+  --font-label:   "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+  --font-mono:    "The Future Mono", "Berkeley Mono", ui-monospace, monospace;
+
+  --display-weight: 400;
+  --display-style: italic;
+  --display-soft: 0;
+
+  --text-display:   clamp(3.25rem, 6vw + 1rem, 6.5rem);
+  --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.5rem);
+
+  --tracking-display: -0.015em;
+  --tracking-tight:   -0.005em;
+  --tracking-label:   0.10em;
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.22;
+
+  --section-gap: 9rem;
+  --section-head-gap: 2.5rem;
+  --measure: 58ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  05 · ATELIER — luxury fashion-house, cream + charcoal + gold  */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="atelier"] {
+  --color-paper:    oklch(96%  0.012 70);
+  --color-paper-2:  oklch(94%  0.014 65);
+  --color-paper-3:  oklch(91%  0.016 65);
+  --color-rule:     oklch(78%  0.010 60);
+  --color-rule-2:   oklch(60%  0.012 55);
+  --color-muted:    oklch(48%  0.012 50);
+  --color-neutral:  oklch(28%  0.014 45);
+  --color-ink-2:    oklch(18%  0.014 45);
+  --color-ink:      oklch(12%  0.012 40);
+  --color-accent:   oklch(58%  0.115 65);
+  --color-accent-ink: oklch(45% 0.13 60);
+  --color-focus:    oklch(58%  0.115 65);
+
+  --font-display: "Cormorant Garamond", "Playfair Display", "Tiempos Headline", ui-serif, Georgia, serif;
+  --font-body:    "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --display-weight: 300;
+  --display-optical: 144;
+  --display-style: italic;
+  --display-soft: 0;
+
+  --text-display:   clamp(3.75rem, 7vw + 1rem, 7.5rem);
+  --text-display-s: clamp(2.5rem, 4vw + 1rem, 4rem);
+
+  --tracking-display: -0.012em;
+  --tracking-tight:   -0.006em;
+  --tracking-label:   0.22em;
+
+  --lh-tight:   1.0;
+  --lh-snug:    1.16;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  --section-gap: 11rem;
+  --section-head-gap: 3rem;
+  --measure: 56ch;
+  --page-max: 68rem;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  06 · NEWSPRINT — broadsheet                                   */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="newsprint"] {
+  --color-paper:    oklch(95%  0.020 60);
+  --color-paper-2:  oklch(92%  0.026 55);
+  --color-paper-3:  oklch(88%  0.028 50);
+  --color-rule:     oklch(70%  0.018 50);
+  --color-rule-2:   oklch(40%  0.012 50);
+  --color-muted:    oklch(48%  0.012 50);
+  --color-neutral:  oklch(32%  0.014 45);
+  --color-ink-2:    oklch(22%  0.014 250);
+  --color-ink:      oklch(18%  0.012 250);
+  --color-accent:   oklch(48%  0.13 30);
+  --color-accent-ink: oklch(45% 0.13 30);
+  --color-focus:    oklch(48%  0.13 30);
+
+  --font-display: "Crimson Pro", "Crimson Text", "Noto Serif", ui-serif, Georgia, serif;
+  --font-body:    "Crimson Pro", "Newsreader", ui-serif, Georgia, serif;
+  --font-serif:   "Crimson Pro", "Crimson Text", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Sans", "The Future", ui-sans-serif, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --display-weight: 600;
+  --display-optical: 48;
+  --display-style: normal;
+  --display-soft: 0;
+
+  --text-base: 1.0625rem;
+  --text-md:   1.1875rem;
+  --text-lg:   1.375rem;
+  --text-xl:   1.625rem;
+  --text-2xl:  2rem;
+  --text-display:   clamp(2.75rem, 5vw + 1rem, 5rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 2.875rem);
+
+  --tracking-display: -0.018em;
+  --tracking-tight:   -0.006em;
+  --tracking-label:   0.06em;
+
+  --lh-normal:  1.55;
+  --lh-relaxed: 1.65;
+
+  --section-gap: 6.5rem;
+  --section-head-gap: 1.25rem;
+  --measure: 58ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  07 · TERMINAL — phosphor CRT, monospace-led                   */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="terminal"] {
+  --color-paper:    oklch(11%  0.010 145);
+  --color-paper-2:  oklch(15%  0.014 145);
+  --color-paper-3:  oklch(19%  0.016 145);
+  --color-rule:     oklch(28%  0.024 140);
+  --color-rule-2:   oklch(40%  0.040 140);
+  --color-muted:    oklch(58%  0.080 140);
+  --color-neutral:  oklch(68%  0.110 140);
+  --color-ink-2:    oklch(78%  0.130 138);
+  --color-ink:      oklch(86%  0.150 138);
+  --color-accent:   oklch(78%  0.180 138);
+  --color-accent-ink: oklch(78% 0.180 138);
+  --color-focus:    oklch(86%  0.180 138);
+
+  --font-display: "JetBrains Mono", "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-body:    "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif:   "JetBrains Mono", ui-monospace, monospace;
+  --font-label:   "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 500;
+  --display-style: normal;
+
+  --text-display:   clamp(2.25rem, 4vw + 1rem, 4rem);
+  --text-display-s: clamp(1.625rem, 2.25vw + 1rem, 2.5rem);
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+
+  --tracking-display: 0.01em;
+  --tracking-tight:   0;
+  --tracking-label:   0.18em;
+
+  --lh-tight: 1.2;
+  --lh-snug:  1.35;
+  --lh-normal: 1.55;
+
+  --section-gap: 5.5rem;
+  --section-head-gap: 1.25rem;
+  --measure: 70ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  08 · MANIFESTO — political poster, ALL CAPS heavy             */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="manifesto"] {
+  --color-paper:    oklch(98%  0.004 90);
+  --color-paper-2:  oklch(94%  0.005 85);
+  --color-paper-3:  oklch(90%  0.006 80);
+  --color-rule:     oklch(8%   0.005 60);
+  --color-rule-2:   oklch(8%   0.005 60);
+  --color-muted:    oklch(38%  0.006 60);
+  --color-neutral:  oklch(20%  0.006 60);
+  --color-ink-2:    oklch(12%  0.005 60);
+  --color-ink:      oklch(8%   0.005 60);
+  --color-accent:   #E51A1A;
+  --color-accent-ink: oklch(56% 0.24 28);
+  --color-focus:    #E51A1A;
+
+  --font-display: "Bricolage Grotesque", "Libre Franklin", "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-body:    "IBM Plex Sans", "Public Sans", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-label:   "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 800;
+  --display-optical: 96;
+  --display-style: normal;
+
+  --text-display:   clamp(4rem, 11vw + 1rem, 12rem);
+  --text-display-s: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+  --text-2xl: 3rem;
+  --text-xl:  2rem;
+
+  --tracking-display: -0.05em;
+  --tracking-tight:   -0.025em;
+  --tracking-label:   0.08em;
+
+  --lh-tight: 0.86;
+  --lh-snug:  1.0;
+
+  --section-gap: 5rem;
+  --section-head-gap: 1.25rem;
+
+  --rule-hair: 1px;
+  --rule-fine: 3px;
+  --measure: 56ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  09 · SALON — boutique, restrained ornament                    */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="salon"] {
+  --color-paper:    oklch(95%  0.014 65);
+  --color-paper-2:  oklch(92%  0.020 60);
+  --color-paper-3:  oklch(88%  0.024 50);
+  --color-rule:     oklch(78%  0.020 50);
+  --color-rule-2:   oklch(62%  0.028 45);
+  --color-muted:    oklch(48%  0.024 40);
+  --color-neutral:  oklch(34%  0.024 35);
+  --color-ink-2:    oklch(28%  0.024 35);
+  --color-ink:      oklch(22%  0.024 35);
+  --color-accent:   oklch(58%  0.105 130);
+  --color-accent-ink: oklch(48% 0.10 130);
+  --color-focus:    oklch(58%  0.105 130);
+
+  --font-display: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-body:    "Plus Jakarta Sans", "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --display-weight: 400;
+  --display-style: italic;
+  --display-optical: 48;
+
+  --text-display:   clamp(3rem, 5vw + 1rem, 5rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
+
+  --tracking-display: -0.005em;
+  --tracking-tight:   0;
+  --tracking-label:   0.18em;
+
+  --lh-tight: 1.06;
+  --lh-snug:  1.18;
+  --lh-normal: 1.55;
+
+  --section-gap: 9rem;
+  --section-head-gap: 2rem;
+  --measure: 52ch;
+  --page-max: 60rem;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  10 · LINEN — quietly modern, natural fibres                   */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="linen"] {
+  --color-paper:    oklch(94%  0.018 95);
+  --color-paper-2:  oklch(91%  0.022 100);
+  --color-paper-3:  oklch(88%  0.024 105);
+  --color-rule:     oklch(78%  0.020 110);
+  --color-rule-2:   oklch(64%  0.022 115);
+  --color-muted:    oklch(50%  0.022 130);
+  --color-neutral:  oklch(38%  0.024 140);
+  --color-ink-2:    oklch(30%  0.024 140);
+  --color-ink:      oklch(24%  0.022 140);
+  --color-accent:   oklch(54%  0.080 140);
+  --color-accent-ink: oklch(46% 0.085 140);
+  --color-focus:    oklch(54%  0.080 140);
+
+  --font-display: "DM Serif Display", "Newsreader", "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "Hanken Grotesk", "Plus Jakarta Sans", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "DM Serif Display", "Newsreader", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --display-weight: 400;
+  --display-style: normal;
+
+  --text-display:   clamp(3rem, 5.5vw + 1rem, 5.75rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
+
+  --tracking-display: -0.018em;
+  --tracking-tight:   -0.006em;
+  --tracking-label:   0.14em;
+
+  --lh-tight: 1.04;
+  --lh-snug:  1.18;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.7;
+
+  --section-gap: 10rem;
+  --section-head-gap: 2.5rem;
+  --measure: 56ch;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  11 · ALMANAC — encyclopaedic, data-dense                      */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="almanac"] {
+  --color-paper:    oklch(94%  0.012 80);
+  --color-paper-2:  oklch(91%  0.014 75);
+  --color-paper-3:  oklch(87%  0.016 70);
+  --color-rule:     oklch(74%  0.012 70);
+  --color-rule-2:   oklch(40%  0.014 60);
+  --color-muted:    oklch(46%  0.014 55);
+  --color-neutral:  oklch(28%  0.014 50);
+  --color-ink-2:    oklch(20%  0.012 45);
+  --color-ink:      oklch(16%  0.012 45);
+  --color-accent:   oklch(38%  0.135 250);
+  --color-accent-ink: oklch(40% 0.13 250);
+  --color-focus:    oklch(38%  0.135 250);
+
+  --font-display: "Newsreader", "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "IBM Plex Sans", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Newsreader", ui-serif, Georgia, serif;
+  --font-label:   "IBM Plex Mono", "The Future Mono", ui-monospace, monospace;
+  --font-mono:    "IBM Plex Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 500;
+  --display-optical: 48;
+  --display-style: normal;
+
+  --text-xs:   0.6875rem;
+  --text-sm:   0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md:   1.0625rem;
+  --text-lg:   1.25rem;
+  --text-xl:   1.5rem;
+  --text-2xl:  1.875rem;
+  --text-display:   clamp(2.25rem, 3.5vw + 1rem, 3.75rem);
+  --text-display-s: clamp(1.5rem, 2vw + 1rem, 2.25rem);
+
+  --tracking-display: -0.012em;
+  --tracking-tight:   -0.005em;
+  --tracking-label:   0.06em;
+
+  --lh-tight: 1.1;
+  --lh-snug:  1.22;
+  --lh-normal: 1.5;
+
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+
+  --section-gap: 4.5rem;
+  --section-head-gap: 1rem;
+  --measure: 64ch;
+  --page-max: 84rem;
+}
+
+/* ——————————————————————————————————————————————————————————— */
+/*  12 · SPORT — italic energy                                    */
+/* ——————————————————————————————————————————————————————————— */
+
+[data-theme="sport"] {
+  --color-paper:    oklch(96%  0.006 250);
+  --color-paper-2:  oklch(93%  0.008 250);
+  --color-paper-3:  oklch(89%  0.010 250);
+  --color-rule:     oklch(78%  0.008 250);
+  --color-rule-2:   oklch(36%  0.060 255);
+  --color-muted:    oklch(50%  0.020 250);
+  --color-neutral:  oklch(30%  0.040 255);
+  --color-ink-2:    oklch(22%  0.060 258);
+  --color-ink:      oklch(16%  0.080 260);
+  --color-accent:   oklch(58%  0.190 35);
+  --color-accent-ink: oklch(54% 0.20 35);
+  --color-focus:    oklch(58%  0.190 35);
+
+  --font-display: "Bricolage Grotesque", "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-body:    "Plus Jakarta Sans", "Hanken Grotesk", "The Future", ui-sans-serif, sans-serif;
+  --font-serif:   "Bricolage Grotesque", ui-sans-serif, sans-serif;
+  --font-label:   "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 700;
+  --display-style: italic;
+  --display-optical: 96;
+
+  --text-display:   clamp(3.5rem, 8vw + 1rem, 8.5rem);
+  --text-display-s: clamp(2.25rem, 4vw + 1rem, 4rem);
+  --text-2xl: 2.5rem;
+  --text-xl:  1.875rem;
+
+  --tracking-display: -0.04em;
+  --tracking-tight:   -0.018em;
+  --tracking-label:   0.10em;
+
+  --lh-tight: 0.94;
+  --lh-snug:  1.06;
+
+  --section-gap: 6rem;
+  --section-head-gap: 1.5rem;
+
+  --rule-hair: 1px;
+  --rule-fine: 2px;
+  --measure: 58ch;
+}

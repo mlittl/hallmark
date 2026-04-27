@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <title>Marlow Street Bread — opening 8 May</title>
+  <meta name="description" content="A neighborhood sourdough bakery. Local flour, long ferment, a few loaves a day. Opening on Marlow Street in May." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+
+  <style>
+    /*
+      Marlow Street Bread — a single-page announcement.
+      Tone: quietly confident, editorial. Anchor hue: 45 (wheat / crust).
+    */
+
+    :root {
+      /* Colour */
+      --color-paper:   oklch(96%  0.016 75);
+      --color-paper-2: oklch(93%  0.020 72);
+      --color-rule:    oklch(82%  0.018 70);
+      --color-rule-2:  oklch(70%  0.022 65);
+      --color-muted:   oklch(52%  0.022 60);
+      --color-ink-2:   oklch(32%  0.025 55);
+      --color-ink:     oklch(22%  0.026 50);
+      --color-accent:  oklch(48%  0.15  45);
+      --color-focus:   oklch(48%  0.15  45);
+      --color-error:   oklch(45%  0.18  25);
+      --color-success: oklch(42%  0.10 140);
+
+      /* Type */
+      --font-display: "Fraunces", "Tiempos", ui-serif, Georgia, serif;
+      --font-body:    "IBM Plex Sans", "Söhne", ui-sans-serif, sans-serif;
+      --font-serif:   "Fraunces", ui-serif, Georgia, serif;
+      --font-label:   "IBM Plex Mono", ui-monospace, monospace;
+
+      --text-xs:   0.75rem;
+      --text-sm:   0.875rem;
+      --text-base: 1rem;
+      --text-md:   1.125rem;
+      --text-lg:   1.375rem;
+      --text-xl:   1.75rem;
+      --text-2xl:  2.25rem;
+      --text-display:   clamp(3rem, 7vw + 1rem, 7.25rem);
+      --text-display-s: clamp(2rem, 3vw + 1rem, 3rem);
+
+      --lh-tight:   1.02;
+      --lh-snug:    1.18;
+      --lh-normal:  1.45;
+      --lh-relaxed: 1.65;
+
+      --tracking-display: -0.028em;
+      --tracking-tight:   -0.012em;
+      --tracking-label:   0.14em;
+
+      /* Spacing */
+      --space-2xs: 0.25rem;
+      --space-xs:  0.5rem;
+      --space-sm:  0.75rem;
+      --space-md:  1rem;
+      --space-lg:  1.5rem;
+      --space-xl:  2.5rem;
+      --space-2xl: 4.5rem;
+      --space-3xl: 7rem;
+      --space-4xl: 11rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in:  cubic-bezier(0.7, 0, 0.84, 0);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long:  520ms;
+
+      --page-max:    64rem;
+      --page-gutter: clamp(1.25rem, 4vw, 3rem);
+      --measure:     58ch;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, p, figure, blockquote, dl, dd { margin: 0; }
+    img, picture, svg { display: block; max-width: 100%; height: auto; }
+    button, input, select { font: inherit; color: inherit; }
+    button { background: none; border: 0; padding: 0; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+
+    :focus { outline: none; }
+    :focus-visible {
+      outline: 2px solid var(--color-focus);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    html { background: var(--color-paper); color: var(--color-ink); }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: var(--text-base);
+      line-height: var(--lh-relaxed);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100dvh;
+      padding-inline: max(var(--page-gutter), env(safe-area-inset-left));
+      padding-block-end: env(safe-area-inset-bottom);
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--color-accent); color: var(--color-paper); }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 300;
+      line-height: var(--lh-tight);
+      letter-spacing: var(--tracking-display);
+      color: var(--color-ink);
+      font-optical-sizing: auto;
+    }
+
+    p { max-width: var(--measure); }
+
+    em { font-style: italic; }
+
+    code { font-family: var(--font-label); font-size: 0.9em; }
+
+    .page {
+      max-width: var(--page-max);
+      margin-inline: auto;
+      display: grid;
+      gap: var(--space-3xl);
+      padding-block: var(--space-md) var(--space-3xl);
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: var(--space-md);
+      border-bottom: 0.5px solid var(--color-rule);
+    }
+
+    .wordmark {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-ink);
+    }
+
+    .nav__note {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55em;
+    }
+
+    .mark {
+      display: inline-block;
+      width: 0.5em;
+      height: 0.5em;
+      background: var(--color-accent);
+      border-radius: 50%;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 9fr 3fr;
+      gap: var(--space-2xl);
+      align-items: end;
+      padding-block: var(--space-xl) var(--space-md);
+    }
+
+    @media (max-width: 58rem) {
+      .hero { grid-template-columns: 1fr; }
+    }
+
+    .hero__eyebrow {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: var(--space-xl);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55em;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: var(--text-display);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      font-variation-settings: "opsz" 144;
+      color: var(--color-ink);
+      max-width: 12ch;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero__lede {
+      font-family: var(--font-serif);
+      font-weight: 300;
+      font-size: var(--text-md);
+      line-height: var(--lh-normal);
+      color: var(--color-ink-2);
+      max-width: 38ch;
+      margin-top: var(--space-xl);
+    }
+
+    .hero__aside {
+      display: grid;
+      gap: var(--space-sm);
+      padding-top: var(--space-xl);
+    }
+
+    .hero__meta-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-sm) var(--space-md);
+      padding-block: var(--space-sm);
+      border-block: 0.5px solid var(--color-rule);
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .hero__meta-row dt { color: var(--color-muted); }
+    .hero__meta-row dd { color: var(--color-ink); margin: 0; }
+
+    /* Section scaffolding */
+    .section {
+      display: grid;
+      grid-template-columns: 10rem 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    @media (max-width: 50rem) {
+      .section { grid-template-columns: 1fr; gap: var(--space-md); }
+    }
+
+    .section__label {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      padding-top: 0.35rem;
+    }
+
+    .section__label .num { color: var(--color-ink); font-weight: 500; }
+
+    .section__body {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    .section__title {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-style: italic;
+      font-size: var(--text-2xl);
+      line-height: var(--lh-snug);
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-ink);
+      max-width: 22ch;
+      font-variation-settings: "opsz" 72;
+    }
+
+    .section__prose {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      line-height: var(--lh-normal);
+      color: var(--color-ink-2);
+      max-width: var(--measure);
+    }
+
+    /* Loaves list */
+    .loaves {
+      display: grid;
+      gap: 0;
+    }
+
+    .loaf {
+      display: grid;
+      grid-template-columns: 2rem 10rem 1fr auto;
+      gap: var(--space-md);
+      align-items: baseline;
+      padding-block: var(--space-md);
+      border-top: 0.5px solid var(--color-rule);
+    }
+
+    .loaf:last-child { border-bottom: 0.5px solid var(--color-rule); }
+
+    @media (max-width: 50rem) {
+      .loaf {
+        grid-template-columns: 2rem 1fr;
+        grid-template-rows: auto auto;
+      }
+      .loaf__desc { grid-column: 1 / -1; padding-left: 2.75rem; }
+      .loaf__days { grid-column: 1 / -1; padding-left: 2.75rem; color: var(--color-muted); }
+    }
+
+    .loaf__num {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .loaf__name {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: var(--text-lg);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--color-ink);
+      font-variation-settings: "opsz" 48;
+    }
+
+    .loaf__desc {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      line-height: var(--lh-normal);
+      color: var(--color-ink-2);
+      max-width: 52ch;
+    }
+
+    .loaf__days {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      white-space: nowrap;
+    }
+
+    /* Pull quote */
+    .pull {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--color-ink);
+      max-width: 26ch;
+      padding-block: var(--space-lg);
+      font-variation-settings: "opsz" 96;
+    }
+
+    .pull__attr {
+      display: block;
+      margin-top: var(--space-md);
+      font-family: var(--font-label);
+      font-style: normal;
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* Where */
+    .where {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .where dt {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .where dd {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: var(--text-md);
+      color: var(--color-ink);
+      margin: 0;
+    }
+
+    .where .row {
+      display: grid;
+      grid-template-columns: 8rem 1fr;
+      gap: var(--space-md);
+      align-items: baseline;
+      padding-block: var(--space-sm);
+      border-top: 0.5px solid var(--color-rule);
+    }
+    .where .row:last-of-type { border-bottom: 0.5px solid var(--color-rule); }
+
+    /* Signup form */
+    .signup {
+      background: var(--color-paper-2);
+      padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+      border: 0.5px solid var(--color-rule);
+    }
+
+    .signup__head {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-style: italic;
+      font-size: var(--text-2xl);
+      line-height: var(--lh-snug);
+      letter-spacing: var(--tracking-tight);
+      color: var(--color-ink);
+      max-width: 20ch;
+      font-variation-settings: "opsz" 72;
+    }
+
+    .signup__note {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      line-height: var(--lh-normal);
+      color: var(--color-ink-2);
+      max-width: 46ch;
+      margin-top: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .form {
+      display: grid;
+      gap: var(--space-sm);
+      max-width: 32rem;
+    }
+
+    .form__label {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0;
+      border-bottom: 1px solid var(--color-ink);
+    }
+
+    .form__input {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      padding: var(--space-sm) 0;
+      background: transparent;
+      border: 0;
+      color: var(--color-ink);
+      min-height: 44px;
+    }
+
+    .form__input::placeholder { color: var(--color-muted); }
+    .form__input:focus-visible { outline: none; }
+
+    .form__row:focus-within { border-bottom-color: var(--color-accent); }
+
+    .form__submit {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-ink);
+      padding: 0 var(--space-md);
+      min-height: 44px;
+      align-self: stretch;
+      transition: color var(--dur-micro) var(--ease-out);
+      cursor: pointer;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .form__submit:hover { color: var(--color-accent); }
+    }
+
+    .form__submit:disabled { color: var(--color-muted); cursor: not-allowed; }
+
+    .form__hint {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      margin-top: var(--space-xs);
+      line-height: var(--lh-normal);
+    }
+
+    .form__hint--error { color: var(--color-error); }
+    .form__hint--success { color: var(--color-success); }
+
+    .form[data-state="error"] .form__row { border-bottom-color: var(--color-error); }
+    .form[data-state="success"] .form__row { border-bottom-color: var(--color-success); }
+
+    /* Footer */
+    .foot {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--space-lg);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--color-ink);
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      letter-spacing: 0.04em;
+      color: var(--color-muted);
+      align-items: end;
+    }
+
+    .foot__address { line-height: 1.7; }
+    .foot__credit { text-align: right; }
+    .foot__credit a { color: var(--color-ink); }
+
+    /* Reveals — one orchestrated entrance */
+    .reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: reveal var(--dur-long) var(--ease-out) forwards;
+      animation-delay: calc(var(--i, 0) * 80ms);
+    }
+
+    @keyframes reveal {
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transform: none;
+        animation-duration: 150ms;
+      }
+      @keyframes reveal { to { opacity: 1; } }
+      *, *::before, *::after {
+        animation-duration: 150ms !important;
+        transition-duration: 150ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="page">
+
+    <!-- Nav -->
+    <nav class="nav reveal" style="--i:0" aria-label="Primary">
+      <span class="wordmark">Marlow Street Bread</span>
+      <span class="nav__note"><span class="mark" aria-hidden="true"></span>Opens 8 May</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero reveal" style="--i:1">
+      <div>
+        <p class="hero__eyebrow">
+          <span class="mark" aria-hidden="true"></span>
+          Opening · 8 May 2026
+        </p>
+        <h1 class="hero__title">
+          Bread, when it’s <em>ready.</em>
+        </h1>
+        <p class="hero__lede">
+          A naturally leavened loaf, made with local flour and a thirty-six hour ferment. A few of them, baked daily. When they’re gone, we close.
+        </p>
+      </div>
+      <aside class="hero__aside">
+        <dl class="hero__meta-row">
+          <dt>Kind</dt>
+          <dd>Neighborhood bakery</dd>
+          <dt>Where</dt>
+          <dd>137 Marlow St</dd>
+          <dt>Open</dt>
+          <dd>Tue – Sat, 8 a.m.</dd>
+        </dl>
+      </aside>
+    </header>
+
+    <!-- What we bake -->
+    <section class="section reveal" style="--i:2" aria-labelledby="s-loaves">
+      <div class="section__label">
+        <span class="num">01</span> &nbsp;⁄&nbsp; What we bake
+      </div>
+      <div class="section__body">
+        <h2 class="section__title" id="s-loaves">
+          A short list, done properly.
+        </h2>
+        <ul class="loaves">
+          <li class="loaf">
+            <span class="loaf__num">01</span>
+            <span class="loaf__name">Country</span>
+            <span class="loaf__desc">Stone-milled wheat, a little rye, a long cold ferment. Our everyday loaf.</span>
+            <span class="loaf__days">Daily</span>
+          </li>
+          <li class="loaf">
+            <span class="loaf__num">02</span>
+            <span class="loaf__name">Seeded</span>
+            <span class="loaf__desc">Pumpkin, sesame, poppy. The country base with a denser crumb.</span>
+            <span class="loaf__days">Daily</span>
+          </li>
+          <li class="loaf">
+            <span class="loaf__num">03</span>
+            <span class="loaf__name">Miche</span>
+            <span class="loaf__desc">A broad round, 1.4 kg. Keeps four days on the counter, longer under cloth.</span>
+            <span class="loaf__days">Fri &amp; Sat</span>
+          </li>
+          <li class="loaf">
+            <span class="loaf__num">04</span>
+            <span class="loaf__name">Rye</span>
+            <span class="loaf__desc">Seventy percent rye, caraway, a little molasses. Dense, dark, patient.</span>
+            <span class="loaf__days">Thursdays</span>
+          </li>
+        </ul>
+        <p class="section__prose">
+          We bake in small numbers because we’d rather bake four loaves well than forty in a hurry. If a loaf is sold out by ten, that’s how it goes.
+        </p>
+      </div>
+    </section>
+
+    <!-- Pull quote -->
+    <blockquote class="section reveal" style="--i:3">
+      <div class="section__label">
+        <span class="num">02</span> &nbsp;⁄&nbsp; Why
+      </div>
+      <p class="pull">
+        “Good bread is mostly time — a long fermentation, a patient oven, and flour that wasn’t rushed.”
+        <cite class="pull__attr">— from the opening letter</cite>
+      </p>
+    </blockquote>
+
+    <!-- Flour & farmers -->
+    <section class="section reveal" style="--i:4" aria-labelledby="s-flour">
+      <div class="section__label">
+        <span class="num">03</span> &nbsp;⁄&nbsp; Flour &amp; farmers
+      </div>
+      <div class="section__body">
+        <h2 class="section__title" id="s-flour">
+          Milled in Paxton, grown twenty-three miles away.
+        </h2>
+        <p class="section__prose">
+          Our flour is stone-milled at the Paxton mill, north of town. The wheat comes from two farms — Linnea Berg’s in the valley and the Holdfast Co-op on the ridge. We work with what they grow, when they grow it, which means the flour shifts a little with the seasons. We think that’s a feature.
+        </p>
+      </div>
+    </section>
+
+    <!-- Where -->
+    <section class="section reveal" style="--i:5" aria-labelledby="s-where">
+      <div class="section__label">
+        <span class="num">04</span> &nbsp;⁄&nbsp; When &amp; where
+      </div>
+      <div class="section__body">
+        <h2 class="section__title" id="s-where">
+          Marlow Street, off Fifth.
+        </h2>
+        <dl class="where">
+          <div class="row"><dt>Address</dt><dd>137 Marlow Street</dd></div>
+          <div class="row"><dt>Opening</dt><dd>8 May 2026, 8 a.m.</dd></div>
+          <div class="row"><dt>Hours</dt><dd>Tuesday — Saturday, 8 a.m. until sold out (usually by 1 p.m.)</dd></div>
+          <div class="row"><dt>Closed</dt><dd>Sunday &amp; Monday</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Signup -->
+    <section class="section reveal" style="--i:6" aria-labelledby="s-signup">
+      <div class="section__label">
+        <span class="num">05</span> &nbsp;⁄&nbsp; The notice
+      </div>
+      <div class="signup">
+        <h2 class="signup__head" id="s-signup">
+          We’ll write when the doors open.
+        </h2>
+        <p class="signup__note">
+          One email on opening day, and one a week later with the first weekend’s hours. Nothing else. Your address stays with us.
+        </p>
+
+        <form class="form" id="signup-form" novalidate>
+          <label class="form__label" for="email">Email address</label>
+          <div class="form__row">
+            <input
+              class="form__input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+              aria-describedby="email-hint"
+            />
+            <button class="form__submit" type="submit">Send me the notice &rarr;</button>
+          </div>
+          <p class="form__hint" id="email-hint">We'll send two emails. No list-sharing.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="foot reveal" style="--i:7" role="contentinfo">
+      <div class="foot__address">
+        Marlow Street Bread &nbsp;·&nbsp; 137 Marlow Street &nbsp;·&nbsp; Tue – Sat from 8 a.m.
+      </div>
+      <div class="foot__credit">
+        Designed with <a href="/" class="link">Hallmark</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module">
+    const form = document.getElementById("signup-form");
+    const input = document.getElementById("email");
+    const hint  = document.getElementById("email-hint");
+    const submit = form.querySelector(".form__submit");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const value = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if (!valid) {
+        form.dataset.state = "error";
+        input.setAttribute("aria-invalid", "true");
+        hint.className = "form__hint form__hint--error";
+        hint.textContent = "That doesn’t look like an email address. Try again?";
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = "Sending…";
+
+      // Demo only — pretend we sent it.
+      setTimeout(() => {
+        form.dataset.state = "success";
+        input.removeAttribute("aria-invalid");
+        hint.className = "form__hint form__hint--success";
+        hint.textContent = "On the list. We’ll be in touch on 8 May.";
+        submit.textContent = "Sent";
+      }, 350);
+    });
+
+    input.addEventListener("input", () => {
+      if (form.dataset.state === "error") {
+        delete form.dataset.state;
+        input.removeAttribute("aria-invalid");
+        hint.className = "form__hint";
+        hint.textContent = "We'll send two emails. No list-sharing.";
+      }
+    });
+  </script>
+</body>
+</html>

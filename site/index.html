@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en" data-theme="specimen">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <title>Hallmark — A design skill that refuses to look AI-generated</title>
+  <meta name="description" content="Hallmark is a design skill for AI coding assistants. It encodes the anti-AI-slop consensus — typography, colour, layout, motion, interaction — into one holistic ruleset. Powered by Together AI." />
+
+  <meta property="og:title" content="Hallmark — A design skill that refuses to look AI-generated" />
+  <meta property="og:description" content="A design skill for AI coding assistants. Encodes the anti-slop consensus into one ruleset. Powered by Together AI." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preload" href="fonts/the-future-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/the-future-medium.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/the-future-mono-regular.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+
+  <script>
+    // Load stored theme before paint to avoid flash
+    try {
+      const t = localStorage.getItem("hallmark-theme");
+      if (t) document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <main class="page">
+
+    <!-- NAV -->
+    <nav class="nav" aria-label="Primary">
+      <a href="#top" class="wordmark">Hallmark</a>
+
+      <div class="themer nav__themer" aria-expanded="false">
+        <button class="themer__trigger" type="button" id="themer-trigger" aria-haspopup="dialog" aria-expanded="false">
+          <span class="themer__trigger-label">Theme&nbsp;·&nbsp;</span>
+          <span class="themer__trigger-current" data-theme-current>Specimen</span>
+          <span class="themer__trigger-caret" aria-hidden="true"></span>
+        </button>
+
+        <span class="themer__kbd" aria-hidden="true">
+          press <span class="themer__kbd-key">T</span>
+        </span>
+
+        <div class="themer__panel" id="themer-panel" role="dialog" aria-label="Choose a theme">
+
+          <div class="themer__group">
+            <p class="themer__group-label">Editorial</p>
+            <button class="themer__btn" type="button" data-theme-btn="specimen" aria-pressed="true">
+              <span>Specimen</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(96% 0.012 80)"></span>
+                <span class="themer__swatch" style="background: oklch(18% 0.010 60)"></span>
+                <span class="themer__swatch" style="background: #FC4C02"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="newsprint" aria-pressed="false">
+              <span>Newsprint</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(95% 0.020 60)"></span>
+                <span class="themer__swatch" style="background: oklch(18% 0.012 250)"></span>
+                <span class="themer__swatch" style="background: oklch(48% 0.13 30)"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="atelier" aria-pressed="false">
+              <span>Atelier</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(96% 0.012 70)"></span>
+                <span class="themer__swatch" style="background: oklch(12% 0.012 40)"></span>
+                <span class="themer__swatch" style="background: oklch(58% 0.115 65)"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="themer__group">
+            <p class="themer__group-label">Soft</p>
+            <button class="themer__btn" type="button" data-theme-btn="garden" aria-pressed="false">
+              <span>Garden</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(96% 0.020 115)"></span>
+                <span class="themer__swatch" style="background: oklch(24% 0.050 160)"></span>
+                <span class="themer__swatch" style="background: #B6485E"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="salon" aria-pressed="false">
+              <span>Salon</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(95% 0.014 65)"></span>
+                <span class="themer__swatch" style="background: oklch(22% 0.024 35)"></span>
+                <span class="themer__swatch" style="background: oklch(58% 0.105 130)"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="linen" aria-pressed="false">
+              <span>Linen</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(94% 0.018 95)"></span>
+                <span class="themer__swatch" style="background: oklch(24% 0.022 140)"></span>
+                <span class="themer__swatch" style="background: oklch(54% 0.080 140)"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="themer__group">
+            <p class="themer__group-label">Technical</p>
+            <button class="themer__btn" type="button" data-theme-btn="midnight" aria-pressed="false">
+              <span>Midnight</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(14% 0.010 40)"></span>
+                <span class="themer__swatch" style="background: oklch(94% 0.006 80)"></span>
+                <span class="themer__swatch" style="background: #FC4C02"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="terminal" aria-pressed="false">
+              <span>Terminal</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(11% 0.010 145)"></span>
+                <span class="themer__swatch" style="background: oklch(86% 0.150 138)"></span>
+                <span class="themer__swatch" style="background: oklch(78% 0.180 138)"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="almanac" aria-pressed="false">
+              <span>Almanac</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(94% 0.012 80)"></span>
+                <span class="themer__swatch" style="background: oklch(16% 0.012 45)"></span>
+                <span class="themer__swatch" style="background: oklch(38% 0.135 250)"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="themer__group">
+            <p class="themer__group-label">Bold</p>
+            <button class="themer__btn" type="button" data-theme-btn="brutal" aria-pressed="false">
+              <span>Brutal</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(98% 0.003 90)"></span>
+                <span class="themer__swatch" style="background: oklch(10% 0.005 60)"></span>
+                <span class="themer__swatch" style="background: #FF2E2E"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="manifesto" aria-pressed="false">
+              <span>Manifesto</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(98% 0.004 90)"></span>
+                <span class="themer__swatch" style="background: oklch(8% 0.005 60)"></span>
+                <span class="themer__swatch" style="background: #E51A1A"></span>
+              </span>
+            </button>
+            <button class="themer__btn" type="button" data-theme-btn="sport" aria-pressed="false">
+              <span>Sport</span>
+              <span class="themer__swatches" aria-hidden="true">
+                <span class="themer__swatch" style="background: oklch(96% 0.006 250)"></span>
+                <span class="themer__swatch" style="background: oklch(16% 0.080 260)"></span>
+                <span class="themer__swatch" style="background: oklch(58% 0.190 35)"></span>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="nav__meta">
+        v0.1 &nbsp;·&nbsp; <a href="#install" class="link">Install</a>
+      </div>
+    </nav>
+
+    <!-- 01 · OPENING -->
+    <header class="opening reveal" style="--i:0" id="top">
+      <div>
+        <p class="opening__eyebrow">
+          <span class="mark" aria-hidden="true"></span>
+          A design skill · Powered by Together AI
+        </p>
+        <h1 class="opening__title">
+          Designs that refuse to look <em>AI-generated.</em>
+        </h1>
+        <p class="opening__sub">
+          Hallmark is a skill for Claude Code, Cursor, and Codex. It encodes the anti-slop consensus — typography, colour, layout, motion, interaction — into one holistic ruleset your AI assistant will actually follow.
+        </p>
+      </div>
+      <aside class="opening__aside">
+        <div class="opening__rule" aria-hidden="true"></div>
+        <div class="opening__cta">
+          <p class="label">01 &nbsp;⁄&nbsp; Install</p>
+          <pre class="code" data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+          <a href="#install" class="link">Other ways to install &rarr;</a>
+        </div>
+      </aside>
+    </header>
+
+    <!-- 02 · THE PROBLEM -->
+    <section class="section reveal" style="--i:1" aria-labelledby="s2">
+      <header class="section__head">
+        <p class="section-label">
+          <span class="num">02</span><span class="divider">⁄</span><span>The problem</span>
+        </p>
+        <h2 class="section__title" id="s2">
+          Every LLM was trained on the same templates. Without a firm hand, they all emit the same page.
+        </h2>
+      </header>
+
+      <div class="vs">
+        <div class="vs__col">
+          <div class="vs__head"><span class="vs__label">Without Hallmark</span></div>
+          <div class="vs__demo"><div class="viz-purple-hero"></div></div>
+          <p class="vs__caption">
+            Centred hero. Purple-to-pink gradient. Inter display. Startup-cliché tagline. Rounded-pill CTA. A view every LLM has produced ten thousand times.
+          </p>
+        </div>
+        <div class="vs__col">
+          <div class="vs__head"><span class="vs__label">With Hallmark</span></div>
+          <div class="vs__demo vs__demo--good">
+            <span class="label">01 ⁄ Specimen</span>
+            <span class="title">A quiet <em>instrument.</em></span>
+          </div>
+          <p class="vs__caption">
+            Asymmetric, left-biased. One accent, barely visible. A distinctive display face paired with a serif for emphasis. No gradient, no pill, no slop.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · FOUNDATIONS -->
+    <section class="section reveal" style="--i:2" aria-labelledby="s3">
+      <header class="section__head">
+        <p class="section-label">
+          <span class="num">03</span><span class="divider">⁄</span><span>Foundations</span>
+        </p>
+        <h2 class="section__title" id="s3">
+          Eight dimensions. A short, opinionated rule on each.
+        </h2>
+      </header>
+
+      <div class="foundations">
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Typography</span>
+            <span class="spec__num">F / 01</span>
+          </header>
+          <p class="spec__rule">Banned defaults. Distinctive display paired with a refined body. Commit to weight extremes.</p>
+          <div class="spec__body type-spec">
+            <span class="type-spec__display">Display face</span>
+            <span class="type-spec__body">paired with a <em>workhorse</em> body.</span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Colour</span>
+            <span class="spec__num">F / 02</span>
+          </header>
+          <p class="spec__rule">OKLCH only. One accent, under 3% of any view. No pure black. No pure white. No purple gradients.</p>
+          <div class="spec__body">
+            <div class="swatch-row">
+              <div class="swatch swatch--light" style="background: var(--color-paper);">Paper</div>
+              <div class="swatch swatch--light" style="background: var(--color-paper-3);">Rule</div>
+              <div class="swatch" style="background: var(--color-neutral);">Mute</div>
+              <div class="swatch" style="background: var(--color-ink);">Ink</div>
+              <div class="swatch" style="background: var(--color-accent);">Accent</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Space</span>
+            <span class="spec__num">F / 03</span>
+          </header>
+          <p class="spec__rule">4-point scale, named semantically. <code>gap</code> for siblings. Break the grid on purpose, not by accident.</p>
+          <div class="spec__body" style="display:flex; align-items:end; gap:var(--space-2xs); height:3rem;">
+            <span style="width:4px;  height:25%; background:var(--color-ink);"></span>
+            <span style="width:4px;  height:35%; background:var(--color-ink);"></span>
+            <span style="width:4px;  height:45%; background:var(--color-ink);"></span>
+            <span style="width:4px;  height:60%; background:var(--color-ink);"></span>
+            <span style="width:4px;  height:78%; background:var(--color-ink);"></span>
+            <span style="width:4px;  height:100%; background:var(--color-ink);"></span>
+            <span class="label" style="margin-left:.75rem;">4 ⁄ 8 ⁄ 12 ⁄ 16 ⁄ 24 ⁄ 40</span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Motion</span>
+            <span class="spec__num">F / 04</span>
+          </header>
+          <p class="spec__rule">Animate <code>transform</code> and <code>opacity</code> only. One orchestrated entrance beats ten micro-bounces.</p>
+          <div class="spec__body">
+            <svg class="curve" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M 0 80 C 32 80, 60 8, 200 0" fill="none" stroke="currentColor" stroke-width="1.2" />
+              <line x1="0" y1="80" x2="200" y2="80" stroke="var(--color-rule-2)" stroke-width="0.5" />
+              <line x1="0" y1="0"  x2="200" y2="0"  stroke="var(--color-rule-2)" stroke-width="0.5" stroke-dasharray="2 2" />
+            </svg>
+            <span class="label">cubic-bezier(0.16, 1, 0.3, 1) &nbsp;·&nbsp; 420 ms</span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">States</span>
+            <span class="spec__num">F / 05</span>
+          </header>
+          <p class="spec__rule">Eight states, not two. <code>:focus-visible</code> ring. 44&nbsp;px hit target. Labels above inputs.</p>
+          <div class="spec__body" style="display:flex; flex-wrap:wrap; gap:var(--space-xs) var(--space-md);">
+            <span class="label">default</span>
+            <span class="label">hover</span>
+            <span class="label">focus</span>
+            <span class="label">active</span>
+            <span class="label">disabled</span>
+            <span class="label">loading</span>
+            <span class="label">error</span>
+            <span class="label">success</span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Responsive</span>
+            <span class="spec__num">F / 06</span>
+          </header>
+          <p class="spec__rule">Mobile-first. Breakpoints where content breaks, not where a device sits. <code>dvh</code>, not <code>vh</code>.</p>
+          <div class="spec__body">
+            <span class="dim">40 rem &nbsp; 60 rem &nbsp; 90 rem</span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Copy</span>
+            <span class="spec__num">F / 07</span>
+          </header>
+          <p class="spec__rule">Specific verbs. Three-part errors. Link text that reads alone. Proper punctuation, not straight quotes.</p>
+          <div class="spec__body">
+            <span class="serif-italic" style="font-size:var(--text-md); color:var(--color-ink-2);">
+              “Save changes” beats “OK”. “View pricing plans” beats “Click here”.
+            </span>
+          </div>
+        </article>
+
+        <article class="spec">
+          <header class="spec__head">
+            <span class="spec__name">Anti-patterns</span>
+            <span class="spec__num">F / 08</span>
+          </header>
+          <p class="spec__rule">The named tells. Flagged by <code>hallmark audit</code>, erased by <code>hallmark refine</code>.</p>
+          <div class="spec__body">
+            <span class="dim">21 tells catalogued</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 04 · GALLERY OF TELLS -->
+    <section class="section reveal" style="--i:3" aria-labelledby="s4">
+      <header class="section__head">
+        <p class="section-label">
+          <span class="num">04</span><span class="divider">⁄</span><span>Gallery of tells</span>
+        </p>
+        <h2 class="section__title" id="s4">
+          The patterns every LLM reaches for by default. Hallmark catches each one by name.
+        </h2>
+      </header>
+
+      <div class="rail" role="list" aria-label="Named anti-patterns">
+        <article class="tell" role="listitem">
+          <div class="tell__viz"><div class="viz-purple-hero"></div></div>
+          <div class="tell__meta">
+            <span class="tell__name">Purple-gradient hero</span>
+            <span class="tell__why">Diagonal gradient behind centred white display type. The most-recognised AI aesthetic.</span>
+          </div>
+        </article>
+
+        <article class="tell" role="listitem">
+          <div class="tell__viz"><div class="viz-gradient-text"></div></div>
+          <div class="tell__meta">
+            <span class="tell__name">Gradient headline</span>
+            <span class="tell__why">Headline with <code>background-clip: text</code> filled by a two-stop gradient. Decorative; carries no meaning.</span>
+          </div>
+        </article>
+
+        <article class="tell" role="listitem">
+          <div class="tell__viz">
+            <div class="viz-icon-tile">
+              <div><span class="icon"></span><span class="h"></span><span class="t"></span><span class="t"></span></div>
+              <div><span class="icon"></span><span class="h"></span><span class="t"></span><span class="t"></span></div>
+              <div><span class="icon"></span><span class="h"></span><span class="t"></span><span class="t"></span></div>
+            </div>
+          </div>
+          <div class="tell__meta">
+            <span class="tell__name">Icon-tile feature grid</span>
+            <span class="tell__why">Three identical columns, icon-above-heading-above-two-lines. The universal LLM feature section.</span>
+          </div>
+        </article>
+
+        <article class="tell" role="listitem">
+          <div class="tell__viz">
+            <div class="viz-centered-hero">
+              <span class="h">Build what's next</span>
+              <span class="s">Unleash the power of seamless AI for your team.</span>
+              <span class="c">Get started</span>
+            </div>
+          </div>
+          <div class="tell__meta">
+            <span class="tell__name">Centred-everything hero</span>
+            <span class="tell__why">Hero, sub-head, CTA — all centred, all gradient-pilled. A template masquerading as a page.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 05 · HOW IT WORKS -->
+    <section class="section reveal" style="--i:4" aria-labelledby="s5">
+      <header class="section__head">
+        <p class="section-label">
+          <span class="num">05</span><span class="divider">⁄</span><span>How it works</span>
+        </p>
+        <h2 class="section__title" id="s5">
+          Install once. Describe what you need. Hallmark routes the rest.
+        </h2>
+      </header>
+
+      <div class="how">
+
+        <article class="step">
+          <span class="step__num">I</span>
+          <div>
+            <h3 class="step__head">Install the skill</h3>
+            <p class="step__sub">One command. Works in Claude Code, Cursor, and Codex out of the box.</p>
+          </div>
+          <div class="step__body">
+            <pre class="code" data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+          </div>
+        </article>
+
+        <article class="step">
+          <span class="step__num">II</span>
+          <div>
+            <h3 class="step__head">Ask for a UI</h3>
+            <p class="step__sub">In plain language. Hallmark refuses to design without a confirmed audience, use case, and tone — so it asks first.</p>
+          </div>
+          <div class="step__body">
+            <pre class="code code--block">&gt; build a landing page for a local bookshop's
+  new poetry collection. editorial tone,
+  for literary-minded customers.</pre>
+          </div>
+        </article>
+
+        <article class="step">
+          <span class="step__num">III</span>
+          <div>
+            <h3 class="step__head">Ship, audit, refine</h3>
+            <p class="step__sub">The default verb builds. <code>hallmark audit</code> scores existing code against the tells. <code>hallmark refine</code> polishes in place.</p>
+          </div>
+          <div class="step__body">
+            <pre class="code code--block">$ claude "hallmark audit ./components/hero.tsx"
+  → 2 critical · 3 major · 1 minor
+  → verdict: reads as AI-generated</pre>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 06 · INSTALL -->
+    <section class="section reveal" style="--i:5" id="install" aria-labelledby="s6">
+      <header class="section__head">
+        <p class="section-label">
+          <span class="num">06</span><span class="divider">⁄</span><span>Install</span>
+        </p>
+        <h2 class="section__title" id="s6">
+          Four ways in. Pick the one that matches your harness.
+        </h2>
+      </header>
+
+      <div class="installs">
+
+        <div class="install">
+          <p class="install__head">npx &nbsp;·&nbsp; any harness</p>
+          <pre class="install__body" data-copy-source><span data-copy-text>npx skills add hallmark</span><button class="code__copy code__copy--block" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+        </div>
+
+        <div class="install">
+          <p class="install__head">Claude Code</p>
+          <pre class="install__body">~/.claude/skills/hallmark/
+  SKILL.md
+  references/*.md</pre>
+        </div>
+
+        <div class="install">
+          <p class="install__head">Cursor</p>
+          <pre class="install__body">.cursor/rules/hallmark.mdc
+  (body of SKILL.md,
+   no frontmatter)</pre>
+        </div>
+
+        <div class="install">
+          <p class="install__head">Manual</p>
+          <pre class="install__body">git clone &amp;&amp;
+  copy skill/ into
+  your agent config</pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 07 · FOOTER -->
+    <footer class="foot reveal" style="--i:6" role="contentinfo">
+      <div class="foot__credits">
+        MIT licensed. Built on the research of
+        <a href="https://github.com/pbakaus/impeccable" class="link">impeccable</a>,
+        <a href="https://github.com/tw93/kami" class="link">kami</a>,
+        <a href="https://github.com/Leonxlnx/taste-skill" class="link">taste-skill</a>,
+        and Anthropic's <a href="https://github.com/anthropics/skills" class="link">frontend-design skill</a>.
+        Where rules overlapped, Hallmark adopted. Where they diverged, Hallmark picked.
+      </div>
+      <div class="foot__powered">
+        <span class="foot__powered-mark">Powered by Together AI</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+# Hallmark — Roadmap
+
+A forward-looking plan for what to build next, drawn from the gaps the latest research surfaced and from where the field is heading. Ordered by impact-to-effort.
+
+---
+
+## Tier 1 — Ship next (high impact, contained scope)
+
+### 1.1  Theme-aware microinteraction tokens
+
+**Status now.** [`microinteractions.md`](skill/references/microinteractions.md) describes a duration multiplier per theme as a table — but the multipliers aren't actually expressed in CSS. Atelier and Salon should *feel* slower than Brutal and Sport, but right now they share the same `--dur-short` / `--dur-long`.
+
+**Build.** Move `--dur-micro`, `--dur-short`, `--dur-long` into per-theme overrides in [`tokens.css`](site/css/tokens.css), scaled by the table in `microinteractions.md`. Newsprint and Terminal use `0ms` for spatial motion (they're print/terminal metaphors). One pass through the file; small diff.
+
+**Why it matters.** Today a Salon page and a Brutal page animate at the same speed. They shouldn't. The principle of structural variety should extend to motion variety.
+
+### 1.2  DESIGN.md output protocol
+
+**Status now.** Hallmark produces code. It does not produce a portable design spec.
+
+**Context from research.** [VoltAgent's `awesome-design-md`](https://github.com/VoltAgent/awesome-design-md) hit 35K stars in 10 days — fastest growing "awesome" list in GitHub history. DESIGN.md is becoming the lingua franca between humans and AI agents for design systems.
+
+**Build.** When Hallmark generates new work, also emit a `DESIGN.md` in the project root containing: chosen tone, palette tokens (with OKLCH values), type stack, spacing scale, structural fingerprint, motion tokens, and the named anti-patterns the page must continue to avoid. Other AI tools (Cursor, v0, Bolt) can read this file directly to keep iterating on the same design language.
+
+**Why it matters.** Closes the loop between Hallmark and the rest of the agent ecosystem. The skill stops being a one-shot generator and becomes a system that hands its decisions forward.
+
+### 1.3  `hallmark variant` — three fingerprints, user picks one
+
+**Status now.** Hallmark produces *one* designed output per brief.
+
+**Build.** New verb: `hallmark variant <target>` produces three structurally distinct versions of the same brief — different fingerprints across the six axes — and presents them as a side-by-side comparison. The user picks the one that fits, or asks for a fourth. This is the workflow `taste-skill v3.0` parameterises with dials; Hallmark would expose it as a verb.
+
+**Why it matters.** The biggest cause of "AI feel" isn't bad output — it's the user accepting the *first* output because they don't know it could be different. Showing three forces a judgement call and surfaces taste.
+
+### 1.4  Theme switcher polish on the landing page
+
+**Status now.** The 12-theme picker is good but a few rough edges remain.
+
+**Build.**
+- Trap the focus inside the popover when open (currently focus can escape).
+- Make the swatch dots match each theme's *exact* paper/ink/accent (some currently approximate).
+- On theme apply, briefly flash the orange accent rule under the trigger label to confirm — *silent success* via a 200ms colour pulse, not a toast.
+- The kbd hint (`press T`) currently sits next to the trigger but only on hover — also reveal on `:focus-within` of the navbar, for keyboard users who haven't reached for the mouse.
+
+**Why it matters.** The landing page itself is the strongest demo of Hallmark's microinteraction taste. It has to be exemplary.
+
+---
+
+## Tier 2 — Build after Tier 1 lands (still concrete, more scope)
+
+### 2.1  `references/structural-cookbook.md` — concrete recipes
+
+**Status now.** [`structure.md`](skill/references/structure.md) catalogues the *axes* of structural variety. It doesn't show *what* a left-margin-headed, single-column, hairline-divided, unstyled-link, no-image, no-reveal page actually looks like assembled.
+
+**Build.** A cookbook file with 12–20 *complete* structural fingerprints, each with a short HTML/CSS sketch, a paragraph explaining when to reach for it, and a real-world reference (NYT Mag, Stripe, Linear, Pentagram, etc.). The cookbook teaches the model patterns the same way recipe books teach cooking — through *worked examples*, not just *principles*.
+
+**Why it matters.** Models are pattern-matchers. Catalogued patterns + named recipes are easier to reach for than principles + axes.
+
+### 2.2  `references/tactile-rebellion.md` — controlled imperfection
+
+**Status now.** Hallmark assumes pixel-precision is the goal. The 2026 cultural movement is the opposite: handmade textures, controlled imperfection, *wabi-sabi*. 73% of designers (per CreativeBloq's 2026 trends report) are deliberately adding imperfections to differentiate from AI.
+
+**Build.** A new reference file covering: when to apply texture (sparingly; one element per page max); how to do it without falling into kitsch (real letterpress reference, not "letterpress filter"); free SVG noise/grain generators; hand-drawn SVG path techniques; controlled-jitter typography (a 0.5° rotation on a single mark is taste; on every word it's chaos).
+
+**Why it matters.** This is where the field is going and the current canon (impeccable, kami) has nothing on it. First-mover advantage.
+
+### 2.3  `references/data-viz.md` — Tufte-leaning anti-slop charts
+
+**Status now.** Nothing about charts. Yet a dashboard or analytics page is half data viz, and AI-generated charts are *especially* bad — rainbow palettes, 3D pies, gridlines everywhere, sparkles instead of lines.
+
+**Build.** A reference file covering: small multiples over single dense charts; tabular numbers; restraint in colour (one accent for the focal series, neutrals for context); axis design (minimum gridlines, no chartjunk); when to use bars vs lines vs sparklines; banned chart types (3D anything, donut charts where pie would do, dual-axis line charts).
+
+**Why it matters.** Data-density is the next frontier of "looks AI-generated" — and Tufte is the canonical reference no current skill cites.
+
+### 2.4  Multi-page coherence rules
+
+**Status now.** Hallmark's structural-variety rule says "two consecutive pages in the same session should not share more than three of the six structural axes." That's correct for variety but wrong for *brand consistency* across a real product where every page should feel like the same site.
+
+**Build.** A new reference: `references/coherence.md`. When working within a multi-page project, lock the first three axes (typography, colour, divider language — the *brand* axes) and vary the remaining three (heading placement, body composition, button voice — the *page-voice* axes). Different *pages* of the same site, not different *sites*. Add a test: "if I removed the navigation, would these two pages look like they're from the same product?" Yes. Continue. No. Re-anchor.
+
+**Why it matters.** Right now the structural-variety rule is too strong. Real products need *coherent variety*, not chaotic variety.
+
+### 2.5  `hallmark extract` — read existing code, output DESIGN.md
+
+**Status now.** Hallmark generates from briefs. It can't ingest existing systems.
+
+**Build.** New verb: `hallmark extract <directory>`. Reads the codebase. Identifies tokens (colour vars, type ramps, spacing scale, easings). Identifies the structural fingerprint actually in use. Writes a DESIGN.md the user can hand to other agents — or to Hallmark itself for `redesign` work. SkillUI does this for visual designs; Hallmark would do it taste-aware.
+
+**Why it matters.** Most users come to Hallmark *with* an existing codebase, not a greenfield brief. The skill needs an entry point for the existing case.
+
+---
+
+## Tier 3 — Long horizon (research-grade, ambitious)
+
+### 3.1  `hallmark explain` — pedagogy verb
+
+A verb that explains the choices made, *axis by axis*, in plain language. "I picked left-margin headings because the brief was editorial and the audience is reading-led; I picked hairline dividers because the tone was austere and ornament would have warmed the page; I picked silent success on the form because the user can see the row was saved." Teaches users to make the same choices themselves over time. The skill becomes a *teacher*, not just a generator.
+
+### 3.2  Negative-capability rules
+
+[PencilPlaybook](https://github.com/stevembarclay/pencilplaybook) embeds *perceptual psychology* in its anti-patterns — not just "don't use side-stripe cards" but "side-stripe cards trigger a horizontal cognitive scan that splits the user's attention from the content; the brain has to process two reading axes at once, which costs ~120ms per card." That's a different kind of teaching.
+
+Build a `references/why.md` that, for each major anti-pattern, includes the perceptual or cognitive reason it fails. Models that *understand* an anti-pattern reach for the alternative more reliably than models that just *know* the anti-pattern.
+
+### 3.3  Emotion-first prompting
+
+Today: tone words (editorial, brutalist, austere). Tomorrow: emotion words (anxious, optimistic, nostalgic, sceptical). The brief "build me a page that feels nostalgic but also forward-looking" should produce different work than "build me a page that feels confident and warm" — even if the audience and use case are the same.
+
+This requires a new mapping: emotion → tone → fingerprint. Worth building once the field has converged on what these mappings are. (Currently nobody has mapped them.)
+
+### 3.4  Sound and haptic policy
+
+Currently [`microinteractions.md`](skill/references/microinteractions.md) says "no sound on web" — correct default. But Hallmark could ship a tiny module covering: when sound is appropriate (gaming, AAA brands, accessibility-augmenting); haptic feedback (Vibration API on mobile); and how to do them without crossing into kitsch. Small file; long horizon.
+
+### 3.5  Live preview as a Claude Code MCP server
+
+The most ambitious direction. Today Hallmark writes code into files; the user runs a static server to preview. A Claude Code MCP server could:
+- Watch the file
+- Render it in a sandbox
+- Take a screenshot
+- Feed the screenshot back to the model for self-critique against the slop test
+- Iterate
+
+This closes the loop between *generation* and *audit*, automatically. The skill audits itself before handing back. Anthropic's [canvas-design](https://github.com/anthropics/skills) skill is a step toward this for static art; Hallmark could be the interactive equivalent.
+
+---
+
+## Things to *not* do
+
+A list of tempting directions that would make Hallmark worse, not better. Forcing the discipline.
+
+- **Don't add a fifth verb** before the existing four are battle-tested. `default / audit / refine / redesign` is enough surface area for the next six months. Adding `polish / typeset / colorize / animate / ...` (impeccable's path) trades comprehensibility for surface area. Resist.
+- **Don't add more than 12 themes.** The cognitive cost of 16 themes is higher than the value of 16 themes. If anything, *cut* underperforming ones.
+- **Don't ship a UI library.** Hallmark is a *taste* skill, not a component kit. shadcn/ui and Geist exist; refer users to them. Building components inside Hallmark dilutes the focus.
+- **Don't add A/B testing or analytics** to the skill. It's not a SaaS product.
+- **Don't build a Figma plugin.** The skill works in code; that's a feature, not a limit. Designers who want Figma have other tools.
+- **Don't add prompts to "match a brand"** by URL scraping. That's SkillUI's job — point users there.
+- **Don't add image generation.** Out of scope; AI imagery is its own problem space, and the right answer is usually "use real photos" or "no image."
+
+---
+
+## Measurement
+
+How we know Hallmark is getting better, not just bigger:
+
+1. **Slop test pass rate.** Every output should pass all 20 questions. Track failures and categorise.
+2. **Structural-fingerprint diversity.** Across the last 10 outputs of the skill, how many *unique* fingerprints? Target ≥ 8/10.
+3. **Microinteraction tells per output.** Target 0. (`transition-all`, `hover:scale-105`, bouncy easing on UI, etc. are flagged.)
+4. **User picks the first output without revision.** A high "first try" rate is the single best taste indicator. Track it.
+5. **DESIGN.md re-import round-trip.** A user runs `hallmark extract` then `hallmark` with the extracted DESIGN.md in scope. The result should match the original within token boundaries. If it drifts, the extraction or the application is wrong.
+
+---
+
+## What's already shipped
+
+For reference. Everything below is in current `0.2.0`.
+
+- ✓ Skill: 4 verbs (default, audit, refine, redesign)
+- ✓ References: typography, color, layout-and-space, motion, microinteractions, structure, interaction-and-states, responsive, copy, anti-patterns
+- ✓ 12 themes with structural fingerprints
+- ✓ Theme picker UI on the landing page
+- ✓ Working install path: `cp skill/* ~/.claude/skills/hallmark/`
+- ✓ Two test specimens: bakery (`site/_example-bakery/`) and command palette (`site/_example-cmdk/`)
+- ✓ Slop test extended from 12 to 20 questions covering microinteractions
+- ✓ View Transitions on theme switch, with reduced-motion fallback
+- ✓ Copy-to-clipboard with silent success on install code blocks
+- ✓ Keyboard shortcut (`T`) to open theme picker, with delay-revealed hint
