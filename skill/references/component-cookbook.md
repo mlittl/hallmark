@@ -1,10 +1,55 @@
 # Component cookbook
 
-Thirty-two component archetypes you can compose into any macrostructure. Every entry: a *shape*, a one-line "use when", a one-line "don't confuse with", and a short structural sketch (DOM + minimal CSS). Pick from this file when you're building a section and don't know which shape to reach for.
+Thirty-three component archetypes you can compose into any macrostructure. Every entry: a *shape*, a one-line "use when", a one-line "don't confuse with", and a short structural sketch (DOM + minimal CSS). Pick from this file when you're building a section and don't know which shape to reach for.
 
 The same macrostructure (e.g., Bento Grid) can be built from many different combinations of these archetypes. The macrostructure picks the *page shape*; this file picks the *components inside it*.
 
 **Diversification rule:** within a single page, no two sections should use the same archetype. A Bento Grid might pair *Bento feature block* with *Inline form CTA* with *Logo wall (hairline)*. The next page Hallmark builds should pick different archetypes from the same categories.
+
+---
+
+## Within-archetype variation knobs
+
+Picking an archetype is the first axis of variety. The second is *how you build it*. Two pages built with the same archetype should not be identical — each archetype below has 2–3 *variation knobs*. Pick one value per knob per output. This prevents "every Bento I build looks like the same Bento."
+
+When you pick an archetype, **state the knob values you chose** in the macrostructure stamp comment, e.g.:
+
+```css
+/* Hallmark · macrostructure: Bento Grid · F1 Bento knobs: tiles=6, spans=irregular, accent=corner-only · ... */
+```
+
+| Archetype | Knob A | Knob B | Knob C |
+| --- | --- | --- | --- |
+| **H1 Marquee** | Display size: `xxl` (clamp 4–12rem) · `xl` (clamp 3–8rem) | Alignment: left-bias · centred · right-bias | Underlay: none · single rule above · single rule below |
+| **H2 Split Diptych** | Ratio: 7/5 · 6/6 · 5/7 | Right side: photo · proof column · pull-quote | Divider: hairline · negative space · vertical rule |
+| **H3 Quote-Led** | Quote weight: italic display · roman display · roman body large | Attribution position: under quote · margin-aligned · right-flush | Length: ≤80 chars · 80–160 chars |
+| **H4 Stat-Led** | Number style: tabular display · italic display · monospace | Qualifier position: below · inline-right · stacked-above | Secondary stats: none · two below · row of four |
+| **H5 Letter** | Salutation: greeting · "Dear X," · time-stamp | Body length: 1 paragraph · 2 paragraphs · 3 paragraphs | Signoff: typed name · drawn signature SVG · initials |
+| **H6 Photographic** | Image area: full-bleed · 16/7 · 4/3 · 1/1 square | Caption position: lower-left · upper-right · margin | Text below or overlaid |
+| **F1 Bento (feature)** | Tiles: 4 · 6 · 7 · 9 | Spans: regular · irregular · mosaic | Border: hairline all · accent corners · none |
+| **F2 Sticky-scroll stack** | Pinned side: left · right | Right pane content: code · screenshot · diagram | Pin steps: 3 · 4 · 5 |
+| **F3 Tabular spec sheet** | Columns: 2 (key/val) · 3 (key/val/unit) · 4 (with footnote) | Rule density: every row · groups of 3 · headers only | Numbers: tabular · proportional |
+| **F4 Step sequence** | Numbering: I/II/III · 01/02/03 · 1.0/2.0/3.0 | Layout: vertical stack · horizontal flow · diagonal | Connector: line · arrow · none |
+| **F5 Annotated screenshot** | Callouts: numbered pins · margin labels · inline arrows | Frame: device · plain · floating | Anchor: image-led or text-led |
+| **F6 Product card grid** | Card ratio: 3/4 portrait · 1/1 square · 4/3 landscape | Density: 3-up · 4-up · 5-up | Micro-action: Add · Save · View → · none |
+| **C1 Outlined chip** | Shape: rectangular · pill (only allowed for tactile/playful tones) · slab | Density: spacious · compact | Adornment: arrow · plus · none |
+| **C2 Inline form-as-CTA** | Field count: 1 · 2 · 3 | Submit position: end-of-row · separate line · embedded button | Helper: above · below · none |
+| **C3 Typographic link CTA** | Underline: solid · dashed · double · none | Hover behaviour: thicken · slide · colour shift | Arrow: → · ↗ · none |
+| **C4 Sticky bottom bar** | Reveal: always · scroll-up · after fold | Anchored: viewport bottom · viewport top · inline at bottom | Shadow: hairline · none · subtle |
+| **T1 Pull quote w/ marginalia** | Quote treatment: italic display · roman large · serif italic | Attribution: signed · stamped · timestamped | Marginalia: none · timeline · 1 footnote |
+| **T2 Logo wall (hairline)** | Layout: single row · 2 rows · grid 3×N | Logo treatment: monochrome ink · brand colour · ghosted | Divider: hairline cells · none |
+| **T3 Single huge quote** | Quote face: serif italic · roman display · italic mono | Width: full-bleed · 60ch · 40ch | Attribution position: same line · separate band |
+| **T4 Numbered stat strip** | Layout: 3-up · 4-up · 5-up · 6-up | Number weight: display · body large | Qualifier position: under · inline · above |
+| **Ft1 Mast-headed** | Wordmark size: display 3xl · display 2xl · xl | Tagline: italic serif · roman body · none | Links row: inline · 2-line stack |
+| **Ft2 Inline single line** | Order: wordmark/links/credit · credit/wordmark/links | Separator: middot · pipe · em-dash · vertical rule | Density: dense · spaced |
+| **Ft3 Index columns** | Columns: 3 · 4 · 5 | Heading style: small caps · italic · monospace | Bullet: hairline · none |
+| **Ft4 Dense colophon** | Family: monospace · serif · sans | Layout: single block · paragraphs · log-style | Includes: build hash · date · attribution |
+| **N1 Wordmark + 2 links** | Position: left/right split · centred · right-flush | Links: text · text+icon · pill | Sticky: yes · no |
+| **N2 Floating chip** | Anchor: top · bottom · top-right · bottom-left | Content: theme picker · search · navigation | Backdrop: blur · solid · none |
+| **N3 Side-rail** | Side: left · right | Width: 12ch · 16ch · 20ch | Indicator: filled bar · text-only · numbered |
+| **N4 Hidden behind ⌘K** | Trigger: button · keyboard only · both | Surface: modal · sheet · spotlight | Recents: shown · hidden |
+
+**Anti-pattern:** picking the same knob values across two different outputs is the same kind of templating as picking the same archetype. If your last Bento was `tiles=6, spans=irregular, accent=corner-only`, the next one must change at least one knob.
 
 ---
 
@@ -246,6 +291,46 @@ A product capture sits centre-stage with arrows or short labels pointing to UI d
   <span class="callout" style="--x:60%; --y:30%;">→ assigns automatically.</span>
 </figure>
 ```
+
+### F6 · Product card grid
+Each card is a product, not a feature. Image · name · price · one micro-action. Reads like a shop floor, not a marketing site.
+*Use when:* the brief is commerce, catalogue, lookbook, marketplace — anything where the page sells *things*, not *features*.
+*Don't confuse with:* F1 Bento (which sells *features*; tiles vary in size and span). Product cards are uniform on purpose — the rhythm comes from the products, not the layout.
+
+**Variation knobs:** card ratio (3/4 portrait · 1/1 square · 4/3 landscape) · density (3-up · 4-up · 5-up) · price treatment (under name · over image · hover-reveal) · micro-action (Add · Save · View → · none).
+
+```html
+<section class="product-grid">
+  <article class="product">
+    <a class="product__media" href=""><img src="" alt="" loading="lazy" /></a>
+    <div class="product__meta">
+      <h3 class="product__name">Linen Apron · Indigo</h3>
+      <p class="product__price tabular-nums">¥ 6,400</p>
+    </div>
+    <button class="product__add" aria-label="Add Linen Apron to bag">+</button>
+  </article>
+  <!-- ... more products, uniform shape ... -->
+</section>
+```
+```css
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl) var(--space-lg); }
+@media (max-width: 60rem) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+.product { display: grid; gap: var(--space-sm); position: relative; }
+.product__media { display: block; aspect-ratio: 3 / 4; background: var(--color-paper-2); overflow: hidden; }
+.product__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-long) var(--ease-out); }
+.product__media:hover img { transform: scale(1.02); }
+.product__name { font-family: var(--font-body); font-size: var(--text-md); margin: 0; }
+.product__price { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--color-ink-2); }
+.product__add { position: absolute; top: var(--space-sm); right: var(--space-sm); width: 32px; height: 32px; background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule-2); cursor: pointer; opacity: 0; transition: opacity var(--dur-short) var(--ease-out); }
+.product:hover .product__add, .product:focus-within .product__add { opacity: 1; }
+@media (pointer: coarse) { .product__add { opacity: 1; } }
+```
+
+**Anti-patterns to avoid in product grids:**
+- Don't borrow Bento's irregular spans — products want uniform rhythm.
+- Don't put feature-style two-line descriptions under product names. The price *is* the description.
+- Don't auto-scale the image on idle — only on hover, and only by 1.02× max.
+- Don't use cards with shadow + radius + border + tile + ribbon. Pick one container signal.
 
 ---
 

@@ -21,48 +21,60 @@
   <link rel="stylesheet" href="css/sections.css" />
 
   <script>
-    // Load stored theme before paint to avoid flash
+    // Load theme before paint to avoid flash. Order: ?theme= → localStorage → default.
     try {
-      const t = localStorage.getItem("hallmark-theme");
+      const url = new URL(window.location.href);
+      const q = url.searchParams.get("theme");
+      const t = q || localStorage.getItem("hallmark-theme");
       if (t) document.documentElement.dataset.theme = t;
     } catch (e) {}
   </script>
 </head>
 <body>
 
+  <!-- BANNER — sticky top, thin, holds the theme picker -->
+  <header class="banner" role="banner">
+    <a class="banner__mark" href="#top" aria-label="Hallmark — top of page">
+      <span class="banner__name">Hallmark</span>
+      <span class="banner__ver">v0.2</span>
+    </a>
+
+    <span class="banner__center" data-theme-current>Specimen</span>
+
+    <div class="banner__picker" role="radiogroup" aria-label="Theme">
+      <button class="banner__dot" type="button" data-theme-btn="specimen"  aria-label="Specimen"  style="--dot: oklch(96% 0.018 80); --dot-edge: oklch(70% 0.04 75);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="newsprint" aria-label="Newsprint" style="--dot: oklch(92% 0.045 50); --dot-edge: oklch(32% 0.10 28);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="atelier"   aria-label="Atelier"   style="--dot: oklch(94% 0.005 60); --dot-edge: oklch(45% 0.13 60);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="garden"    aria-label="Garden"    style="--dot: oklch(95% 0.030 130); --dot-edge: oklch(54% 0.16 14);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="salon"     aria-label="Salon"     style="--dot: oklch(94% 0.030 65); --dot-edge: oklch(40% 0.085 50);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="linen"     aria-label="Linen"     style="--dot: oklch(89% 0.022 95); --dot-edge: oklch(46% 0.06 95);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="almanac"   aria-label="Almanac"   style="--dot: oklch(94% 0.008 245); --dot-edge: oklch(38% 0.135 250);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="midnight"  aria-label="Midnight"  style="--dot: oklch(15% 0.022 250); --dot-edge: oklch(72% 0.16 220);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="terminal"  aria-label="Terminal"  style="--dot: oklch(11% 0.018 145); --dot-edge: oklch(78% 0.19 138);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="brutal"    aria-label="Brutal"    style="--dot: oklch(98% 0.001 0); --dot-edge: oklch(60% 0.21 27);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="manifesto" aria-label="Manifesto" style="--dot: oklch(10% 0.005 60); --dot-edge: oklch(60% 0.22 27);"></button>
+      <button class="banner__dot" type="button" data-theme-btn="sport"     aria-label="Sport"     style="--dot: oklch(98% 0.003 250); --dot-edge: oklch(58% 0.190 35);"></button>
+
+      <span class="banner__sep" aria-hidden="true"></span>
+
+      <button class="banner__random" type="button" aria-label="Random theme" title="Random (R)">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 4 L7 4 L13 12 L14 12" />
+          <path d="M14 12 L12 10 M14 12 L12 14" />
+          <path d="M2 12 L7 12 L9 9.5" />
+          <path d="M11 6.5 L13 4 L14 4" />
+          <path d="M14 4 L12 2 M14 4 L12 6" />
+        </svg>
+      </button>
+
+      <span class="banner__kbd" aria-hidden="true">T</span>
+    </div>
+  </header>
+
   <main class="page">
 
-    <!-- NAV -->
-    <nav class="nav" aria-label="Primary">
-      <a href="#top" class="wordmark">Hallmark</a>
-      <div class="nav__meta">
-        v0.1 &nbsp;·&nbsp; <a href="#install" class="link">Install</a>
-      </div>
-    </nav>
-
-    <!-- 01 · OPENING -->
-    <header class="opening reveal" style="--i:0" id="top">
-      <div>
-        <p class="opening__eyebrow">
-          <span class="mark" aria-hidden="true"></span>
-          A design skill · Powered by Together AI
-        </p>
-        <h1 class="opening__title">
-          Designs that refuse to look <em>AI-generated.</em>
-        </h1>
-        <p class="opening__sub">
-          Hallmark is a skill for Claude Code, Cursor, and Codex. It encodes the anti-slop consensus — typography, colour, layout, motion, interaction — into one holistic ruleset your AI assistant will actually follow.
-        </p>
-      </div>
-      <aside class="opening__aside">
-        <div class="opening__rule" aria-hidden="true"></div>
-        <div class="opening__cta">
-          <p class="label">01 &nbsp;⁄&nbsp; Install</p>
-          <pre class="code" data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
-          <a href="#install" class="link">Other ways to install &rarr;</a>
-        </div>
-      </aside>
-    </header>
+    <!-- 01 · HERO SLOT — archetype swaps per theme -->
+    <section class="slot slot--hero reveal" data-slot="hero" id="top" style="--i:0" aria-label="Opening"></section>
 
     <!-- 02 · THE PROBLEM -->
     <section class="section reveal" style="--i:1" aria-labelledby="s2">
@@ -208,7 +220,7 @@
           <p class="spec__rule">Specific verbs. Three-part errors. Link text that reads alone. Proper punctuation, not straight quotes.</p>
           <div class="spec__body">
             <span class="serif-italic" style="font-size:var(--text-md); color:var(--color-ink-2);">
-              “Save changes” beats “OK”. “View pricing plans” beats “Click here”.
+              &ldquo;Save changes&rdquo; beats &ldquo;OK&rdquo;. &ldquo;View pricing plans&rdquo; beats &ldquo;Click here&rdquo;.
             </span>
           </div>
         </article>
@@ -380,152 +392,158 @@
       </div>
     </section>
 
-    <!-- 07 · FOOTER -->
-    <footer class="foot reveal" style="--i:6" role="contentinfo">
-      <div class="foot__credits">
-        MIT licensed. Built on the research of
-        <a href="https://github.com/pbakaus/impeccable" class="link">impeccable</a>,
-        <a href="https://github.com/tw93/kami" class="link">kami</a>,
-        <a href="https://github.com/Leonxlnx/taste-skill" class="link">taste-skill</a>,
-        and Anthropic's <a href="https://github.com/anthropics/skills" class="link">frontend-design skill</a>.
-        Where rules overlapped, Hallmark adopted. Where they diverged, Hallmark picked.
-      </div>
-      <div class="foot__powered">
-        <span class="foot__powered-mark">Powered by Together AI</span>
-      </div>
-    </footer>
+    <!-- 07 · FOOTER SLOT — archetype swaps per theme -->
+    <footer class="slot slot--foot reveal" data-slot="footer" style="--i:6" role="contentinfo" aria-label="Colophon"></footer>
 
   </main>
 
-  <!-- Theme picker — fixed bottom-left, never in the navbar. -->
-  <div class="themer" aria-expanded="false">
-    <button class="themer__trigger" type="button" id="themer-trigger" aria-haspopup="dialog" aria-expanded="false">
-      <span class="themer__trigger-swatch" aria-hidden="true"></span>
-      <span class="themer__trigger-label">Theme&nbsp;·&nbsp;</span>
-      <span class="themer__trigger-current" data-theme-current>Specimen</span>
-      <span class="themer__trigger-caret" aria-hidden="true"></span>
-    </button>
+  <!-- ─────────── HERO ARCHETYPES ─────────── -->
 
-    <span class="themer__kbd" aria-hidden="true">
-      <span class="themer__kbd-key">T</span>
-    </span>
-
-    <div class="themer__panel" id="themer-panel" role="dialog" aria-label="Choose a theme">
-
-      <div class="themer__group">
-        <p class="themer__group-label">Editorial</p>
-        <button class="themer__btn" type="button" data-theme-btn="specimen" aria-pressed="true">
-          <span>Specimen</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(96% 0.018 80)"></span>
-            <span class="themer__swatch" style="background: oklch(18% 0.014 60)"></span>
-            <span class="themer__swatch" style="background: #FC4C02"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="newsprint" aria-pressed="false">
-          <span>Newsprint</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(92% 0.045 50)"></span>
-            <span class="themer__swatch" style="background: oklch(15% 0.030 25)"></span>
-            <span class="themer__swatch" style="background: oklch(32% 0.10 28)"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="atelier" aria-pressed="false">
-          <span>Atelier</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(94% 0.005 60)"></span>
-            <span class="themer__swatch" style="background: oklch(12% 0.024 40)"></span>
-            <span class="themer__swatch" style="background: oklch(45% 0.13 60)"></span>
-          </span>
-        </button>
+  <template id="hero-marquee">
+    <div class="hero hero--marquee">
+      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+      <h1 class="hero__display" data-text="{{title}}">{{title}}</h1>
+      <p class="hero__lede">{{lede}}</p>
+      <div class="hero__cta">
+        <p class="label">{{ctaLabel}}</p>
+        <pre class="code" data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
       </div>
-
-      <div class="themer__group">
-        <p class="themer__group-label">Soft</p>
-        <button class="themer__btn" type="button" data-theme-btn="garden" aria-pressed="false">
-          <span>Garden</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(95% 0.030 130)"></span>
-            <span class="themer__swatch" style="background: oklch(22% 0.060 160)"></span>
-            <span class="themer__swatch" style="background: #B6485E"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="salon" aria-pressed="false">
-          <span>Salon</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(94% 0.030 65)"></span>
-            <span class="themer__swatch" style="background: oklch(22% 0.030 38)"></span>
-            <span class="themer__swatch" style="background: oklch(40% 0.085 50)"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="linen" aria-pressed="false">
-          <span>Linen</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(89% 0.022 95)"></span>
-            <span class="themer__swatch" style="background: oklch(22% 0.025 90)"></span>
-            <span class="themer__swatch" style="background: oklch(46% 0.06 95)"></span>
-          </span>
-        </button>
-      </div>
-
-      <div class="themer__group">
-        <p class="themer__group-label">Technical</p>
-        <button class="themer__btn" type="button" data-theme-btn="midnight" aria-pressed="false">
-          <span>Midnight</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(15% 0.022 250)"></span>
-            <span class="themer__swatch" style="background: oklch(95% 0.008 230)"></span>
-            <span class="themer__swatch" style="background: oklch(72% 0.16 220)"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="terminal" aria-pressed="false">
-          <span>Terminal</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(11% 0.018 145)"></span>
-            <span class="themer__swatch" style="background: oklch(86% 0.16 138)"></span>
-            <span class="themer__swatch" style="background: oklch(78% 0.19 138)"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="almanac" aria-pressed="false">
-          <span>Almanac</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(94% 0.008 245)"></span>
-            <span class="themer__swatch" style="background: oklch(16% 0.020 245)"></span>
-            <span class="themer__swatch" style="background: oklch(38% 0.135 250)"></span>
-          </span>
-        </button>
-      </div>
-
-      <div class="themer__group">
-        <p class="themer__group-label">Bold</p>
-        <button class="themer__btn" type="button" data-theme-btn="brutal" aria-pressed="false">
-          <span>Brutal</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(98% 0.001 0)"></span>
-            <span class="themer__swatch" style="background: oklch(8% 0.005 0)"></span>
-            <span class="themer__swatch" style="background: #E63946"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="manifesto" aria-pressed="false">
-          <span>Manifesto</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(10% 0.005 60)"></span>
-            <span class="themer__swatch" style="background: oklch(98% 0.003 90)"></span>
-            <span class="themer__swatch" style="background: #E51A1A"></span>
-          </span>
-        </button>
-        <button class="themer__btn" type="button" data-theme-btn="sport" aria-pressed="false">
-          <span>Sport</span>
-          <span class="themer__swatches" aria-hidden="true">
-            <span class="themer__swatch" style="background: oklch(98% 0.003 250)"></span>
-            <span class="themer__swatch" style="background: oklch(16% 0.080 260)"></span>
-            <span class="themer__swatch" style="background: oklch(58% 0.190 35)"></span>
-          </span>
-        </button>
-      </div>
-
     </div>
-  </div>
+  </template>
+
+  <template id="hero-split">
+    <div class="hero hero--split">
+      <div class="hero__col">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+      </div>
+      <aside class="hero__proof">
+        <p class="label">{{proofLabel}}</p>
+        <p class="hero__proof-line">{{proofA}}</p>
+        <p class="hero__proof-line">{{proofB}}</p>
+        <p class="hero__proof-line">{{proofC}}</p>
+        <a href="#install" class="link">{{cta}} &rarr;</a>
+      </aside>
+    </div>
+  </template>
+
+  <template id="hero-stat-led">
+    <div class="hero hero--stat">
+      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+      <span class="hero__stat tabular-nums">{{stat}}</span>
+      <p class="hero__qualifier">{{qualifier}}</p>
+      <p class="hero__lede">{{lede}}</p>
+      <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+    </div>
+  </template>
+
+  <template id="hero-quote-led">
+    <div class="hero hero--quote">
+      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+      <blockquote class="hero__quote">
+        <p>&ldquo;{{quote}}&rdquo;</p>
+        <footer class="hero__attrib">— {{attrib}}</footer>
+      </blockquote>
+      <p class="hero__lede">{{lede}}</p>
+      <a href="#install" class="link hero__link">{{cta}} &rarr;</a>
+    </div>
+  </template>
+
+  <template id="hero-letter">
+    <div class="hero hero--letter">
+      <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+      <p class="hero__salutation">{{salutation}}</p>
+      <p class="hero__letter-body">{{letterBody}}</p>
+      <p class="hero__signoff">{{signoff}}<br><span class="hero__sign">— Hallmark</span></p>
+    </div>
+  </template>
+
+  <template id="hero-photographic">
+    <div class="hero hero--photo">
+      <div class="hero__photo" aria-hidden="true">
+        <div class="hero__photo-grid">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <span class="hero__photo-caption">{{captionA}} · {{captionB}}</span>
+      </div>
+      <div class="hero__photo-text">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display hero__display--small">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+      </div>
+    </div>
+  </template>
+
+  <!-- ─────────── FOOTER ARCHETYPES ─────────── -->
+
+  <template id="footer-masthead">
+    <div class="foot foot--masthead">
+      <span class="foot__wordmark">Hallmark</span>
+      <p class="foot__tagline">{{tagline}}</p>
+      <div class="foot__links">
+        <a href="https://github.com/Luffixos/hallmark" class="link">GitHub</a>
+        <a href="https://github.com/pbakaus/impeccable" class="link">impeccable</a>
+        <a href="https://github.com/tw93/kami" class="link">kami</a>
+        <a href="https://github.com/anthropics/skills" class="link">Anthropic skills</a>
+      </div>
+      <p class="foot__powered"><span class="foot__powered-mark">Powered by Together AI</span></p>
+    </div>
+  </template>
+
+  <template id="footer-inline">
+    <div class="foot foot--inline">
+      <span class="foot__wordmark-small">Hallmark</span>
+      <span class="foot__sep" aria-hidden="true"></span>
+      <span class="foot__line">{{tagline}}</span>
+      <span class="foot__sep" aria-hidden="true"></span>
+      <a href="https://github.com/Luffixos/hallmark" class="link">GitHub</a>
+      <span class="foot__sep" aria-hidden="true"></span>
+      <span class="foot__powered-mark">Powered by Together AI</span>
+    </div>
+  </template>
+
+  <template id="footer-index">
+    <div class="foot foot--index">
+      <div class="foot__col">
+        <p class="foot__col-head">Skill</p>
+        <ul>
+          <li><a href="https://github.com/Luffixos/hallmark" class="link">GitHub</a></li>
+          <li><a href="#install" class="link">Install</a></li>
+          <li><a href="#install" class="link">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <p class="foot__col-head">Influences</p>
+        <ul>
+          <li><a href="https://github.com/pbakaus/impeccable" class="link">impeccable</a></li>
+          <li><a href="https://github.com/tw93/kami" class="link">kami</a></li>
+          <li><a href="https://github.com/anthropics/skills" class="link">frontend-design</a></li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <p class="foot__col-head">Themes</p>
+        <ul>
+          <li>12 themes</li>
+          <li>21 macrostructures</li>
+          <li>32 archetypes</li>
+        </ul>
+      </div>
+      <div class="foot__col">
+        <p class="foot__col-head">Powered</p>
+        <ul>
+          <li><span class="foot__powered-mark">Together AI</span></li>
+          <li>MIT licensed</li>
+        </ul>
+      </div>
+    </div>
+  </template>
+
+  <template id="footer-dense">
+    <pre class="foot foot--dense">{{denseColophon}}</pre>
+  </template>
 
   <script type="module" src="js/main.js"></script>
 </body>

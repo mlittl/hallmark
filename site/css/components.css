@@ -23,15 +23,21 @@
   color: var(--color-accent);
 }
 
-/* — Theme picker (fixed bottom-left chip + upward popover) ————— */
-.themer {
-  position: fixed;
-  left: max(1rem, env(safe-area-inset-left));
-  bottom: max(1rem, env(safe-area-inset-bottom));
+/* — Banner (sticky top, thin, theme picker inline) ————————— */
+.banner {
+  position: sticky;
+  top: 0;
   z-index: var(--z-sticky);
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-lg);
+  padding: 0 var(--page-gutter);
+  height: 44px;
+  background: color-mix(in oklch, var(--color-paper) 88%, transparent);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border-block-end: var(--rule-hair) solid var(--color-rule);
   font-family: var(--font-label);
   font-size: 0.6875rem;
   letter-spacing: var(--tracking-label);
@@ -39,237 +45,166 @@
   color: var(--color-ink);
 }
 
-.themer__trigger {
+.banner__mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+
+.banner__name {
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.banner__ver {
+  font-size: 0.625rem;
+  color: var(--color-muted);
+  letter-spacing: 0.14em;
+}
+
+/* The active theme name — the centre marker. Lives in the banner so the
+   page restructure registers as a deliberate event, not a passive repaint. */
+.banner__center {
+  justify-self: center;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: var(--display-style, normal);
+  font-size: var(--text-md);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+  transition: opacity var(--dur-short) var(--ease-out);
+}
+
+[data-theme="manifesto"] .banner__center,
+[data-theme="brutal"] .banner__center,
+[data-theme="sport"] .banner__center {
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="terminal"] .banner__center::before {
+  content: "$ ";
+  color: var(--color-accent);
+}
+
+[data-theme="terminal"] .banner__center {
+  font-family: var(--font-mono);
+}
+
+.banner__picker {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.55rem 0.85rem 0.55rem 0.6rem;
-  background: var(--color-paper);
-  border: var(--rule-hair) solid var(--color-rule-2);
-  color: var(--color-ink);
-  font: inherit;
-  letter-spacing: 0.14em;
+  gap: 0.4rem;
+}
+
+.banner__dot {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: var(--dot, var(--color-paper));
+  border: 1px solid var(--color-rule-2);
+  border-radius: 4px;
   cursor: pointer;
-  min-height: 36px;
-  /* explicit transitions, not transition-all */
-  transition: background-color var(--dur-micro) var(--ease-out),
+  position: relative;
+  transition: transform 100ms var(--ease-out),
               border-color var(--dur-micro) var(--ease-out),
-              color var(--dur-micro) var(--ease-out);
-  box-shadow: 0 1px 2px oklch(20% 0.02 60 / 0.05),
-              0 8px 24px -8px oklch(20% 0.02 60 / 0.10);
+              box-shadow var(--dur-micro) var(--ease-out);
+}
+
+.banner__dot::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--dot-edge, transparent);
+  border-radius: 2px;
+  opacity: 0.85;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .themer__trigger:hover { border-color: var(--color-ink); }
+  .banner__dot:hover {
+    transform: translateY(-1px);
+    border-color: var(--color-ink);
+  }
 }
 
-.themer__trigger:focus-visible {
+.banner__dot:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-/* Tiny accent swatch on the trigger — confirms current theme at a glance */
-.themer__trigger-swatch {
-  width: 0.55rem;
-  height: 0.55rem;
-  background: var(--color-accent);
-  display: inline-block;
-  border-radius: 50%;
-  flex-shrink: 0;
+.banner__dot[aria-pressed="true"] {
+  border-color: var(--color-ink);
+  box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 3px var(--color-ink);
 }
 
-.themer__trigger-label {
-  color: var(--color-muted);
+.banner__sep {
+  width: 1px;
+  height: 14px;
+  background: var(--color-rule);
+  margin-inline: 0.25rem;
 }
 
-.themer__trigger-current {
-  color: var(--color-ink);
-  font-weight: 500;
-}
-
-.themer__trigger-caret {
-  width: 0.4em;
-  height: 0.4em;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(-135deg) translate(-1px, 1px); /* points up — popover opens up */
-  transition: transform var(--dur-short) var(--ease-out);
-}
-
-.themer[aria-expanded="true"] .themer__trigger-caret {
-  transform: rotate(45deg) translate(-2px, -1px); /* points down when open */
-}
-
-/* Keyboard-shortcut hint — delay-reveals on hover, instant on focus */
-.themer__kbd {
+.banner__random {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.15rem 0.45rem;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-rule);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out),
+              transform 80ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .banner__random:hover { color: var(--color-ink); border-color: var(--color-ink); }
+}
+
+.banner__random:active { transform: rotate(180deg); transition-duration: 220ms; }
+
+.banner__random:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.banner__kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: 0.25rem;
+  padding: 0.1rem 0.4rem;
   font-family: var(--font-label);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   color: var(--color-muted);
-  background: var(--color-paper-2);
-  border: var(--rule-hair) solid var(--color-rule);
-  opacity: 0;
-  transform: translateX(-4px);
-  pointer-events: none;
-  min-height: 28px;
-  /* hover delay: 1.2s before reveal */
-  transition: opacity 180ms var(--ease-out) 1.2s,
-              transform 180ms var(--ease-out) 1.2s;
-}
-
-.themer__kbd::before {
-  content: "press ";
-  margin-right: 0.35em;
-  text-transform: uppercase;
-}
-
-.themer__trigger:hover ~ .themer__kbd {
-  opacity: 1;
-  transform: none;
-}
-
-.themer__trigger:focus-visible ~ .themer__kbd,
-.themer[aria-expanded="true"] .themer__kbd {
-  opacity: 1;
-  transform: none;
-  /* no delay on focus or open */
-  transition: opacity 180ms var(--ease-out),
-              transform 180ms var(--ease-out);
-}
-
-.themer__kbd-key {
-  font-weight: 500;
-  color: var(--color-ink);
-}
-
-@media (max-width: 40rem) {
-  .themer__kbd { display: none; }
-  .themer__trigger { padding-block: 0.6rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .themer__kbd { transition-duration: 0.01ms; transition-delay: 0.01ms; }
-}
-
-/* Popover panel — opens upward from the chip */
-.themer__panel {
-  position: absolute;
-  bottom: calc(100% + 0.5rem);
-  left: 0;
-  transform: translateY(4px);
-  width: min(40rem, calc(100vw - 2rem));
-  max-height: calc(100dvh - 6rem);
-  overflow-y: auto;
-  background: var(--color-paper);
-  border: var(--rule-hair) solid var(--color-rule-2);
-  padding: var(--space-lg);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: 0 24px 60px -20px oklch(20% 0.02 60 / 0.18),
-              0 0 0 1px oklch(20% 0.02 60 / 0.04);
-  transition: opacity var(--dur-short) var(--ease-out),
-              transform var(--dur-short) var(--ease-out);
-}
-
-.themer[aria-expanded="true"] .themer__panel {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
+  border: 1px solid var(--color-rule);
+  border-radius: 3px;
+  min-width: 18px;
+  min-height: 18px;
 }
 
 @media (max-width: 60rem) {
-  .themer__panel {
-    grid-template-columns: repeat(2, 1fr);
-    width: min(26rem, calc(100vw - 2rem));
-  }
+  .banner { grid-template-columns: auto 1fr auto; gap: var(--space-md); }
+  .banner__center { font-size: var(--text-sm); }
+  .banner__kbd { display: none; }
 }
 
-@media (max-width: 36rem) {
-  .themer__panel {
-    grid-template-columns: 1fr 1fr;
-    /* anchor to viewport edges so it doesn't clip on small screens */
-    left: 0;
-    right: auto;
-    width: calc(100vw - 2rem);
-    max-width: 26rem;
-    padding: var(--space-md);
-    gap: var(--space-md);
-  }
-}
-
-.themer__group {
-  display: grid;
-  gap: var(--space-xs);
-}
-
-.themer__group-label {
-  font-family: var(--font-label);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  padding-bottom: 0.4rem;
-  border-bottom: var(--rule-hair) solid var(--color-rule);
-}
-
-.themer__btn {
-  font: inherit;
-  font-family: var(--font-label);
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.55rem;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  text-align: left;
-  color: var(--color-neutral);
-  letter-spacing: 0.10em;
-  text-transform: uppercase;
-  font-size: 0.6875rem;
-  min-height: 32px;
-}
-
-.themer__btn:hover { color: var(--color-ink); background: var(--color-paper-2); }
-
-.themer__btn:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: -2px;
-}
-
-.themer__btn[aria-pressed="true"] {
-  color: var(--color-ink);
-  background: var(--color-paper-2);
-  position: relative;
-}
-
-.themer__btn[aria-pressed="true"]::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  width: 2px;
-  background: var(--color-accent);
-}
-
-.themer__swatches {
-  display: inline-flex;
-  gap: 2px;
-}
-
-.themer__swatch {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 50%;
+@media (max-width: 44rem) {
+  .banner__ver { display: none; }
+  .banner__center { display: none; }
+  .banner__picker { gap: 0.3rem; }
+  .banner__dot { width: 14px; height: 14px; }
+  .banner__sep { display: none; }
 }
 
 /* — Section label (01 / FOUNDATIONS) —————————————————— */
@@ -805,4 +740,471 @@
 ::view-transition-new(root) {
   animation-duration: 280ms;
   animation-timing-function: var(--ease-out);
+}
+
+/* ───────────── HERO ARCHETYPES ─────────────
+   The hero slot picks one shape per theme, from the cookbook.
+   Each archetype is a different fingerprint — not a re-skin. */
+
+.hero { display: grid; }
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__eyebrow .mark {
+  width: 6px; height: 6px;
+  background: var(--color-accent);
+  display: inline-block;
+}
+
+.hero__display {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: var(--display-style, normal);
+  font-size: var(--text-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+  margin: 0;
+}
+
+.hero__display--small {
+  font-size: var(--text-display-s);
+}
+
+.hero__lede {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  line-height: var(--lh-normal);
+  color: var(--color-ink-2);
+  max-width: 56ch;
+  margin-block: var(--space-lg) 0;
+}
+
+[data-theme="brutal"] .hero__lede,
+[data-theme="manifesto"] .hero__lede,
+[data-theme="terminal"] .hero__lede,
+[data-theme="sport"] .hero__lede,
+[data-theme="almanac"] .hero__lede {
+  font-style: normal;
+  font-family: var(--font-body);
+}
+
+[data-theme="manifesto"] .hero__display,
+[data-theme="brutal"] .hero__display,
+[data-theme="sport"] .hero__display {
+  text-transform: uppercase;
+}
+
+.hero__link {
+  margin-top: var(--space-lg);
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* H1 — Marquee. Display fills the fold, install code below. */
+.hero--marquee {
+  padding-block: var(--space-2xl) var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.hero--marquee .hero__display {
+  max-width: 18ch;
+}
+
+.hero--marquee .hero__cta {
+  margin-top: var(--space-xl);
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 30rem;
+}
+
+.hero--marquee .hero__cta .label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* H2 — Split Diptych. Title left, proof right. */
+.hero--split {
+  grid-template-columns: 7fr 5fr;
+  gap: var(--space-2xl);
+  padding-block: var(--space-2xl) var(--space-xl);
+  align-items: end;
+}
+
+@media (max-width: 60rem) {
+  .hero--split { grid-template-columns: 1fr; gap: var(--space-xl); align-items: start; }
+}
+
+.hero--split .hero__col { display: grid; gap: 0; }
+
+.hero--split .hero__proof {
+  display: grid;
+  gap: var(--space-xs);
+  padding-block-start: var(--space-md);
+  border-block-start: var(--rule-hair) solid var(--color-rule);
+}
+
+.hero--split .hero__proof .label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.hero__proof-line {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  line-height: var(--lh-snug);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero--split .hero__proof a { margin-top: var(--space-sm); }
+
+/* H3 — Stat-Led. Giant number + qualifier. */
+.hero--stat {
+  padding-block: var(--space-2xl) var(--space-xl);
+  gap: 0;
+}
+
+.hero__stat {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: var(--display-style, normal);
+  font-size: clamp(7rem, 22vw, 16rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+  display: block;
+  margin-block: var(--space-md) 0;
+}
+
+.hero__qualifier {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: var(--display-style, normal);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  margin-block: var(--space-md) 0;
+  font-optical-sizing: auto;
+}
+
+[data-theme="manifesto"] .hero__stat,
+[data-theme="sport"] .hero__stat {
+  color: var(--color-accent);
+}
+
+/* H4 — Quote-Led. Pull quote in italic display. */
+.hero--quote {
+  padding-block: var(--space-2xl) var(--space-xl);
+  max-width: 56rem;
+}
+
+.hero__quote {
+  margin: 0;
+  padding: 0;
+}
+
+.hero__quote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4vw + 1rem, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.hero__attrib {
+  margin-block-start: var(--space-lg);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+[data-theme="brutal"] .hero__quote p,
+[data-theme="manifesto"] .hero__quote p,
+[data-theme="terminal"] .hero__quote p,
+[data-theme="sport"] .hero__quote p,
+[data-theme="almanac"] .hero__quote p {
+  font-style: normal;
+  font-family: var(--font-display);
+}
+
+/* H5 — Letter. First-person greeting, paragraph body, signoff. */
+.hero--letter {
+  padding-block: var(--space-2xl) var(--space-xl);
+  max-width: 52rem;
+  gap: 0;
+}
+
+.hero__salutation {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: italic;
+  font-size: clamp(2rem, 3vw + 1rem, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin-block: var(--space-md) var(--space-lg);
+  font-optical-sizing: auto;
+}
+
+.hero__letter-body {
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  line-height: var(--lh-relaxed);
+  color: var(--color-ink-2);
+  max-width: 60ch;
+  margin: 0;
+}
+
+[data-theme="brutal"] .hero__letter-body,
+[data-theme="terminal"] .hero__letter-body,
+[data-theme="sport"] .hero__letter-body,
+[data-theme="almanac"] .hero__letter-body {
+  font-family: var(--font-body);
+}
+
+.hero__signoff {
+  margin-block: var(--space-xl) 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-md);
+  font-style: italic;
+  color: var(--color-ink-2);
+  line-height: var(--lh-snug);
+}
+
+.hero__sign {
+  font-style: normal;
+  font-family: var(--font-display);
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-display);
+}
+
+/* H6 — Photographic. Image area + small caption + text below. */
+.hero--photo {
+  padding-block: var(--space-xl) var(--space-xl);
+  gap: var(--space-xl);
+  grid-template-columns: 1fr;
+}
+
+.hero__photo {
+  position: relative;
+  aspect-ratio: 16 / 7;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  overflow: hidden;
+}
+
+.hero__photo-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--color-rule);
+}
+
+.hero__photo-grid > span {
+  background: linear-gradient(135deg,
+    color-mix(in oklch, var(--color-paper-3) 80%, var(--color-accent) 5%),
+    color-mix(in oklch, var(--color-neutral) 30%, var(--color-paper) 70%));
+}
+
+.hero__photo-grid > span:nth-child(2n)  { background: linear-gradient(180deg, var(--color-paper-3), var(--color-paper-2)); }
+.hero__photo-grid > span:nth-child(3n)  { background: linear-gradient(45deg, var(--color-paper-2), var(--color-paper-3)); }
+.hero__photo-grid > span:nth-child(5n)  { background: linear-gradient(90deg, var(--color-paper-3), color-mix(in oklch, var(--color-accent) 10%, var(--color-paper))); }
+.hero__photo-grid > span:nth-child(7n)  { background: var(--color-neutral); }
+
+.hero__photo-caption {
+  position: absolute;
+  left: var(--space-md);
+  bottom: var(--space-md);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-paper);
+  background: color-mix(in oklch, var(--color-ink) 78%, transparent);
+  padding: 0.35rem 0.65rem;
+}
+
+.hero__photo-text { display: grid; gap: 0; }
+
+/* ───────────── FOOTER ARCHETYPES ───────────── */
+
+.foot { display: grid; gap: var(--space-md); padding-block: var(--space-2xl) var(--space-xl); border-block-start: var(--rule-hair) solid var(--color-rule); }
+
+/* Ft1 — Masthead. Wordmark + tagline + links + powered. */
+.foot--masthead {
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.foot__wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--display-weight, 400);
+  font-style: var(--display-style, normal);
+  font-size: var(--text-3xl);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-ink);
+  font-optical-sizing: auto;
+  line-height: 1;
+}
+
+[data-theme="manifesto"] .foot__wordmark,
+[data-theme="brutal"] .foot__wordmark,
+[data-theme="sport"] .foot__wordmark { text-transform: uppercase; }
+
+.foot__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: 50ch;
+  margin: 0;
+  line-height: var(--lh-snug);
+}
+
+[data-theme="brutal"] .foot__tagline,
+[data-theme="manifesto"] .foot__tagline,
+[data-theme="terminal"] .foot__tagline,
+[data-theme="sport"] .foot__tagline,
+[data-theme="almanac"] .foot__tagline {
+  font-style: normal;
+  font-family: var(--font-body);
+}
+
+.foot__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-block-start: var(--space-md);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+}
+
+.foot__powered {
+  margin-block-start: var(--space-lg);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.foot__powered-mark {
+  color: var(--color-ink);
+  font-weight: 500;
+}
+
+/* Ft2 — Inline. Single dense line. */
+.foot--inline {
+  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.foot__wordmark-small {
+  color: var(--color-ink);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.foot__sep {
+  width: 1px; height: 12px; background: var(--color-rule-2);
+}
+
+/* Ft3 — Index columns. */
+.foot--index {
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (max-width: 60rem) {
+  .foot--index { grid-template-columns: repeat(2, 1fr); }
+}
+
+.foot__col-head {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-block-end: var(--space-sm);
+  padding-block-end: var(--space-xs);
+  border-block-end: var(--rule-hair) solid var(--color-rule);
+}
+
+.foot--index ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2xs);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+/* Ft4 — Dense colophon (monospace). */
+.foot--dense {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+  color: var(--color-ink-2);
+  white-space: pre-wrap;
+  margin: 0;
+  padding-block: var(--space-md);
+}
+
+/* ───────────── SLOT REVEALS ─────────────
+   The slot fades when its archetype is replaced — supplements the
+   View Transition and gives a graceful enter on first paint. */
+
+.slot[data-populating] > * {
+  animation: slot-in calc(var(--dur-long) * 0.7) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+@keyframes slot-in { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .slot[data-populating] > * { animation: none; opacity: 1; }
 }

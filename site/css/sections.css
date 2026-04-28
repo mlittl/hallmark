@@ -6,27 +6,15 @@
   margin-inline: auto;
   display: grid;
   gap: var(--section-gap);
-  padding-block: var(--space-lg) var(--space-4xl);
+  padding-block: var(--space-2xl) var(--space-4xl);
+  padding-inline: var(--page-gutter);
 }
 
-/* — Nav ————————————————————————————————————————————— */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-lg);
-  padding-block: var(--space-md);
+/* — Slot — a region whose component archetype swaps per theme ————— */
+.slot {
+  display: block;
+  min-height: 1px; /* keeps reveal animation valid before populated */
 }
-
-.nav__meta {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  color: var(--color-muted);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.nav__meta a { color: var(--color-ink); }
 
 /* — Section container ——————————————————————————————— */
 .section {

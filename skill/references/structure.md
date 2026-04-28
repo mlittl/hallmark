@@ -120,12 +120,32 @@ Reject these structural fingerprints. They are the AI-template fingerprint.
 
 ## When you don't know
 
-If the brief doesn't suggest a fingerprint and the user hasn't picked a theme, **do not default**. Offer the user three named macrostructures from *categorically different* groups, and let them pick. For example:
+If the brief doesn't suggest a fingerprint and the user hasn't picked a theme, **do not default**. Read the brief for a domain word (audio, commerce, docs, agency, restaurant, fashion, fintech, personal, …) and offer the user **three macrostructures from categorically different groups *that fit that domain***. Then let them pick.
 
-- **Bento Grid** — modular, feature-led, many entry points.
-- **Long Document** — prose-led, one continuous narrative, no marketing structure.
-- **Manifesto** — declarative large type, one belief per fold, polemical.
+The point of three is contrast: a grid-led shape, a document-led shape, a poster-led shape. Picking from categorically different groups is what produces variety; offering three near-twins is the AI tell this whole skill exists to defeat.
 
-Three concrete page-shapes beat seven abstract tones. If the user shrugs and says "you pick", roll a die: pick whichever of the three is most *categorically distant* from any previous Hallmark output for this user (read the existing CSS for a `/* Hallmark · macrostructure: ... */` stamp and avoid that family).
+### Domain → trio (offer these three; never default)
 
-If the user answers a vague tone word ("modern", "clean", "professional"), that is not a feeling. Re-ask with the three concrete macrostructures above.
+If you can't infer the domain, ask one question — "what does this thing do?" — and then map it.
+
+| Domain words in the brief | Trio to offer |
+| --- | --- |
+| **podcast, audio, music, playlist, listening** | **Photographic** · **Quote-Led** · **Letter** |
+| **shop, store, product, merch, commerce, ecom** | **Catalogue** · **Photographic** · **Bento Grid** |
+| **docs, CLI, SDK, API, library, developer, terminal** | **Workbench** · **Long Document** · **Component Playground** |
+| **agency, studio, portfolio, freelance, creative shop** | **Portfolio Grid** · **Split Studio** · **Index-First** |
+| **restaurant, café, bar, food, kitchen, menu** | **Photographic** · **Long Document** · **Catalogue** |
+| **fashion, apparel, beauty, lookbook** | **Photographic** · **Catalogue** · **Marquee Hero** |
+| **fintech, banking, payments, invest, trading** | **Stat-Led** · **Workbench** · **Long Document** |
+| **personal, resume, one-pager, about-me, individual** | **Long Document** · **Letter** · **Index-First** |
+| **manifesto, campaign, cause, advocacy, political** | **Manifesto** · **Quote-Led** · **Stat-Led** |
+| **editorial, foundry, magazine, type, specimen** | **Specimen** · **Long Document** · **Type Specimen** |
+| **product launch, SaaS marketing, B2B** | **Bento Grid** · **Workbench** · **Stat-Led** |
+| **conference, event, speaker, keynote** | **Marquee Hero** · **Manifesto** · **Photographic** |
+| **fallback (genuinely no signal)** | **Bento Grid** · **Long Document** · **Manifesto** |
+
+If the user shrugs and says "you pick", read the project's CSS for a `/* Hallmark · macrostructure: ... */` stamp; whichever of the trio is most categorically distant from the stamped family is the right pick. Two consecutive outputs should never be from the same family — never two editorial macrostructures, never two grid-led macrostructures.
+
+If the user answers a vague tone word ("modern", "clean", "professional"), that is not a feeling. Re-ask with the domain trio.
+
+The fallback row at the bottom of the table is the *last* resort — only if no domain words appear and the user genuinely cannot pick. In practice, almost every brief contains a domain word; using the fallback usually means you didn't read carefully enough.
