@@ -619,3 +619,120 @@
   --rule-fine: 2px;
   --measure: 58ch;
 }
+
+/* ──────────────────────────────────────────────────────────────
+   STUDIO — modern editorial agency · italic Instrument Serif
+   Inspiration: 14islands, Mathieu Triay, Frame, Gretel, contemporary
+   studio portfolios in 2026. Forest-green accent — uncommon, distinctive.
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="studio"] {
+  --color-paper:    oklch(96.5%  0.014 95);
+  --color-paper-2:  oklch(94%    0.016 95);
+  --color-paper-3:  oklch(90%    0.018 95);
+  --color-rule:     oklch(82%    0.012 90);
+  --color-rule-2:   oklch(70%    0.010 90);
+  --color-muted:    oklch(48%    0.010 95);
+  --color-neutral:  oklch(34%    0.014 100);
+  --color-ink-2:    oklch(22%    0.018 100);
+  --color-ink:      oklch(13%    0.020 100);
+  --color-accent:   oklch(46%    0.140 145);
+  --color-accent-ink: oklch(46%  0.140 145);
+  --color-focus:    oklch(46%    0.140 145);
+
+  --font-display: "Instrument Serif", "Tiempos", ui-serif, Georgia, serif;
+  --font-body:    "Geist", "Söhne", ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   "Instrument Serif", ui-serif, Georgia, serif;
+  --font-label:   "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 400;
+  --display-style: italic;
+
+  --text-display:   clamp(3.5rem, 7vw + 1rem, 7.5rem);
+  --text-display-s: clamp(2.25rem, 4vw + 1rem, 4.25rem);
+
+  --tracking-display: -0.022em;
+  --tracking-label:   0.08em;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   PASTEL — post-Linear soft tech · Geist sans, lavender paper
+   Inspiration: Linear (2025-26), Resend, Cron, Raycast, Vercel light.
+   The dev-tool aesthetic, but soft instead of stark.
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="pastel"] {
+  --color-paper:    oklch(96%    0.022 285);
+  --color-paper-2:  oklch(93.5%  0.026 285);
+  --color-paper-3:  oklch(90%    0.030 285);
+  --color-rule:     oklch(82%    0.024 280);
+  --color-rule-2:   oklch(72%    0.030 275);
+  --color-muted:    oklch(50%    0.030 275);
+  --color-neutral:  oklch(38%    0.038 270);
+  --color-ink-2:    oklch(28%    0.040 270);
+  --color-ink:      oklch(22%    0.040 270);
+  --color-accent:   oklch(56%    0.130 282);
+  --color-accent-ink: oklch(56%  0.130 282);
+  --color-focus:    oklch(56%    0.130 282);
+
+  --font-display: "Geist", "Söhne", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Geist", "Söhne", ui-sans-serif, system-ui, sans-serif;
+  --font-serif:   "Newsreader", ui-serif, Georgia, serif;
+  --font-label:   "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+  --font-mono:    "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 600;
+  --display-style: normal;
+
+  --text-display:   clamp(3rem, 5.5vw + 1rem, 6rem);
+  --text-display-s: clamp(2rem, 3vw + 1rem, 3.25rem);
+
+  --tracking-display: -0.035em;
+  --tracking-tight:   -0.012em;
+  --tracking-label:   0.04em;
+
+  --lh-tight: 0.96;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   RISO — risograph print · Bricolage display, off-register
+   Inspiration: Are.na, e-flux, Frieze, indie magazine sites.
+   Warm peach paper, riso cyan + yellow as accents, slight CMYK
+   misregistration on display via text-shadow.
+   ────────────────────────────────────────────────────────────── */
+
+[data-theme="riso"] {
+  --color-paper:    oklch(91%    0.034 30);
+  --color-paper-2:  oklch(87%    0.040 30);
+  --color-paper-3:  oklch(82%    0.046 30);
+  --color-rule:     oklch(70%    0.040 30);
+  --color-rule-2:   oklch(56%    0.060 30);
+  --color-muted:    oklch(46%    0.060 30);
+  --color-neutral:  oklch(34%    0.060 30);
+  --color-ink-2:    oklch(22%    0.060 30);
+  --color-ink:      oklch(18%    0.060 30);
+  --color-accent:   oklch(58%    0.170 220);   /* riso cyan/teal */
+  --color-accent-2: oklch(78%    0.180 95);    /* riso yellow */
+  --color-accent-ink: oklch(58%  0.170 220);
+  --color-focus:    oklch(58%    0.170 220);
+
+  --font-display: "Bricolage Grotesque", "Inter Tight", system-ui, sans-serif;
+  --font-body:    "Newsreader", "Tiempos", ui-serif, Georgia, serif;
+  --font-serif:   "Newsreader", ui-serif, Georgia, serif;
+  --font-label:   "Bricolage Grotesque", ui-monospace, monospace;
+  --font-mono:    "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  --display-weight: 800;
+  --display-style: normal;
+
+  --text-display:   clamp(3.25rem, 7vw + 1rem, 7.25rem);
+  --text-display-s: clamp(2.25rem, 3.5vw + 1rem, 3.75rem);
+
+  --tracking-display: -0.04em;
+  --tracking-tight:   -0.014em;
+  --tracking-label:   0.06em;
+
+  --lh-tight: 0.92;
+  --lh-snug:  1.10;
+}

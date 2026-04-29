@@ -742,6 +742,164 @@
   animation-timing-function: var(--ease-out);
 }
 
+/* ───────────── STUDIO — italic Instrument Serif display ───────────── */
+
+[data-theme="studio"] .hero__display,
+[data-theme="studio"] .section__title,
+[data-theme="studio"] .foot__wordmark,
+[data-theme="studio"] .hero__quote p,
+[data-theme="studio"] .hero__salutation,
+[data-theme="studio"] .spec__name,
+[data-theme="studio"] .tell__name {
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="studio"] .banner__center {
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+[data-theme="studio"] .hero__lede,
+[data-theme="studio"] .hero__letter-body,
+[data-theme="studio"] .spec__rule,
+[data-theme="studio"] .tell__why,
+[data-theme="studio"] .hero__attrib,
+[data-theme="studio"] .foot__tagline {
+  font-family: var(--font-body);
+  font-style: normal;
+}
+
+[data-theme="studio"] .hero__eyebrow,
+[data-theme="studio"] .label,
+[data-theme="studio"] .section-label {
+  font-feature-settings: "ss01";
+}
+
+/* ───────────── PASTEL — Geist sans display, soft surfaces ───────────── */
+
+[data-theme="pastel"] .hero__display,
+[data-theme="pastel"] .section__title,
+[data-theme="pastel"] .foot__wordmark,
+[data-theme="pastel"] .spec__name,
+[data-theme="pastel"] .tell__name,
+[data-theme="pastel"] .hero__quote p,
+[data-theme="pastel"] .hero__salutation,
+[data-theme="pastel"] .hero__qualifier {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+[data-theme="pastel"] .hero__display {
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+[data-theme="pastel"] .hero__stat {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+[data-theme="pastel"] .hero__lede,
+[data-theme="pastel"] .hero__letter-body,
+[data-theme="pastel"] .spec__rule,
+[data-theme="pastel"] .tell__why,
+[data-theme="pastel"] .foot__tagline {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--color-ink-2);
+}
+
+[data-theme="pastel"] .banner__center {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Pastel uses a subtle indigo on accent — never as a flood. */
+[data-theme="pastel"] .hero__eyebrow .mark,
+[data-theme="pastel"] .opening__eyebrow .mark {
+  background: var(--color-accent);
+  border-radius: 1px;
+}
+
+/* ───────────── RISO — bold lowercase, off-register print ───────────── */
+
+[data-theme="riso"] .hero__display,
+[data-theme="riso"] .hero__quote p,
+[data-theme="riso"] .hero__salutation,
+[data-theme="riso"] .hero__qualifier,
+[data-theme="riso"] .hero__stat,
+[data-theme="riso"] .section__title,
+[data-theme="riso"] .foot__wordmark,
+[data-theme="riso"] .spec__name,
+[data-theme="riso"] .tell__name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-style: normal;
+  text-transform: lowercase;
+  letter-spacing: -0.04em;
+}
+
+/* The riso off-register effect — a 2px cyan ghost behind the headline.
+   Subtle, not garish. Reduced-motion + browsers without text-shadow are fine. */
+[data-theme="riso"] .hero__display,
+[data-theme="riso"] .hero__quote p,
+[data-theme="riso"] .hero__stat {
+  text-shadow: 2px 2px 0 var(--color-accent),
+               -2px 0 0 var(--color-accent-2, oklch(78% 0.18 95));
+}
+
+[data-theme="riso"] .hero__lede,
+[data-theme="riso"] .hero__letter-body,
+[data-theme="riso"] .spec__rule,
+[data-theme="riso"] .tell__why,
+[data-theme="riso"] .foot__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+[data-theme="riso"] .hero__attrib,
+[data-theme="riso"] .label,
+[data-theme="riso"] .section-label,
+[data-theme="riso"] .banner__center {
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="riso"] .banner__center {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-md);
+}
+
+/* Subtle paper grain — a tiny stipple via repeating radial-gradient.
+   Cheap, no image asset, and disappears under prefers-reduced-data. */
+[data-theme="riso"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, oklch(0% 0 0 / 0.045) 1px, transparent 0);
+  background-size: 3px 3px;
+  mix-blend-mode: multiply;
+}
+
+@media (prefers-reduced-data: reduce) {
+  [data-theme="riso"] body::before { display: none; }
+}
+
+[data-theme="riso"] .hero__photo-grid > span {
+  filter: contrast(1.05) saturate(1.4);
+}
+
 /* ───────────── HERO ARCHETYPES ─────────────
    The hero slot picks one shape per theme, from the cookbook.
    Each archetype is a different fingerprint — not a re-skin. */
