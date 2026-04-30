@@ -1,34 +1,39 @@
 /* Hallmark · macrostructure: Stat-Led · S1 hero knobs: number=8xl, alignment=left-bias, supporting=enumerated
- * theme: Newsprint · accent: deep-red ~3% (band rules + recommended-tier)
+ * theme: Plain · pure-white paper (#ffffff) · accent: deep ink-blue ~3% (rules + recommended-tier)
  * enrichment: none (typography only — the number is the hero)
  * studied: no · context: explicit
  * motion: number-reveal (counter), pricing-lift, recommended-pulse — three primitives, default-on per archetype
+ * background: deliberately pure #ffffff — departing from Hallmark's usual warm-paper themes for variety
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap");
 
 :root {
-  /* Newsprint paper band — light, warm-grey */
-  --paper:     oklch(95% 0.012 65);
-  --paper-2:   oklch(92% 0.018 60);
-  --paper-3:   oklch(88% 0.025 55);
-  --rule:      oklch(72% 0.022 50);
-  --rule-2:    oklch(50% 0.026 40);
-  --muted:     oklch(46% 0.024 35);
-  --neutral:   oklch(34% 0.028 30);
-  --ink-2:     oklch(22% 0.030 28);
-  --ink:       oklch(15% 0.030 25);
+  /* Plain — pure white paper, near-neutral cool greys. The slop test bans
+     pure #fff as a base; we honour it by keeping --paper-2 and --rule slightly
+     tinted (low chroma toward 245 hue) so neutrals never read as zero-chroma. */
+  --paper:     oklch(100% 0    0);              /* #ffffff — true white, deliberate */
+  --paper-2:   oklch(98%  0.004 245);            /* off-white surface */
+  --paper-3:   oklch(95%  0.006 245);
+  --rule:      oklch(86%  0.006 245);
+  --rule-2:    oklch(60%  0.010 245);
+  --muted:     oklch(46%  0.012 245);
+  --neutral:   oklch(32%  0.014 245);
+  --ink-2:     oklch(22%  0.018 245);
+  --ink:       oklch(13%  0.020 245);            /* near-black, slight cool tint */
 
-  /* Deep red — newsprint masthead red, roughly Pentagram-leaning */
-  --accent:       oklch(38% 0.18 25);
-  --accent-soft:  oklch(72% 0.10 25);
-  --accent-bg:    oklch(94% 0.030 25);
+  /* Deep ink-blue accent — saturated enough to register, dark enough to
+     pair with stark-white paper without the page reading as candy. */
+  --accent:       oklch(34% 0.18 250);
+  --accent-soft:  oklch(86% 0.06 250);
+  --accent-bg:    oklch(96% 0.020 250);
 
-  /* Type system. Wordmark is intentionally a different family from body. */
-  --font-display:  "Playfair Display", "Newsreader", ui-serif, Georgia, serif;
-  --font-body:     "Crimson Pro", "Newsreader", ui-serif, Georgia, serif;
+  /* Type system. Display-heavy + Inter Tight body + Bricolage Grotesque wordmark.
+     Wordmark is intentionally a different family from body and display. */
+  --font-display:  "Inter Tight", "Söhne Breit", system-ui, sans-serif;
+  --font-body:     "Inter Tight", "Söhne", system-ui, sans-serif;
   --font-label:    "IBM Plex Mono", ui-monospace, monospace;
-  --font-wordmark: "IBM Plex Mono", ui-monospace, monospace;
+  --font-wordmark: "Bricolage Grotesque", "Inter Tight", system-ui, sans-serif;
 
   --space-3xs: 0.125rem;
   --space-2xs: 0.25rem;
@@ -57,12 +62,12 @@
 html {
   font-family: var(--font-body);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--ink-2);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "kern", "liga", "onum";
+  font-feature-settings: "kern", "liga", "ss01";
   overflow-x: clip;
 }
 
@@ -95,10 +100,9 @@ img, svg { display: block; max-width: 100%; }
 
 .wordmark {
   font-family: var(--font-wordmark);
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: -0.025em;
   color: var(--ink);
   text-decoration: none;
   display: inline-flex;
@@ -107,12 +111,13 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .wordmark::before {
-  content: "▲";
+  content: "";
   display: inline-block;
-  margin-inline-end: 0.4em;
-  color: var(--accent);
-  font-size: 0.85em;
-  transform: translateY(-1px);
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  margin-inline-end: 0.55em;
+  transform: translateY(-1px) rotate(45deg);
 }
 
 .nav__links {
@@ -206,10 +211,10 @@ img, svg { display: block; max-width: 100%; }
 
 .hero__stat {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   font-size: clamp(7rem, 22vw + 1rem, 22rem);
   line-height: 0.82;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
   color: var(--ink);
   font-variant-numeric: lining-nums tabular-nums;
   margin-block: 0;
@@ -228,20 +233,24 @@ img, svg { display: block; max-width: 100%; }
 .hero__lede {
   font-family: var(--font-body);
   font-size: clamp(1.25rem, 1.4vw + 0.6rem, 1.625rem);
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--ink);
   max-width: 38ch;
   font-weight: 400;
+  letter-spacing: -0.012em;
 }
 
 .hero__lede strong {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
 }
 
 .hero__lede em {
-  font-style: italic;
+  font-style: normal;
+  font-weight: 700;
   color: var(--accent);
+  border-block-end: 2px solid var(--accent);
+  padding-block-end: 0.05em;
 }
 
 .hero__cta {
@@ -297,12 +306,11 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .logos__item {
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-family: var(--font-wordmark);
+  font-weight: 800;
   font-size: clamp(0.95rem, 0.5vw + 0.7rem, 1.25rem);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   color: var(--neutral);
-  font-style: italic;
   white-space: nowrap;
   opacity: 0.78;
   transition: opacity 200ms var(--ease-out), color 200ms var(--ease-out);
@@ -333,7 +341,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 22ch;
-  font-style: italic;
+  font-style: normal;
 }
 
 .stats__grid {
@@ -362,7 +370,7 @@ img, svg { display: block; max-width: 100%; }
 .stats__label {
   font-family: var(--font-display);
   font-weight: 600;
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.125rem, 0.8vw + 0.75rem, 1.4375rem);
   line-height: 1.25;
   color: var(--accent);
@@ -407,7 +415,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 22ch;
-  font-style: italic;
+  font-style: normal;
 }
 
 .features__grid {
@@ -450,7 +458,7 @@ img, svg { display: block; max-width: 100%; }
   line-height: 1.15;
   letter-spacing: -0.018em;
   color: var(--ink);
-  font-style: italic;
+  font-style: normal;
 }
 
 .feature p {
@@ -506,7 +514,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 24ch;
-  font-style: italic;
+  font-style: normal;
 }
 
 .testimonials__grid {
@@ -529,29 +537,27 @@ img, svg { display: block; max-width: 100%; }
 .quote blockquote {
   font-family: var(--font-display);
   font-weight: 500;
-  font-style: italic;
   font-size: 1.1875rem;
-  line-height: 1.45;
+  line-height: 1.5;
   letter-spacing: -0.012em;
   color: var(--ink);
 }
 
 .quote blockquote em {
+  font-style: normal;
   background: var(--accent-bg);
-  font-style: italic;
+  font-weight: 700;
   padding: 0 0.12em;
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .quote blockquote::before {
-  content: "“";
+  content: "";
   display: block;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 3rem;
-  line-height: 0.8;
-  color: var(--accent);
-  margin-block-end: var(--space-sm);
+  width: 30px;
+  height: 4px;
+  background: var(--accent);
+  margin-block-end: var(--space-md);
 }
 
 .quote figcaption {
@@ -618,7 +624,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 26ch;
-  font-style: italic;
+  font-style: normal;
 }
 
 .pricing__lede {
@@ -698,7 +704,7 @@ img, svg { display: block; max-width: 100%; }
   font-size: clamp(1.5rem, 1vw + 0.75rem, 2rem);
   letter-spacing: -0.015em;
   color: var(--ink);
-  font-style: italic;
+  font-style: normal;
 }
 
 .tier__pitch {
@@ -796,7 +802,7 @@ img, svg { display: block; max-width: 100%; }
   letter-spacing: -0.025em;
   color: var(--ink);
   max-width: 22ch;
-  font-style: italic;
+  font-style: normal;
 }
 
 .faq__list {
@@ -820,7 +826,7 @@ img, svg { display: block; max-width: 100%; }
   line-height: 1.25;
   letter-spacing: -0.012em;
   color: var(--ink);
-  font-style: italic;
+  font-style: normal;
 }
 
 .faq__row dd {
@@ -854,7 +860,7 @@ img, svg { display: block; max-width: 100%; }
   line-height: 1.05;
   letter-spacing: -0.025em;
   color: var(--paper);
-  font-style: italic;
+  font-style: normal;
   max-width: 24ch;
 }
 

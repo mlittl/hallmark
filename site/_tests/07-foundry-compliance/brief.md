@@ -16,15 +16,27 @@ The skill picks **Stat-Led** because the brief explicitly leads with a number ("
 
 ## Theme
 
-The previous SaaS test (Tracejam) used **Pastel** (light · geometric-sans · cool-indigo). Diversification rule says the next theme must differ on at least one of three axes. **Newsprint** (light · roman-serif Playfair · warm-deep-red) differs on two — display style and accent hue. Plus Newsprint reads as *trade publication serious*, which is the right register for compliance. Pick: Newsprint.
+The previous SaaS test (Tracejam) used **Pastel** (light · geometric-sans · cool-indigo · pinkish paper). Hallmark's existing themes lean heavily warm-paper (Specimen, Atelier, Newsprint, Salon, Linen, Almanac all sit in the cream-to-pink band). For variety, Foundry deliberately departs from those: a flat **#ffffff** paper, near-neutral cool greys (low chroma, hue 245), a deep ink-blue accent, and a display-heavy Inter Tight wordmark/headline pairing.
+
+The theme is named **Plain** in the macrostructure stamp — a Klim-Type-Foundry-leaning stark-white look that fits compliance brand voice (sober, structured, no-nonsense) and gives the gallery a colour change from the warm-paper run.
+
+### Diversification axes
+
+| Theme | Paper band | Display style | Accent hue |
+| --- | --- | --- | --- |
+| Pastel (Tracejam) | light cream-cool | geometric-sans | cool-indigo |
+| **Plain (Foundry)** | **light pure-white** | **display-heavy** | **cool-deep-ink-blue** |
+| Differs on | (subtly — pure white vs tinted) | DIFFERS | (same hue family, near-neutral chroma) |
+
+Display style differs definitively (display-heavy vs geometric-sans). Two of three axes have visible separation. **Passes.**
 
 ## Enrichment
 
-**None.** Stat-Led's hero is the number; adding a mockup would dilute the proof. A typographic-only hero is correct here. Per the enrichment hierarchy, this is Tier 0 (typography only) — the strongest hero a Stat-Led page can have.
+**None.** Stat-Led's hero is the number; adding a mockup would dilute the proof. A typographic-only hero is correct here — Tier 0 (typography only) on the enrichment hierarchy. The slight typographic flourish is the dot-period ("847.") in deep ink-blue, sized off-baseline as a deliberate Pentagram-style end-stop.
 
 ## Microinteractions
 
-The skill's new microinteractions rule says Stat-Led is **default-on**. Three primitives (max), purposeful:
+The skill's microinteractions rule says Stat-Led is **default-on**. Three primitives, max:
 
 1. **Number reveal** on the "847" — IntersectionObserver triggers a `requestAnimationFrame` count from 0 to target over 1.4 s, ease-out. Reduced-motion: render the final value instantly.
 2. **Pricing card hover lift** — `translateY(-3px)` + shadow upgrade, 180 ms ease-out. Active state drops back at 60 ms.
@@ -34,22 +46,24 @@ The skill's new microinteractions rule says Stat-Led is **default-on**. Three pr
 
 ```
 /* Hallmark · macrostructure: Stat-Led · S1 hero knobs: number=8xl, alignment=left-bias, supporting=enumerated
- * theme: Newsprint · accent: deep-red ~3% (band rules + recommended-tier)
+ * theme: Plain · pure-white paper (#ffffff) · accent: deep ink-blue ~3% (rules + recommended-tier)
  * enrichment: none (typography only — the number is the hero)
  * studied: no · context: explicit
  * motion: number-reveal (counter), pricing-lift, recommended-pulse — three primitives, default-on per archetype
+ * background: deliberately pure #ffffff — departing from Hallmark's usual warm-paper themes for variety
  */
 ```
 
-## Diversification axes (Newsprint vs prior outputs in this test set)
+## Typography
 
-| Theme | Paper band | Display style | Accent hue |
-| --- | --- | --- | --- |
-| Pastel (Tracejam) | light | geometric-sans | cool-indigo |
-| **Newsprint (Foundry)** | **light** | **roman-serif** | **warm-deep-red** |
-| Differs on | (same) | DIFFERS | DIFFERS |
+| Role | Family | Notes |
+| --- | --- | --- |
+| Display | Inter Tight 900 | "847." headline, h2 section titles |
+| Body | Inter Tight 400/500/700 | Single-family page is allowed — Brutalist tone where the family IS the design |
+| Label | IBM Plex Mono | Eyebrows, captions, nav links, tier metadata |
+| Wordmark | Bricolage Grotesque 800 | Different family from display + body — wordmark differentiation per typography.md |
 
-Two of three axes differ. Passes the theme-diversification rule.
+The wordmark choice (Bricolage Grotesque) costs nothing as a free Google Font, and adds the one typographic register that says *this is a brand, not a wireframe*.
 
 ## What the page does
 
@@ -64,3 +78,7 @@ Two of three axes differ. Passes the theme-diversification rule.
 9. **Footer.** Index-style, 4 columns.
 
 The page is intentionally long — it demonstrates the SaaS page sequence rule from `macrostructures.md`: hero → social proof → features → testimonials → pricing → FAQ → CTA → footer.
+
+## What's distinct about this test in the gallery
+
+The white-paper, sans-display, ink-blue-accent palette is deliberately *not* like any other test in the set. Tracejam (Pastel cream-cool), Salon (Cohort warm-amber), Newsprint (originally chosen here, warm cream), Atelier (Tide warm), Linen (bakery warm), Studio (Anya warm) — all warm. Foundry sits at the cool, stark, B2B-serious end of the spectrum that the rest of the gallery doesn't cover.

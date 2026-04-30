@@ -10,7 +10,7 @@ Eight landing pages produced by exercising the Hallmark skill across contrasting
 | 04 | Manifesto for an environmental studio `Meridian` | Partial ("declarative, no flashy stuff") | none (implied) | Manifesto + Manifesto + no enrichment · 11 sections (manifesto + principles + practice + reading) |
 | 05 | SaaS observability tool `Tracejam` | Full (SREs / try-or-talk-to-sales / technical) | none | Bento Grid + Pastel + E1 clipped-edge dashboard mockup |
 | 06 | Personal one-pager for `Anya` (software architect) | **Skipped** ("don't ask, just figure it out") | none | Long Document + Studio + no enrichment |
-| 07 | SOC2 / ISO27001 compliance SaaS `Foundry` | Full (founders + CTOs / try-or-talk-to-sales / technical-but-trustworthy) | none | Stat-Led + Newsprint + animated counter + pricing pulse · 9-section SaaS sequence |
+| 07 | SOC2 / ISO27001 compliance SaaS `Foundry` | Full (founders + CTOs / try-or-talk-to-sales / technical-but-trustworthy) | none | Stat-Led + Plain (pure-white #fff) + animated counter + pricing pulse · 9-section SaaS sequence |
 | 08 | Cohort-based courses platform `Cohort` | Full (educators / run-courses / warm-salon-room) | none | Marquee Hero + Salon + continuous marquee + stagger reveal · 8-section SaaS sequence |
 
 Each folder contains:
@@ -124,7 +124,7 @@ Items 1–11 and 13 from the improvement list above shipped in commit `b61f1ef`.
 6. **Page-edge clipping discipline** in `layout-and-space.md`. Always pair clipped-edge enrichment with `html/body { overflow-x: clip }`. Use `clip` not `hidden` to preserve sticky positioning.
 7. **Meridian Manifesto (test 04) extended** from 7 sections to 11. New sections: § What we refuse (anti-list with strikethrough), § Working rules (numbered operational principles), § The practice (3-paragraph narrative with drop-cap), § What we read (annotated bibliography). Voice consistent with the original manifesto; no testimonials, no pricing, no CTA.
 8. **Two new SaaS-focused tests** demonstrating the new rules end-to-end:
-   - **Test 07 — Foundry** (Stat-Led + Newsprint). Hero is one giant number ("847" — animated counter from 0). 9 sections including testimonials, real pricing tiers, FAQ. Pricing card hover-lift + recommended-tier pulse-once.
+   - **Test 07 — Foundry** (Stat-Led + Plain pure-white). Hero is one giant number ("847" — animated counter from 0). 9 sections including testimonials, real pricing tiers, FAQ. Pricing card hover-lift + recommended-tier pulse-once. **Theme deliberately departs from the warm-paper run** (Specimen, Atelier, Newsprint, Salon, Linen, Studio all sit in the cream-to-pink band) — Foundry is pure #ffffff, near-neutral cool greys, deep ink-blue accent, display-heavy Inter Tight + Bricolage Grotesque wordmark. Stark Klim-Type-Foundry-leaning B2B serious.
    - **Test 08 — Cohort** (Marquee Hero + Salon). Continuous-scroll marquee of course titles. Alternating-side feature rows with hand-built CSS visualisations. Stagger-reveal on testimonials.
 9. **Real visual thumbnails on the example gallery.** `site/_tests/_thumbs/*.png` — eight 1024×640 PNG screenshots, one per test. Gallery cards now show a real preview above the text. Cards inherit theme tokens (radius, rule, shadow) so switching the landing page's theme reskins the card frames around the screenshots.
 10. **README updates.** Slop-test count 35 → 38. New default-on microinteractions and SaaS-recipe bullets in "What's distinct."
