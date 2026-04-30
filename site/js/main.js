@@ -553,14 +553,14 @@ dots.forEach((btn) => {
   });
 });
 
-/* — Random button + R shortcut ——————————————————————————— */
-const randomBtn = document.querySelector(".banner__random");
+/* — Shuffle button + R shortcut ——————————————————————————— */
+const shuffleBtn = document.querySelector(".banner__shuffle, .banner__random");
 function pickRandomTheme() {
   const keys = Object.keys(THEMES).filter((k) => k !== root.dataset.theme);
   return keys[Math.floor(Math.random() * keys.length)];
 }
-if (randomBtn) {
-  randomBtn.addEventListener("click", () => applyTheme(pickRandomTheme()));
+if (shuffleBtn) {
+  shuffleBtn.addEventListener("click", () => applyTheme(pickRandomTheme()));
 }
 
 /* — Keyboard shortcuts ————————————————————————————————— */

@@ -28,8 +28,7 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
   gap: var(--space-lg);
   padding: 0 var(--page-gutter);
@@ -43,6 +42,12 @@
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-ink);
+}
+
+/* Spacer pushes the picker + theme-name to the right */
+.banner__spacer {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .banner__mark {
@@ -64,19 +69,21 @@
   letter-spacing: 0.14em;
 }
 
-/* The active theme name — the centre marker. Lives in the banner so the
-   page restructure registers as a deliberate event, not a passive repaint. */
+/* The active theme name — sits to the LEFT of the theme picker so the
+   page restructure registers as a deliberate event, not a passive repaint.
+   Smaller text + closer to the picker on desktop; hidden on narrow viewports. */
 .banner__center {
-  justify-self: center;
   font-family: var(--font-display);
-  font-weight: var(--display-weight, 400);
+  font-weight: var(--display-weight, 500);
   font-style: var(--display-style, normal);
-  font-size: var(--text-md);
-  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+  letter-spacing: -0.005em;
   text-transform: none;
   color: var(--color-ink);
   font-optical-sizing: auto;
   transition: opacity var(--dur-short) var(--ease-out);
+  white-space: nowrap;
+  margin-inline-end: var(--space-xs);
 }
 
 [data-theme="manifesto"] .banner__center,
@@ -149,63 +156,96 @@
   margin-inline: 0.25rem;
 }
 
-.banner__random {
+/* Combined shuffle button: icon + T kbd hint inside a single pill.
+   Click randomises; the T inside reads as a keyboard hint, not a separate
+   pill. Replaces the old .banner__random + .banner__kbd combo. */
+.banner__shuffle {
   appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  padding: 0;
+  gap: 0.4rem;
+  height: 26px;
+  padding: 0 0.6rem 0 0.55rem;
   background: transparent;
   border: 1px solid var(--color-rule);
-  border-radius: var(--radius-pill, 0);
+  border-radius: var(--radius-pill, 999px);
   color: var(--color-muted);
   cursor: pointer;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   transition: color var(--dur-micro) var(--ease-out),
               border-color var(--dur-micro) var(--ease-out),
+              background var(--dur-micro) var(--ease-out),
               transform 80ms var(--ease-out);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .banner__random:hover { color: var(--color-ink); border-color: var(--color-ink); }
+.banner__shuffle svg {
+  flex-shrink: 0;
+  display: block;
 }
 
-.banner__random:active { transform: rotate(180deg); transition-duration: 220ms; }
+.banner__shuffle-key {
+  display: inline-block;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  padding-inline-start: 0.4rem;
+  border-inline-start: 1px solid var(--color-rule);
+  margin-inline-start: 0.05rem;
+  height: 14px;
+  line-height: 14px;
+}
 
-.banner__random:focus-visible {
+@media (hover: hover) and (pointer: fine) {
+  .banner__shuffle:hover {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+  .banner__shuffle:hover .banner__shuffle-key {
+    color: var(--color-ink);
+    border-color: var(--color-ink);
+  }
+  .banner__shuffle:hover svg {
+    transform: rotate(15deg);
+    transition: transform 200ms var(--ease-out);
+  }
+}
+
+.banner__shuffle:active {
+  transform: scale(0.96);
+  transition-duration: 60ms;
+}
+
+.banner__shuffle:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-.banner__kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-inline-start: 0.25rem;
-  padding: 0.1rem 0.4rem;
-  font-family: var(--font-label);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  color: var(--color-muted);
-  border: 1px solid var(--color-rule);
-  border-radius: 3px;
-  min-width: 18px;
-  min-height: 18px;
-}
-
 @media (max-width: 60rem) {
-  .banner { grid-template-columns: auto 1fr auto; gap: var(--space-md); }
-  .banner__center { font-size: var(--text-sm); }
-  .banner__kbd { display: none; }
+  .banner { gap: var(--space-md); }
+  .banner__center { font-size: 0.825rem; }
 }
 
-@media (max-width: 44rem) {
-  .banner__ver { display: none; }
-  .banner__center { display: none; }
-  .banner__picker { gap: 0.3rem; }
+@media (max-width: 50rem) {
+  .banner__picker { gap: 0.28rem; }
   .banner__dot { width: 14px; height: 14px; }
   .banner__sep { display: none; }
+}
+
+/* Below 44rem: hide the dot grid (would overflow); keep mark + theme name + shuffle */
+@media (max-width: 44rem) {
+  .banner__ver { display: none; }
+  .banner__picker { display: none; }
+  .banner__shuffle-key { display: none; }
+  .banner__shuffle { padding: 0 0.5rem; height: 24px; }
+}
+
+/* Below 26rem (very small phones): hide center label too — pure click-to-shuffle */
+@media (max-width: 26rem) {
+  .banner__center { display: none; }
 }
 
 /* — Section label (01 / FOUNDATIONS) —————————————————— */
@@ -1733,19 +1773,27 @@
 .gallery__thumb {
   grid-area: thumb;
   display: block;
-  width: 100%;
-  margin: calc(-1 * var(--space-lg)) calc(-1 * var(--space-lg)) var(--space-lg);
+  /* Width must EXCEED content area by 2*padding so the negative margins
+     reach the card's inside-border edge on both sides. width: 100% would
+     only fill the content area, leaving padding visible on the right. */
+  width: calc(100% + 2 * var(--space-lg));
+  margin-inline: calc(-1 * var(--space-lg));
+  margin-block-start: calc(-1 * var(--space-lg));
+  margin-block-end: var(--space-lg);
   border-block-end: var(--rule-card, 1px) solid var(--color-rule);
   background: var(--color-paper-2);
   overflow: hidden;
   position: relative;
-  font-size: 0; /* kill any inline-element gap */
+  font-size: 0;                          /* kill any inline-element gap */
+  aspect-ratio: 16 / 10;                 /* explicit, so the image always fits */
 }
 
 .gallery__thumb img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;             /* keep hero region; crop empty right */
   transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -1885,6 +1933,13 @@
   font-family: var(--font-serif);
   line-height: 1;
   opacity: 0.65;
+}
+
+/* Section 07 lead paragraph + outro — Salon centers all flowing prose */
+[data-theme="salon"] .examples__intro,
+[data-theme="salon"] .examples__outro {
+  text-align: center;
+  margin-inline: auto;
 }
 
 /* ───────────── NEWSPRINT — justified prose blocks ─────────────

@@ -44,6 +44,8 @@
       <span class="banner__ver">v0.2</span>
     </a>
 
+    <span class="banner__spacer" aria-hidden="true"></span>
+
     <span class="banner__center" data-theme-current>Specimen</span>
 
     <div class="banner__picker" role="radiogroup" aria-label="Theme">
@@ -64,20 +66,18 @@
       <button class="banner__dot" type="button" data-theme-btn="riso"      aria-label="Riso"      style="--dot: oklch(91% 0.034 30); --dot-edge: oklch(58% 0.170 220);"></button>
       <button class="banner__dot" type="button" data-theme-btn="quiet"     aria-label="Quiet"     style="--dot: oklch(99.5% 0.002 90); --dot-edge: oklch(16% 0.005 240);"></button>
 
-      <span class="banner__sep" aria-hidden="true"></span>
-
-      <button class="banner__random" type="button" aria-label="Random theme" title="Random (R)">
-        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M2 4 L7 4 L13 12 L14 12" />
-          <path d="M14 12 L12 10 M14 12 L12 14" />
-          <path d="M2 12 L7 12 L9 9.5" />
-          <path d="M11 6.5 L13 4 L14 4" />
-          <path d="M14 4 L12 2 M14 4 L12 6" />
-        </svg>
-      </button>
-
-      <span class="banner__kbd" aria-hidden="true">T</span>
     </div>
+
+    <button class="banner__shuffle" type="button" aria-label="Random theme · T cycles · R randomises" title="Click → random · T cycles · R randomises">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M16 3h5v5" />
+        <path d="M4 20 21 3" />
+        <path d="M21 16v5h-5" />
+        <path d="m15 15 6 6" />
+        <path d="M4 4l5 5" />
+      </svg>
+      <span class="banner__shuffle-key">T</span>
+    </button>
   </header>
 
   <main class="page">
