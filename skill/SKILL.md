@@ -523,11 +523,3 @@ If `references/study.md` cannot be loaded for any reason, refuse the verb polite
 ## Output contract & scope
 
 Load [`references/contract.md`](references/contract.md) once, at handoff time, for the full output contract and scope-of-skill rules.
-
----
-
-## Credits
-
-Built on the research and open work of [impeccable](https://github.com/pbakaus/impeccable) (Paul Bakaus), [kami](https://github.com/tw93/kami) (tw93), [taste-skill](https://github.com/Leonxlnx/taste-skill) (Leonxlnx), Anthropic's [frontend-design skill](https://github.com/anthropics/skills) and [canvas-design skill](https://github.com/anthropics/skills), [DESIGN.md](https://getdesign.md) (Google Stitch), MC Dean's [63 design skills collection](https://marieclairedean.substack.com/p/i-built-63-design-skills-for-claude), the [Slopless](https://slopless.design) tactile-rebellion canon, and the Claude [frontend aesthetics cookbook](https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics). Where rules overlapped across those sources, Hallmark adopted them. Where they diverged, Hallmark picked.
-
-MIT licensed. Powered by Together AI.

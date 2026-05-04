@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tide — Single-Origin Coffee Subscription</title>
+<style>
+/* Hallmark · genre: editorial · macrostructure: Long Document · theme: Linen (system-serif · warm-oat paper · tide-blue accent) · enrichment: none (typography only) · nav: N9 · footer: Ft7 · contrast: pass (46–50) · slop: pass (51–55) */
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+:root {
+  /* Colour */
+  --color-paper:      oklch(96%  0.012  82);
+  --color-paper-2:    oklch(93%  0.018  82);
+  --color-paper-3:    oklch(90%  0.022  82);
+  --color-rule:       oklch(82%  0.012  80);
+  --color-rule-2:     oklch(72%  0.012  78);
+  --color-neutral:    oklch(58%  0.010  78);
+  --color-muted:      oklch(44%  0.010  74);
+  --color-ink:        oklch(20%  0.012  65);
+  --color-accent:     oklch(46%  0.160 224);
+  --color-accent-dim: oklch(38%  0.130 224);
+  --color-accent-ink: oklch(97%  0.005 224);
+  --color-focus:      oklch(50%  0.190 224);
+
+  /* Typography */
+  --font-display: ui-serif, "New York", "Book Antiqua", Palatino, "Palatino Linotype", Georgia, serif;
+  --font-body:    ui-serif, "New York", "Book Antiqua", Palatino, "Palatino Linotype", Georgia, serif;
+
+  /* Scale — major third 1.25 */
+  --text-xs:      0.64rem;
+  --text-sm:      0.80rem;
+  --text-base:    1.00rem;
+  --text-md:      1.25rem;
+  --text-lg:      1.5625rem;
+  --text-xl:      1.9531rem;
+  --text-2xl:     2.4414rem;
+  --text-3xl:     3.0518rem;
+  --text-display: clamp(2.6rem, 6vw + 0.75rem, 5.2rem);
+
+  /* Spacing — 4pt scale */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.50rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1.00rem;
+  --space-md:  1.50rem;
+  --space-lg:  2.00rem;
+  --space-xl:  3.00rem;
+  --space-2xl: 4.50rem;
+  --space-3xl: 6.00rem;
+  --space-4xl: 9.00rem;
+  --space-5xl: 12.00rem;
+
+  /* Layout */
+  --page-gutter: clamp(1.25rem, 5vw, 4rem);
+  --prose-max:   64ch;
+
+  /* Rules */
+  --rule-hair: 1px;
+
+  /* Motion */
+  --dur-short:   120ms;
+  --dur-mid:     220ms;
+  --dur-long:    400ms;
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* z-scale */
+  --z-nav: 10;
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: clip; scroll-behavior: smooth; }
+body { overflow-x: clip; }
+
+/* ─── Base ───────────────────────────────────────────────── */
+html {
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+}
+
+body { min-height: 100dvh; }
+
+/* ─── Utilities ──────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── N9 · Edge-aligned minimal nav ─────────────────────── */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--page-gutter);
+  position: sticky;
+  top: 0;
+  background: color-mix(in oklch, var(--color-paper) 90%, transparent);
+  backdrop-filter: blur(10px) saturate(110%);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  z-index: var(--z-nav);
+}
+
+.nav__mark {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.nav__mark:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.nav__cta {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--color-ink);
+  text-decoration: none;
+  border-bottom: var(--rule-hair) solid var(--color-ink);
+  padding-bottom: 1px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: color var(--dur-short) var(--ease-out),
+              border-color var(--dur-short) var(--ease-out);
+}
+
+.nav__cta:hover   { color: var(--color-accent); border-color: var(--color-accent); }
+.nav__cta:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.nav__cta:active  { opacity: 0.72; }
+
+/* ─── Page wrapper ───────────────────────────────────────── */
+.page {
+  max-width: var(--prose-max);
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--page-gutter) var(--space-5xl);
+}
+
+/* ─── Masthead ───────────────────────────────────────────── */
+.mast {
+  padding-bottom: var(--space-xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  margin-bottom: var(--space-2xl);
+}
+
+.mast__issue {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-caps: all-small-caps;
+  color: var(--color-muted);
+  margin-bottom: var(--space-sm);
+  line-height: 1.4;
+}
+
+.mast__h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-md);
+  max-width: 24ch;
+}
+
+.mast__sub {
+  font-size: var(--text-base);
+  color: var(--color-muted);
+  line-height: 1.6;
+  max-width: 50ch;
+  font-style: normal;
+}
+
+/* ─── Prose ──────────────────────────────────────────────── */
+.prose p {
+  font-size: var(--text-base);
+  line-height: 1.68;
+  color: var(--color-ink);
+  max-width: var(--prose-max);
+  margin-bottom: var(--space-md);
+}
+
+.prose .lede {
+  font-size: var(--text-md);
+  line-height: 1.55;
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: var(--space-xl);
+}
+
+/* ─── Inline section heads (S4-adjacent) ─────────────────── */
+.sh {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  margin-bottom: var(--space-md);
+}
+
+.sh__eyebrow {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-caps: all-small-caps;
+  color: var(--color-muted);
+  margin-bottom: var(--space-2xs);
+  line-height: 1.4;
+}
+
+.sh__h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+}
+
+/* ─── Stat strip (T4) ────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: var(--space-xl) 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.stats__item {
+  padding: var(--space-md) var(--space-sm) var(--space-md) 0;
+}
+
+.stats__item + .stats__item {
+  border-left: var(--rule-hair) solid var(--color-rule);
+  padding-left: var(--space-sm);
+}
+
+.stats__n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: var(--space-3xs);
+}
+
+.stats__l {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+/* ─── Origin highlight ───────────────────────────────────── */
+.origin {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  background: var(--color-paper-2);
+  border-top: 2px solid var(--color-accent);
+}
+
+.origin__place {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.origin__meta {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-sm);
+  line-height: 1.5;
+}
+
+.origin__notes {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-md);
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
+/* ─── Pricing line ───────────────────────────────────────── */
+.price {
+  margin: var(--space-lg) 0 var(--space-sm);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.price__amount {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.price__qualifier {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+/* ─── Pull quote (T3) ────────────────────────────────────── */
+.pq {
+  margin: var(--space-2xl) 0;
+  padding: var(--space-xl) 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.pq__text {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.48;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-sm);
+}
+
+.pq__attr {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Subscribe form (C2 inline) ─────────────────────────── */
+.sub {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.sub__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2xs);
+}
+
+.sub__note {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-lg);
+  line-height: 1.55;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border-bottom: 1px solid var(--color-ink);
+  max-width: 44ch;
+  transition: border-color var(--dur-short) var(--ease-out);
+}
+
+.form-row:focus-within { border-color: var(--color-accent); }
+
+.form-row input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  padding: var(--space-xs) 0;
+  min-height: 44px;
+  outline: 0;
+  width: 100%;
+}
+
+.form-row input::placeholder { color: var(--color-neutral); }
+
+.form-row button {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  min-height: 44px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  transition: color var(--dur-short) var(--ease-out);
+}
+
+.form-row button:hover   { color: var(--color-accent); }
+.form-row button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.form-row button:active  { opacity: 0.70; }
+.form-row button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.form-helper {
+  min-height: 1lh;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: var(--space-2xs);
+  line-height: 1.5;
+}
+
+/* ─── Ft7 · Newsletter-first footer ─────────────────────── */
+.foot {
+  background: var(--color-paper-3);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding: var(--space-3xl) var(--page-gutter) var(--space-2xl);
+  color: var(--color-ink);
+}
+
+.foot__inner {
+  max-width: var(--prose-max);
+  margin: 0 auto;
+}
+
+.foot__eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  color: var(--color-ink);
+  margin-bottom: var(--space-xs);
+}
+
+.foot__form { margin-bottom: var(--space-xl); }
+
+.foot__form label {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-bottom: var(--space-xs);
+  line-height: 1.5;
+}
+
+.foot__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border-bottom: 1px solid var(--color-ink);
+  max-width: 44ch;
+  transition: border-color var(--dur-short) var(--ease-out);
+}
+
+.foot__row:focus-within { border-color: var(--color-accent); }
+
+.foot__row input {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  padding: var(--space-xs) 0;
+  min-height: 44px;
+  outline: 0;
+  width: 100%;
+}
+
+.foot__row input::placeholder { color: var(--color-neutral); }
+
+.foot__row button {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  background: none;
+  border: 0;
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  min-height: 44px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  transition: color var(--dur-short) var(--ease-out);
+}
+
+.foot__row button:hover   { color: var(--color-accent); }
+.foot__row button:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.foot__row button:active  { opacity: 0.70; }
+.foot__row button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.foot__helper {
+  min-height: 1lh;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin-top: var(--space-2xs);
+  line-height: 1.5;
+}
+
+.foot__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.foot__meta a {
+  color: var(--color-muted);
+  text-decoration: none;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  transition: color var(--dur-short) var(--ease-out),
+              border-color var(--dur-short) var(--ease-out);
+}
+
+.foot__meta a:hover         { color: var(--color-ink); border-color: var(--color-ink); }
+.foot__meta a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 40rem) {
+  html { font-size: 17px; }
+
+  .page {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stats__item:nth-child(3) {
+    grid-column: 1 / -1;
+    border-left: none;
+    border-top: var(--rule-hair) solid var(--color-rule);
+    padding-left: 0;
+    padding-top: var(--space-sm);
+  }
+
+  .form-row,
+  .foot__row {
+    max-width: 100%;
+  }
+}
+
+/* ─── Reduced motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 80ms !important;
+    animation-duration: 80ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- N9 · Edge-aligned minimal nav -->
+<header class="nav" role="banner">
+  <a class="nav__mark" href="/">Tide</a>
+  <a class="nav__cta" href="#subscribe">Subscribe →</a>
+</header>
+
+<main>
+  <div class="page">
+
+    <!-- Masthead -->
+    <div class="mast">
+      <p class="mast__issue">No. 01 · April 2026 · Single-Origin Subscription</p>
+      <h1 class="mast__h1">Fresh beans, once a month, from one farm.</h1>
+      <p class="mast__sub">Tide is a coffee subscription built around a single principle: the farm matters. Every month, a different origin. Every bag, roasted and shipped within 48 hours.</p>
+    </div>
+
+    <!-- Prose body -->
+    <div class="prose">
+
+      <p class="lede">Good coffee begins before the roast — in soil, altitude, varietal, and weather. These are things that don't survive blending, but survive very well inside a single bag from a single farm.</p>
+
+      <p>We started Tide because we were tired of coffee that tasted like "coffee." The category-neutral roast. The hedge-everything blend. The bag that could have come from anywhere. Single-origin is a refusal of that logic — a commitment to naming the place, the farmer, the season.</p>
+
+      <p>The tide in the name is not metaphor. It is rhythm. Every month something new comes to shore. You live with it for four weeks, then the next origin arrives. Over a year you taste twelve countries — twelve different expressions of what coffee becomes when it isn't averaged into a blend.</p>
+
+      <!-- Stat strip -->
+      <div class="stats" role="region" aria-label="Key facts about Tide">
+        <div class="stats__item">
+          <span class="stats__n">48h</span>
+          <span class="stats__l">roast-to-ship</span>
+        </div>
+        <div class="stats__item">
+          <span class="stats__n">12</span>
+          <span class="stats__l">origins per year</span>
+        </div>
+        <div class="stats__item">
+          <span class="stats__n">1</span>
+          <span class="stats__l">farm per bag</span>
+        </div>
+      </div>
+
+      <!-- April's origin -->
+      <div class="sh">
+        <p class="sh__eyebrow">This month · April 2026</p>
+        <h2 class="sh__h2">The origin.</h2>
+      </div>
+
+      <p>This month we are shipping from the Konga Cooperative in the Yirgacheffe zone of southern Ethiopia — one of the oldest coffee-growing regions in the world, and likely where <em>Coffea arabica</em> first grew wild before anyone thought to cultivate it.</p>
+
+      <div class="origin" role="region" aria-label="April's coffee origin">
+        <p class="origin__place">Konga Cooperative<br>Yirgacheffe, Ethiopia</p>
+        <p class="origin__meta">Natural process · Heirloom varieties · Altitude 1,800–2,200 m</p>
+        <p class="origin__notes">"Jasmine, stone fruit, dark chocolate — long finish."</p>
+      </div>
+
+      <p>The Konga farmers use a natural process: the cherries dry whole on raised beds in the highland sun. It is older than wet-processing by centuries, and it produces a cup that tastes, in the best possible way, like the fruit it came from.</p>
+
+      <!-- How the subscription works -->
+      <div class="sh">
+        <p class="sh__eyebrow">The subscription</p>
+        <h2 class="sh__h2">How it works.</h2>
+      </div>
+
+      <p>Once a month, a 250 g bag of freshly-roasted single-origin beans arrives at your door. We select the origin; you select the grind — whole bean, filter, or espresso. No two consecutive months are the same country.</p>
+
+      <div class="price">
+        <span class="price__amount">£18 / month</span>
+        <span class="price__qualifier">Free delivery · cancel any time · no commitment.</span>
+      </div>
+
+      <p>We don't lock you in. We don't charge handling. We ship to mainland UK and Ireland, with European delivery at cost. Each bag arrives in compostable kraft packaging with a card naming the farm, the process, and the altitude.</p>
+
+      <!-- Pull quote -->
+      <figure class="pq" role="complementary">
+        <blockquote>
+          <p class="pq__text">"The Yirgacheffe arrived on a Tuesday. By Wednesday I had cancelled the supermarket coffee. I didn't know it could taste like this."</p>
+        </blockquote>
+        <figcaption class="pq__attr">— Priya Subramaniam, subscriber since March 2026</figcaption>
+      </figure>
+
+      <!-- Subscribe form -->
+      <div class="sub" id="subscribe">
+        <p class="sub__heading">Start your tide.</p>
+        <p class="sub__note">Your first bag ships within three days. Monthly thereafter.</p>
+        <form class="form-row" action="/subscribe" method="post" novalidate id="form-main">
+          <label for="email-main" class="sr-only">Your email address</label>
+          <input
+            id="email-main"
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+          <button type="submit">Begin →</button>
+        </form>
+        <p class="form-helper" aria-live="polite" id="helper-main"></p>
+      </div>
+
+    </div><!-- /prose -->
+  </div><!-- /page -->
+</main>
+
+<!-- Ft7 · Newsletter-first footer -->
+<footer class="foot">
+  <div class="foot__inner">
+    <p class="foot__eyebrow">Letters from the roastery.</p>
+    <form class="foot__form" action="/letters" method="post" novalidate id="form-foot">
+      <label for="email-foot">Monthly notes on origin, process, and season — no noise, no selling.</label>
+      <div class="foot__row">
+        <input
+          id="email-foot"
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+        <button type="submit">Subscribe →</button>
+      </div>
+      <p class="foot__helper" aria-live="polite" id="helper-foot"></p>
+    </form>
+    <div class="foot__meta">
+      <span>© 2026 Tide Coffee Ltd · London</span>
+      <span><a href="/privacy">Privacy</a> · <a href="/imprint">Imprint</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  function wire(formId, helperId) {
+    var form = document.getElementById(formId);
+    var helper = document.getElementById(helperId);
+    if (!form || !helper) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      var input = form.querySelector('input[type="email"]');
+      if (!input.value || !input.validity.valid) {
+        helper.textContent = 'Please enter a valid email address.';
+        input.focus();
+        return;
+      }
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      helper.textContent = '';
+      setTimeout(function () {
+        if (btn) { btn.disabled = false; btn.textContent = 'Done'; }
+        helper.textContent = 'You're on the list. First bag details to follow.';
+        input.value = '';
+      }, 800);
+    });
+  }
+  wire('form-main', 'helper-main');
+  wire('form-foot', 'helper-foot');
+})();
+</script>
+
+</body>
+</html>

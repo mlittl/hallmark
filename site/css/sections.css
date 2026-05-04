@@ -1136,3 +1136,276 @@ html[data-theme="almanac"] body {
   font-style: italic;
   color: var(--color-accent-ink);
 }
+
+/* — 03 · Before · After (5 fresh briefs, real Claude Code outputs) ——————
+   Same pure-CSS tab pattern as W/W (Section 04) and Foundations (Section 05).
+   Five hidden radios + sibling selectors switch the active panel. */
+
+.ba__intro {
+  font-size: var(--text-md);
+  color: var(--color-ink-muted, var(--color-muted));
+  max-width: 70ch;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.ba__intro code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--color-paper-2);
+  padding: 0.05em 0.4em;
+  border-radius: 3px;
+  border: var(--rule-hair) solid var(--color-rule);
+}
+
+.ba__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ba {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.ba__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.ba__tabs > li {
+  display: contents;
+}
+
+.ba__tab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;       /* let the active border overlap the tabs underline */
+  cursor: pointer;
+  user-select: none;
+  color: var(--color-muted);
+  transition: color var(--dur-micro) var(--ease-out),
+              border-color var(--dur-micro) var(--ease-out);
+  white-space: nowrap;
+  position: relative;
+}
+
+.ba__tab:hover { color: var(--color-ink); }
+
+.ba__tab-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  font-feature-settings: "tnum";
+  color: inherit;
+  opacity: 0.65;
+}
+
+.ba__tab-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-md);
+  color: inherit;
+}
+
+.ba__tab-kind {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.ba__tab-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
+  margin-left: 0.2em;
+  transition: background-color var(--dur-micro) var(--ease-out);
+}
+
+/* Active tab — accent dot + ink colour + underline (via border) */
+#ba-1:checked ~ .ba .ba__tabs .ba__tab[data-tab="1"],
+#ba-2:checked ~ .ba .ba__tabs .ba__tab[data-tab="2"],
+#ba-3:checked ~ .ba .ba__tabs .ba__tab[data-tab="3"],
+#ba-4:checked ~ .ba .ba__tabs .ba__tab[data-tab="4"],
+#ba-5:checked ~ .ba .ba__tabs .ba__tab[data-tab="5"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-ink);
+}
+
+#ba-1:checked ~ .ba .ba__tabs .ba__tab[data-tab="1"] .ba__tab-dot,
+#ba-2:checked ~ .ba .ba__tabs .ba__tab[data-tab="2"] .ba__tab-dot,
+#ba-3:checked ~ .ba .ba__tabs .ba__tab[data-tab="3"] .ba__tab-dot,
+#ba-4:checked ~ .ba .ba__tabs .ba__tab[data-tab="4"] .ba__tab-dot,
+#ba-5:checked ~ .ba .ba__tabs .ba__tab[data-tab="5"] .ba__tab-dot {
+  background: var(--color-accent);
+}
+
+/* Focus ring on whichever tab corresponds to the focused radio */
+#ba-1:focus-visible ~ .ba .ba__tabs .ba__tab[data-tab="1"],
+#ba-2:focus-visible ~ .ba .ba__tabs .ba__tab[data-tab="2"],
+#ba-3:focus-visible ~ .ba .ba__tabs .ba__tab[data-tab="3"],
+#ba-4:focus-visible ~ .ba .ba__tabs .ba__tab[data-tab="4"],
+#ba-5:focus-visible ~ .ba .ba__tabs .ba__tab[data-tab="5"] {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.ba__panels { display: contents; }
+
+.ba__panel {
+  display: none;
+  gap: var(--space-md);
+}
+
+#ba-1:checked ~ .ba .ba__panels .ba__panel[data-panel="1"],
+#ba-2:checked ~ .ba .ba__panels .ba__panel[data-panel="2"],
+#ba-3:checked ~ .ba .ba__panels .ba__panel[data-panel="3"],
+#ba-4:checked ~ .ba .ba__panels .ba__panel[data-panel="4"],
+#ba-5:checked ~ .ba .ba__panels .ba__panel[data-panel="5"] {
+  display: grid;
+}
+
+.ba__brief {
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--color-ink);
+  max-width: 70ch;
+  margin: 0;
+  font-style: italic;
+}
+
+.ba__brief-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-right: 0.5em;
+}
+
+.ba__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.ba__col {
+  display: grid;
+  gap: var(--space-2xs);
+  margin: 0;
+}
+
+.ba__cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding-block-end: var(--space-2xs);
+}
+
+.ba__cap-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.ba__col--after .ba__cap-label {
+  color: var(--color-accent);
+}
+
+.ba__cap-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  opacity: 0.75;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ba__shot {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--dur-micro) var(--ease-out),
+              transform var(--dur-micro) var(--ease-out);
+}
+
+.ba__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.ba__shot:hover { border-color: var(--color-ink); }
+.ba__shot:hover .ba__open { opacity: 1; transform: translateY(0); }
+.ba__shot:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.ba__open {
+  position: absolute;
+  inset: auto var(--space-2xs) var(--space-2xs) auto;
+  padding: 0.35rem 0.7rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity var(--dur-micro) var(--ease-out),
+              transform var(--dur-micro) var(--ease-out);
+  pointer-events: none;
+}
+
+@media (max-width: 60rem) {
+  .ba__split { grid-template-columns: 1fr; }
+  .ba__tabs { gap: var(--space-2xs); overflow-x: auto; flex-wrap: nowrap; }
+  .ba__tab { padding-inline: 0.6rem; }
+  .ba__tab-kind { display: none; }
+  .ba__open { opacity: 1; transform: none; }   /* always visible on touch */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ba__shot,
+  .ba__open,
+  .ba__tab,
+  .ba__tab-dot { transition: none; }
+}

@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchor — Stop Churn. Retain Revenue. Grow Sustainably.</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0C1E3D;
+  --navy-2: #162D55;
+  --navy-3: #1D3A6B;
+  --amber: #C97D32;
+  --amber-2: #E0954A;
+  --amber-3: #F2B872;
+  --cream: #F6F3ED;
+  --cream-2: #EDE9DF;
+  --white: #FFFFFF;
+  --slate: #4A6080;
+  --slate-light: #94AECB;
+  --text: #18213A;
+  --text-muted: #5A6B82;
+  --text-light: #8A9BB5;
+}
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+.container-wide { max-width: 1360px; margin: 0 auto; padding: 0 32px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+.btn-primary { background: var(--amber); color: #fff; }
+.btn-primary:hover { background: var(--amber-2); transform: translateY(-1px); }
+.btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--cream-2); }
+.btn-ghost:hover { border-color: var(--slate-light); background: var(--white); }
+.btn-outline-white { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3); }
+.btn-outline-white:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.55); }
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(246,243,237,0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--cream-2);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--navy);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 15px;
+  line-height: 1;
+}
+.nav-logo-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--navy); }
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 108px 0 88px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -160px;
+  right: -180px;
+  width: 720px;
+  height: 720px;
+  background: radial-gradient(circle, rgba(201,125,50,0.09) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--cream-2);
+  border-radius: 100px;
+  padding: 6px 16px 6px 10px;
+  margin-bottom: 32px;
+}
+.hero-badge-dot { width: 6px; height: 6px; background: var(--amber); border-radius: 50%; }
+.hero-badge-text { font-size: 0.8125rem; font-weight: 500; color: var(--text-muted); }
+.hero-headline {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  font-weight: 800;
+  color: var(--navy);
+  max-width: 14ch;
+  margin-bottom: 24px;
+}
+.hero-headline em { font-style: normal; color: var(--amber); }
+.hero-sub {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin-bottom: 48px;
+}
+.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
+.hero-proof { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.hero-proof-item { display: flex; align-items: center; gap: 9px; }
+.hero-proof-check {
+  width: 18px;
+  height: 18px;
+  background: var(--amber);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+}
+.hero-proof-text { font-size: 0.875rem; color: var(--text-muted); font-weight: 500; }
+
+/* ── METRICS ── */
+.metrics-bar { background: var(--navy); }
+.metrics-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.metric-item {
+  padding: 52px 40px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+.metric-item:last-child { border-right: none; }
+.metric-num {
+  font-size: clamp(2.5rem, 4vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: white;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.metric-num span { color: var(--amber-3); }
+.metric-label { font-size: 0.875rem; color: rgba(255,255,255,0.45); font-weight: 400; line-height: 1.5; max-width: 180px; }
+
+/* ── TRUST BAR ── */
+.trust-bar {
+  background: var(--white);
+  padding: 48px 0;
+  border-bottom: 1px solid var(--cream-2);
+}
+.trust-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.trust-label { font-size: 0.75rem; font-weight: 600; color: var(--text-light); letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap; }
+.trust-sep { width: 1px; height: 20px; background: var(--cream-2); }
+.trust-companies { display: flex; align-items: center; gap: 36px; flex-wrap: wrap; justify-content: center; }
+.trust-company { font-size: 1.0625rem; font-weight: 700; color: var(--slate-light); letter-spacing: -0.02em; }
+
+/* ── SECTION LABEL ── */
+.section-label { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.section-label-line { width: 24px; height: 2px; background: var(--amber); flex-shrink: 0; }
+.section-label-text { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--amber); }
+
+/* ── PROBLEM ── */
+.problem { background: var(--white); padding: 104px 0; }
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 88px; align-items: start; }
+.problem-headline {
+  font-size: clamp(2rem, 3.5vw, 2.875rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  line-height: 1.12;
+  margin-bottom: 24px;
+}
+.problem-body { font-size: 1.0625rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 18px; }
+.problem-cards { display: flex; flex-direction: column; gap: 16px; }
+.problem-card {
+  background: var(--cream);
+  border-radius: 12px;
+  padding: 28px 32px;
+  border-left: 3px solid var(--amber);
+}
+.problem-card-title { font-size: 1.0625rem; font-weight: 700; color: var(--navy); margin-bottom: 7px; letter-spacing: -0.02em; }
+.problem-card-body { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ── HOW IT WORKS ── */
+.how { background: var(--cream); padding: 104px 0; }
+.how-header { text-align: center; max-width: 600px; margin: 0 auto 72px; }
+.how-header .section-label { justify-content: center; }
+.how-headline { font-size: clamp(2rem, 3.5vw, 2.875rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); margin-bottom: 16px; }
+.how-sub { font-size: 1.0625rem; color: var(--text-muted); line-height: 1.65; }
+.how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--cream-2); border-radius: 20px; overflow: hidden; }
+.how-step { background: var(--white); padding: 48px 40px; }
+.how-step-num { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 24px; display: block; text-transform: uppercase; }
+.how-step-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--navy);
+  border-radius: 10px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.how-step-title { font-size: 1.25rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.3; }
+.how-step-body { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 28px; }
+.how-step-deliverable { border-top: 1px solid var(--cream-2); padding-top: 24px; }
+.how-deliverable-label { font-size: 0.6875rem; letter-spacing: 0.09em; text-transform: uppercase; font-weight: 600; color: var(--text-light); margin-bottom: 5px; }
+.how-deliverable-text { font-size: 0.875rem; color: var(--text-muted); font-weight: 500; }
+
+/* ── SERVICES ── */
+.services { background: var(--white); padding: 104px 0; }
+.services-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 40px;
+}
+.services-headline { font-size: clamp(2rem, 3.5vw, 2.875rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); line-height: 1.12; max-width: 460px; }
+.services-note { font-size: 1rem; color: var(--text-muted); max-width: 300px; text-align: right; line-height: 1.65; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.service-card {
+  border: 1px solid var(--cream-2);
+  border-radius: 18px;
+  padding: 40px;
+  background: var(--white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.service-card:hover { border-color: var(--amber-3); box-shadow: 0 8px 32px rgba(12,30,61,0.07); }
+.service-card-tag { font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--amber); margin-bottom: 18px; }
+.service-card-title { font-size: 1.3125rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.3; }
+.service-card-body { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.65; flex: 1; margin-bottom: 32px; }
+.service-card-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.service-card-list li {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.service-card-list li::before { content: '→'; position: absolute; left: 0; color: var(--amber); font-size: 0.8125rem; top: 1px; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { background: var(--cream); padding: 104px 0; }
+.testimonials-header { text-align: center; margin-bottom: 64px; }
+.testimonials-header .section-label { justify-content: center; }
+.testimonials-headline { font-size: clamp(2rem, 3.5vw, 2.875rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.testimonial-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cream-2);
+}
+.testimonial-stars { display: flex; gap: 3px; margin-bottom: 20px; }
+.star { color: var(--amber); font-size: 0.875rem; }
+.testimonial-quote { font-size: 1rem; color: var(--text); line-height: 1.7; font-style: italic; flex: 1; margin-bottom: 28px; }
+.testimonial-author { display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--cream-2); padding-top: 24px; }
+.testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  color: white;
+}
+.av-1 { background: linear-gradient(135deg, #3D5A80, #2C4060); }
+.av-2 { background: linear-gradient(135deg, #C97D32, #A36025); }
+.av-3 { background: linear-gradient(135deg, #2C5282, #1A3357); }
+.testimonial-name { font-weight: 700; font-size: 0.9375rem; color: var(--navy); letter-spacing: -0.01em; }
+.testimonial-role { font-size: 0.8125rem; color: var(--text-light); margin-top: 2px; }
+
+/* ── CTA SECTION ── */
+.cta-section {
+  background: var(--navy);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,125,50,0.16) 0%, transparent 68%);
+  pointer-events: none;
+}
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(44,82,130,0.45) 0%, transparent 68%);
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; text-align: center; }
+.cta-inner .section-label { justify-content: center; }
+.cta-headline {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: white;
+  line-height: 1.1;
+  max-width: 780px;
+  margin: 0 auto 24px;
+}
+.cta-headline span { color: var(--amber-3); }
+.cta-sub { font-size: 1.125rem; color: rgba(255,255,255,0.55); max-width: 480px; margin: 0 auto 48px; line-height: 1.65; }
+.cta-actions { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.cta-note { font-size: 0.8125rem; color: rgba(255,255,255,0.3); }
+
+/* ── FOOTER ── */
+footer { background: #070F1C; padding: 80px 0 40px; }
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 64px;
+  padding-bottom: 64px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-brand-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--amber);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: white;
+}
+.footer-brand-name { font-size: 1.125rem; font-weight: 800; color: white; letter-spacing: -0.03em; }
+.footer-brand-desc { font-size: 0.875rem; color: rgba(255,255,255,0.38); line-height: 1.65; max-width: 280px; }
+.footer-col-title { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 20px; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-links a { font-size: 0.875rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-copy { font-size: 0.8125rem; color: rgba(255,255,255,0.22); }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 0.8125rem; color: rgba(255,255,255,0.22); text-decoration: none; transition: color 0.15s; }
+.footer-legal a:hover { color: rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">⚓</div>
+        <span class="nav-logo-name">Anchor</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-ghost">Sign in</a>
+        <a href="#contact" class="btn btn-primary">Book a call</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span class="hero-badge-text">Retention-focused SaaS consultancy</span>
+    </div>
+    <h1 class="hero-headline">Stop losing revenue you already <em>earned.</em></h1>
+    <p class="hero-sub">Anchor helps SaaS companies identify the root causes of churn and build retention systems that keep customers — and compound growth quarter over quarter.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Book a free audit &rarr;</a>
+      <a href="#how" class="btn btn-ghost">See how it works</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hero-proof-item">
+        <div class="hero-proof-check">&#10003;</div>
+        <span class="hero-proof-text">No long-term contract required</span>
+      </div>
+      <div class="hero-proof-item">
+        <div class="hero-proof-check">&#10003;</div>
+        <span class="hero-proof-text">Results within 90 days</span>
+      </div>
+      <div class="hero-proof-item">
+        <div class="hero-proof-check">&#10003;</div>
+        <span class="hero-proof-text">Senior consultants only</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="metrics-bar">
+  <div class="container-wide">
+    <div class="metrics-inner">
+      <div class="metric-item">
+        <div class="metric-num"><span>$4.2M</span></div>
+        <div class="metric-label">Average annual revenue recovered per client</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-num">38<span>%</span></div>
+        <div class="metric-label">Average reduction in monthly churn rate</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-num">90<span>d</span></div>
+        <div class="metric-label">Days to measurable results from kickoff</div>
+      </div>
+      <div class="metric-item">
+        <div class="metric-num">60<span>+</span></div>
+        <div class="metric-label">SaaS companies retained and scaled</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="container">
+    <div class="trust-inner">
+      <span class="trust-label">Trusted by teams at</span>
+      <div class="trust-sep"></div>
+      <div class="trust-companies">
+        <span class="trust-company">Cascade</span>
+        <span class="trust-company">Clearbit</span>
+        <span class="trust-company">Orbit</span>
+        <span class="trust-company">Lattice</span>
+        <span class="trust-company">Flare</span>
+        <span class="trust-company">Conduit</span>
+        <span class="trust-company">Stackline</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="problem" id="about">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">The hidden leak</span>
+        </div>
+        <h2 class="problem-headline">Churn is a symptom. Most companies treat it wrong.</h2>
+        <p class="problem-body">Most SaaS teams respond to churn with discounts and winback campaigns. These slow the bleeding but never address the wound. Customers leave because of gaps in value delivery — and no outreach campaign fixes a broken experience.</p>
+        <p class="problem-body">Anchor goes upstream. We identify the signals, segments, and product moments that predict departure, then build systems that intervene before customers ever consider leaving.</p>
+      </div>
+      <div class="problem-cards">
+        <div class="problem-card">
+          <div class="problem-card-title">Reactive retention is a tax</div>
+          <div class="problem-card-body">Every save motion — CSM calls, email sequences, discount offers — costs real money and bandwidth. You're spending to retain customers you should have never lost.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-title">The data is already there</div>
+          <div class="problem-card-body">Product usage, support tickets, and NPS responses contain clear churn signals. Most companies lack the framework to surface and act on them in time.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-card-title">Churn compounds faster than growth</div>
+          <div class="problem-card-body">At 5% monthly churn, you lose 46% of your base in a year. No acquisition strategy can outrun that math without fixing retention first.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="container">
+    <div class="how-header">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">The process</span>
+      </div>
+      <h2 class="how-headline">From leaky bucket to retention engine</h2>
+      <p class="how-sub">A structured three-phase engagement that moves from diagnosis to measurable impact — in 90 days.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step">
+        <span class="how-step-num">Step 01</span>
+        <div class="how-step-icon">&#128269;</div>
+        <div class="how-step-title">Retention Audit</div>
+        <div class="how-step-body">We map your customer journey, analyze product usage patterns, segment churned cohorts, and identify the exact inflection points where customers lose momentum — or leave entirely.</div>
+        <div class="how-step-deliverable">
+          <div class="how-deliverable-label">Deliverable</div>
+          <div class="how-deliverable-text">Churn root-cause report + priority matrix</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <span class="how-step-num">Step 02</span>
+        <div class="how-step-icon">&#9889;</div>
+        <div class="how-step-title">Intervention Design</div>
+        <div class="how-step-body">We design targeted interventions — onboarding sequences, in-product nudges, health scoring, success playbooks — calibrated to your data and your team's actual capacity to execute.</div>
+        <div class="how-step-deliverable">
+          <div class="how-deliverable-label">Deliverable</div>
+          <div class="how-deliverable-text">90-day retention roadmap + playbooks</div>
+        </div>
+      </div>
+      <div class="how-step">
+        <span class="how-step-num">Step 03</span>
+        <div class="how-step-icon">&#128200;</div>
+        <div class="how-step-title">Deploy &amp; Measure</div>
+        <div class="how-step-body">We embed with your team to implement, instrument, and iterate on the retention system — tracking leading indicators weekly and adjusting until the churn trend breaks decisively downward.</div>
+        <div class="how-step-deliverable">
+          <div class="how-deliverable-label">Deliverable</div>
+          <div class="how-deliverable-text">Live retention dashboard + ongoing optimization</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <div class="section-label">
+          <div class="section-label-line"></div>
+          <span class="section-label-text">What we do</span>
+        </div>
+        <h2 class="services-headline">Built for every stage of the churn problem</h2>
+      </div>
+      <p class="services-note">Whether you're fighting active churn or building proactive systems, we have an engagement model for it.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-tag">Diagnostic</div>
+        <div class="service-card-title">Retention Audit</div>
+        <div class="service-card-body">A deep diagnostic that surfaces the true causes of churn in your business. Ideal for teams that know they have a retention problem but aren't sure where to start.</div>
+        <ul class="service-card-list">
+          <li>Cohort churn analysis</li>
+          <li>Customer exit interview synthesis</li>
+          <li>Product usage pattern review</li>
+          <li>Competitive displacement mapping</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card-tag">Strategy</div>
+        <div class="service-card-title">Retention Roadmap</div>
+        <div class="service-card-body">A prioritized 6-month retention strategy aligned to your product, team capacity, and growth goals — every initiative tied to a measurable retention outcome.</div>
+        <ul class="service-card-list">
+          <li>Retention goal framework</li>
+          <li>Customer health scoring model</li>
+          <li>Success playbook design</li>
+          <li>CS team operating model</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-card-tag">Execution</div>
+        <div class="service-card-title">Embedded Partnership</div>
+        <div class="service-card-body">An Anchor consultant embedded directly with your team — part advisor, part operator — executing on the retention strategy alongside you for 3 to 6 months.</div>
+        <ul class="service-card-list">
+          <li>Weekly retention reviews</li>
+          <li>Onboarding optimization</li>
+          <li>Churn prediction model setup</li>
+          <li>QBR and renewal enablement</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="results">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="section-label-text">Client results</span>
+      </div>
+      <h2 class="testimonials-headline">What happens when churn stops winning</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+        </div>
+        <p class="testimonial-quote">"Anchor ran our retention audit and within two weeks identified a critical gap in our month-two onboarding. We fixed it, and churn dropped from 8.2% to 4.9% over the next quarter. I wish we had done this two years earlier."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-1">JS</div>
+          <div>
+            <div class="testimonial-name">James Sutton</div>
+            <div class="testimonial-role">CEO, Stackline</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+        </div>
+        <p class="testimonial-quote">"We thought our churn was a product problem. Anchor showed us it was an onboarding sequencing problem. Six weeks into their roadmap, we were seeing 40% higher feature adoption in the cohorts that mattered most."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-2">MK</div>
+          <div>
+            <div class="testimonial-name">Maya Kim</div>
+            <div class="testimonial-role">VP Product, Conduit HQ</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+        </div>
+        <p class="testimonial-quote">"The embedded model is unlike anything I've worked with. We got the depth of a senior hire without the 6-month ramp. Anchor's consultant ran our churn review, built the health score, and trained our CSMs — all in 90 days."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar av-3">DL</div>
+          <div>
+            <div class="testimonial-name">David Leroy</div>
+            <div class="testimonial-role">Head of Customer Success, Flare</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="section-label">
+        <div class="section-label-line" style="background:rgba(255,255,255,0.28)"></div>
+        <span class="section-label-text" style="color:rgba(255,255,255,0.45)">Get started</span>
+      </div>
+      <h2 class="cta-headline">Your next 12 months don't have to look like your last <span>12.</span></h2>
+      <p class="cta-sub">Book a free 45-minute audit call. We'll assess your retention data, identify your highest-impact levers, and give you a clear starting point — no commitment required.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary" style="font-size:1.0625rem;padding:17px 36px">Book your free audit &rarr;</a>
+        <a href="#" class="btn btn-outline-white">Download the Retention Guide</a>
+      </div>
+      <p class="cta-note">No spam. No hard sell. Just clarity on your churn situation.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-brand-mark">&#9875;</div>
+          <span class="footer-brand-name">Anchor</span>
+        </div>
+        <p class="footer-brand-desc">Retention consulting for SaaS companies serious about compound growth. We help you keep the customers you earn.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Retention Audit</a></li>
+          <li><a href="#">Retention Roadmap</a></li>
+          <li><a href="#">Embedded Partnership</a></li>
+          <li><a href="#">Team Training</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <ul class="footer-links">
+          <li><a href="#">Book a call</a></li>
+          <li><a href="#">hello@anchor.co</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter / X</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Anchor Consulting. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Settings</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

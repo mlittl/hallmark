@@ -307,63 +307,165 @@
       </div>
     </section>
 
-    <!-- 03 · STUDY — what `study` extracts from a design -->
-    <section class="section reveal" style="--i:2" id="study" aria-labelledby="s-study">
+    <!-- 03 · BEFORE · AFTER — same brief, real Claude Code outputs, with and without Hallmark -->
+    <section class="section reveal" style="--i:2" id="before-after" aria-labelledby="s3">
       <header class="section__head">
         <p class="section-label">
-          <span class="num">03</span><span class="divider">⁄</span><span>Study</span>
+          <span class="num">03</span><span class="divider">⁄</span><span>Before · After</span>
         </p>
-        <h2 class="section__title" id="s-study">
-          What Hallmark sees when it reads a design.
+        <h2 class="section__title" id="s3">
+          Same brief. Same model. Hallmark on or off.
         </h2>
       </header>
 
-      <p class="study__intro">
-        <code>hallmark study</code> reads a design's structure, not its pixels. Below, two Hallmark-built pages put through the same DNA extraction the verb runs on user-supplied references. The screenshot is the page; the panel beside it is the structured DNA.
+      <p class="ba__intro">
+        Five fresh briefs, run through Claude&nbsp;Sonnet&nbsp;4.6 twice. Once with the Hallmark skill out of the way — the default Claude Code output. Once with Hallmark active. Both pages are <em>real</em> generations, captured straight from <code>claude -p</code>. Open either side to see the source.
       </p>
 
-      <div class="study-grid">
+      <input type="radio" name="ba" id="ba-1" class="ba__input" checked />
+      <input type="radio" name="ba" id="ba-2" class="ba__input" />
+      <input type="radio" name="ba" id="ba-3" class="ba__input" />
+      <input type="radio" name="ba" id="ba-4" class="ba__input" />
+      <input type="radio" name="ba" id="ba-5" class="ba__input" />
 
-        <!-- Tile 01 — Tide -->
-        <article class="study-card">
-          <div class="study-card__media">
-            <img class="study-card__img" src="_tests/_thumbs/01-tide.png" alt="Tide — Letter macrostructure on warm cream paper" loading="lazy" decoding="async" />
-            <span class="study-card__badge">01 · Tide</span>
-          </div>
-          <ol class="study-card__dna">
-            <li class="dna__row"><span class="dna__k">Macrostructure</span><span class="dna__v">Letter</span></li>
-            <li class="dna__row"><span class="dna__k">Hero archetype</span><span class="dna__v">H5 Letter · salutation + body + signoff</span></li>
-            <li class="dna__row"><span class="dna__k">Display role</span><span class="dna__v">italic editorial serif</span></li>
-            <li class="dna__row"><span class="dna__k">Body role</span><span class="dna__v">italic editorial serif (same family, smaller weight)</span></li>
-            <li class="dna__row"><span class="dna__k">Label role</span><span class="dna__v">small-caps grotesque</span></li>
-            <li class="dna__row"><span class="dna__k">Paper band</span><span class="dna__v">light · warm cream</span></li>
-            <li class="dna__row"><span class="dna__k">Accent hue</span><span class="dna__v">warm orange · ≤ 3% footprint</span></li>
-            <li class="dna__row"><span class="dna__k">Density</span><span class="dna__v">generous · single-column letter</span></li>
-            <li class="dna__row"><span class="dna__k">Pairing logic</span><span class="dna__v">single family carrying the page; mono labels for register</span></li>
-            <li class="dna__row"><span class="dna__k">Rhythm</span><span class="dna__v">left-biased · varied padding · letter-format intimacy</span></li>
-          </ol>
-        </article>
+      <div class="ba">
 
-        <!-- Tile 02 — Tracejam -->
-        <article class="study-card">
-          <div class="study-card__media">
-            <img class="study-card__img" src="_tests/_thumbs/05-tracejam.png" alt="Tracejam — Workbench macrostructure on dark charcoal" loading="lazy" decoding="async" />
-            <span class="study-card__badge">02 · Tracejam</span>
-          </div>
-          <ol class="study-card__dna">
-            <li class="dna__row"><span class="dna__k">Macrostructure</span><span class="dna__v">Workbench</span></li>
-            <li class="dna__row"><span class="dna__k">Hero archetype</span><span class="dna__v">H3 Stat-Led · trace number + sticky panel</span></li>
-            <li class="dna__row"><span class="dna__k">Display role</span><span class="dna__v">soft geometric sans · 600</span></li>
-            <li class="dna__row"><span class="dna__k">Body role</span><span class="dna__v">soft geometric sans · 400</span></li>
-            <li class="dna__row"><span class="dna__k">Label role</span><span class="dna__v">monospace · uppercase</span></li>
-            <li class="dna__row"><span class="dna__k">Paper band</span><span class="dna__v">dark · cool charcoal</span></li>
-            <li class="dna__row"><span class="dna__k">Accent hue</span><span class="dna__v">cyan · phosphor-bright · 8% footprint</span></li>
-            <li class="dna__row"><span class="dna__k">Density</span><span class="dna__v">medium · sticky-panel observability layout</span></li>
-            <li class="dna__row"><span class="dna__k">Pairing logic</span><span class="dna__v">sans display + body, mono labels carry the technical register</span></li>
-            <li class="dna__row"><span class="dna__k">Rhythm</span><span class="dna__v">three-step walkthrough · sticky right panel · medium padding</span></li>
-          </ol>
-        </article>
+        <ol class="ba__tabs" role="tablist" aria-label="Five briefs">
+          <li><label for="ba-1" class="ba__tab" data-tab="1" role="tab">
+            <span class="ba__tab-num">01</span>
+            <span class="ba__tab-name">Tide</span>
+            <span class="ba__tab-kind">coffee</span>
+            <span class="ba__tab-dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="ba-2" class="ba__tab" data-tab="2" role="tab">
+            <span class="ba__tab-num">02</span>
+            <span class="ba__tab-name">Streak</span>
+            <span class="ba__tab-kind">habits</span>
+            <span class="ba__tab-dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="ba-3" class="ba__tab" data-tab="3" role="tab">
+            <span class="ba__tab-num">03</span>
+            <span class="ba__tab-name">Lattice</span>
+            <span class="ba__tab-kind">studio</span>
+            <span class="ba__tab-dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="ba-4" class="ba__tab" data-tab="4" role="tab">
+            <span class="ba__tab-num">04</span>
+            <span class="ba__tab-name">Loom</span>
+            <span class="ba__tab-kind">indie game</span>
+            <span class="ba__tab-dot" aria-hidden="true"></span>
+          </label></li>
+          <li><label for="ba-5" class="ba__tab" data-tab="5" role="tab">
+            <span class="ba__tab-num">05</span>
+            <span class="ba__tab-name">Anchor</span>
+            <span class="ba__tab-kind">SaaS</span>
+            <span class="ba__tab-dot" aria-hidden="true"></span>
+          </label></li>
+        </ol>
 
+        <div class="ba__panels">
+
+          <article class="ba__panel" data-panel="1">
+            <p class="ba__brief"><span class="ba__brief-label">Brief</span> Design a landing page for Tide, a single-origin coffee subscription that delivers fresh beans monthly.</p>
+            <div class="ba__split">
+              <figure class="ba__col ba__col--before">
+                <figcaption class="ba__cap"><span class="ba__cap-label">Without Hallmark</span><span class="ba__cap-meta">claude code · default</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/01-tide-coffee/before/index.html" target="_blank" rel="noopener" aria-label="Open the without-Hallmark Tide version live">
+                  <img src="_tests/before-after/_thumbs/01-tide-coffee-before.png" alt="Without Hallmark — Tide" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+              <figure class="ba__col ba__col--after">
+                <figcaption class="ba__cap"><span class="ba__cap-label">With Hallmark</span><span class="ba__cap-meta">long doc · linen · n9 · ft7</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/01-tide-coffee/after/index.html" target="_blank" rel="noopener" aria-label="Open the with-Hallmark Tide version live">
+                  <img src="_tests/before-after/_thumbs/01-tide-coffee-after.png" alt="With Hallmark — Tide" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+            </div>
+          </article>
+
+          <article class="ba__panel" data-panel="2">
+            <p class="ba__brief"><span class="ba__brief-label">Brief</span> Build a marketing page for Streak, a habit-tracking app that helps people stick with daily routines.</p>
+            <div class="ba__split">
+              <figure class="ba__col ba__col--before">
+                <figcaption class="ba__cap"><span class="ba__cap-label">Without Hallmark</span><span class="ba__cap-meta">claude code · default</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/02-streak-habits/before/index.html" target="_blank" rel="noopener" aria-label="Open the without-Hallmark Streak version live">
+                  <img src="_tests/before-after/_thumbs/02-streak-habits-before.png" alt="Without Hallmark — Streak" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+              <figure class="ba__col ba__col--after">
+                <figcaption class="ba__cap"><span class="ba__cap-label">With Hallmark</span><span class="ba__cap-meta">bento · pastel · n7 · ft8</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/02-streak-habits/after/index.html" target="_blank" rel="noopener" aria-label="Open the with-Hallmark Streak version live">
+                  <img src="_tests/before-after/_thumbs/02-streak-habits-after.png" alt="With Hallmark — Streak" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+            </div>
+          </article>
+
+          <article class="ba__panel" data-panel="3">
+            <p class="ba__brief"><span class="ba__brief-label">Brief</span> Design a homepage for Lattice, a small architecture studio in Lisbon focused on residential renovations.</p>
+            <div class="ba__split">
+              <figure class="ba__col ba__col--before">
+                <figcaption class="ba__cap"><span class="ba__cap-label">Without Hallmark</span><span class="ba__cap-meta">claude code · default</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/03-lattice-arch/before/index.html" target="_blank" rel="noopener" aria-label="Open the without-Hallmark Lattice version live">
+                  <img src="_tests/before-after/_thumbs/03-lattice-arch-before.png" alt="Without Hallmark — Lattice" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+              <figure class="ba__col ba__col--after">
+                <figcaption class="ba__cap"><span class="ba__cap-label">With Hallmark</span><span class="ba__cap-meta">marquee · atelier · n9 · ft6</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/03-lattice-arch/after/index.html" target="_blank" rel="noopener" aria-label="Open the with-Hallmark Lattice version live">
+                  <img src="_tests/before-after/_thumbs/03-lattice-arch-after.png" alt="With Hallmark — Lattice" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+            </div>
+          </article>
+
+          <article class="ba__panel" data-panel="4">
+            <p class="ba__brief"><span class="ba__brief-label">Brief</span> Design a launch page for Loom, an indie puzzle game about weaving threads of light through a dark world.</p>
+            <div class="ba__split">
+              <figure class="ba__col ba__col--before">
+                <figcaption class="ba__cap"><span class="ba__cap-label">Without Hallmark</span><span class="ba__cap-meta">claude code · default</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/04-loom-game/before/index.html" target="_blank" rel="noopener" aria-label="Open the without-Hallmark Loom version live">
+                  <img src="_tests/before-after/_thumbs/04-loom-game-before.png" alt="Without Hallmark — Loom" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+              <figure class="ba__col ba__col--after">
+                <figcaption class="ba__cap"><span class="ba__cap-label">With Hallmark</span><span class="ba__cap-meta">marquee · bloom · n5 · ft5</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/04-loom-game/after/index.html" target="_blank" rel="noopener" aria-label="Open the with-Hallmark Loom version live">
+                  <img src="_tests/before-after/_thumbs/04-loom-game-after.png" alt="With Hallmark — Loom" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+            </div>
+          </article>
+
+          <article class="ba__panel" data-panel="5">
+            <p class="ba__brief"><span class="ba__brief-label">Brief</span> Build a landing page for Anchor, a consultancy that helps SaaS companies reduce churn.</p>
+            <div class="ba__split">
+              <figure class="ba__col ba__col--before">
+                <figcaption class="ba__cap"><span class="ba__cap-label">Without Hallmark</span><span class="ba__cap-meta">claude code · default</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/05-anchor-churn/before/index.html" target="_blank" rel="noopener" aria-label="Open the without-Hallmark Anchor version live">
+                  <img src="_tests/before-after/_thumbs/05-anchor-churn-before.png" alt="Without Hallmark — Anchor" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+              <figure class="ba__col ba__col--after">
+                <figcaption class="ba__cap"><span class="ba__cap-label">With Hallmark</span><span class="ba__cap-meta">stat-led · quiet · n5 · ft5</span></figcaption>
+                <a class="ba__shot" href="_tests/before-after/05-anchor-churn/after/index.html" target="_blank" rel="noopener" aria-label="Open the with-Hallmark Anchor version live">
+                  <img src="_tests/before-after/_thumbs/05-anchor-churn-after.png" alt="With Hallmark — Anchor" loading="lazy" decoding="async" width="1280" height="800" />
+                  <span class="ba__open">Open live ↗</span>
+                </a>
+              </figure>
+            </div>
+          </article>
+
+        </div>
       </div>
     </section>
 

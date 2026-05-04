@@ -1,0 +1,1052 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tide Coffee — Single-Origin Monthly Subscription</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #f2e9dc;
+      --fg: #110d0a;
+      --accent: #c05c25;
+      --mid: #7d6b5e;
+      --light: #e0cfbb;
+      --white: #faf5ee;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--light);
+      z-index: 100;
+    }
+
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      letter-spacing: 0.18em;
+      color: var(--fg);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--mid);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--fg); }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--fg);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.875rem;
+      letter-spacing: 0.06em;
+      font-family: var(--sans);
+      border: 1.5px solid var(--fg);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .btn:hover { background: var(--accent); border-color: var(--accent); }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1.5px solid var(--mid);
+      color: var(--mid);
+    }
+
+    .btn-ghost:hover {
+      background: var(--fg);
+      border-color: var(--fg);
+      color: var(--white);
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 4rem;
+      align-items: center;
+      min-height: calc(100vh - 73px);
+      padding: 6rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'TIDE';
+      position: absolute;
+      font-family: var(--serif);
+      font-size: 30vw;
+      font-weight: 700;
+      color: var(--light);
+      opacity: 0.4;
+      bottom: -5rem;
+      right: -3rem;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5.5vw, 5.25rem);
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-body {
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--mid);
+      max-width: 44ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-note {
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      color: var(--mid);
+      letter-spacing: 0.03em;
+    }
+
+    /* HERO VISUAL */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 420px;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .ring-1 {
+      width: 380px;
+      height: 380px;
+      border: 1px solid var(--light);
+    }
+
+    .ring-2 {
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgba(192,92,37,0.3);
+    }
+
+    .ring-3 {
+      width: 230px;
+      height: 230px;
+      border: 1.5px solid rgba(192,92,37,0.5);
+    }
+
+    .ring-core {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .ring-core-text {
+      color: var(--white);
+      font-family: var(--serif);
+    }
+
+    .ring-core-origin {
+      font-size: 1.375rem;
+      display: block;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .ring-core-sub {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .ring-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(192,92,37,0.18);
+    }
+
+    .ring-dot-top { top: 45px; left: 50%; transform: translateX(-50%); }
+    .ring-dot-right { right: 55px; top: 50%; transform: translateY(-50%); }
+
+    .ring-float-label {
+      position: absolute;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+      line-height: 1.4;
+    }
+
+    .ring-float-label.top { top: 16px; left: 50%; transform: translateX(-50%); }
+    .ring-float-label.right { right: 0; top: 50%; transform: translateY(-50%); text-align: right; }
+
+    /* STATS */
+    .stats-bar {
+      background: var(--fg);
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.75rem 4rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.25rem;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+
+    /* SECTIONS */
+    section { padding: 7rem 4rem; }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3.25rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-body {
+      font-size: 1.0625rem;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 50ch;
+    }
+
+    /* PROCESS */
+    .process-section { background: var(--white); }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+      margin-top: 5rem;
+    }
+
+    .step-num {
+      font-family: var(--serif);
+      font-size: 4rem;
+      color: var(--light);
+      line-height: 1;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-title {
+      font-family: var(--serif);
+      font-size: 1.375rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-body {
+      font-size: 0.9375rem;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+
+    /* ORIGIN */
+    .origin-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8rem;
+      align-items: center;
+    }
+
+    .origin-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid);
+      border: 1px solid var(--light);
+      padding: 0.35rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .origin-name {
+      font-family: var(--serif);
+      font-size: clamp(2.25rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 0.75rem;
+    }
+
+    .origin-sub {
+      font-size: 0.9375rem;
+      color: var(--mid);
+      margin-bottom: 2.5rem;
+    }
+
+    .origin-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 3rem;
+      border-top: 1px solid var(--light);
+      padding-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .detail-label {
+      font-size: 0.67rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-value {
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+
+    .notes-row {
+      grid-column: 1 / -1;
+    }
+
+    .tasting-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .note {
+      padding: 0.3rem 0.8rem;
+      background: var(--light);
+      font-size: 0.78rem;
+      border-radius: 100px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ORIGIN ART */
+    .origin-art {
+      position: relative;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .art-bg-circle {
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid var(--light);
+    }
+
+    .art-terrain {
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+
+    .art-terrain-line {
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: var(--light);
+    }
+
+    .art-terrain-line:nth-child(1) { top: 18%; }
+    .art-terrain-line:nth-child(2) { top: 30%; }
+    .art-terrain-line:nth-child(3) { top: 42%; }
+    .art-terrain-line:nth-child(4) { top: 54%; }
+    .art-terrain-line:nth-child(5) { top: 66%; }
+    .art-terrain-line:nth-child(6) { top: 78%; }
+
+    .art-pin {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 7px rgba(192,92,37,0.14);
+      top: 44%;
+      left: 54%;
+    }
+
+    .art-coord {
+      position: absolute;
+      bottom: 42px;
+      left: 32px;
+      font-size: 0.67rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .art-altitude {
+      position: absolute;
+      top: 38px;
+      right: 28px;
+      text-align: right;
+    }
+
+    .art-altitude-num {
+      font-family: var(--serif);
+      font-size: 1.875rem;
+      display: block;
+      line-height: 1;
+    }
+
+    .art-altitude-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* PLANS */
+    .plans-section {
+      background: var(--fg);
+      color: var(--white);
+    }
+
+    .plans-section .section-eyebrow { color: rgba(255,255,255,0.45); }
+    .plans-section .section-title { color: var(--white); }
+    .plans-section .section-body { color: rgba(255,255,255,0.55); }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 4rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .plan-card {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .plan-card:last-child { border-right: none; }
+
+    .plan-card.featured { background: var(--accent); }
+
+    .plan-popular {
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--white);
+      color: var(--accent);
+      padding: 0.25rem 0.6rem;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 1.5rem;
+    }
+
+    .plan-name {
+      font-family: var(--serif);
+      font-size: 1.625rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+
+    .plan-desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .plan-card.featured .plan-desc { color: rgba(255,255,255,0.8); }
+
+    .plan-price { margin-bottom: 2rem; }
+
+    .plan-price-amount {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 400;
+      line-height: 1;
+      display: block;
+    }
+
+    .plan-price-period {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    .plan-card.featured .plan-price-period { color: rgba(255,255,255,0.7); }
+
+    .plan-features {
+      list-style: none;
+      flex: 1;
+      margin-bottom: 2.5rem;
+    }
+
+    .plan-features li {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.68);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .plan-card.featured .plan-features li {
+      color: rgba(255,255,255,0.88);
+      border-bottom-color: rgba(255,255,255,0.16);
+    }
+
+    .plan-features li::before {
+      content: '–';
+      color: rgba(255,255,255,0.28);
+      flex-shrink: 0;
+    }
+
+    .plan-cta {
+      display: block;
+      text-align: center;
+      padding: 0.875rem;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.28);
+      color: var(--white);
+      transition: all 0.2s;
+    }
+
+    .plan-cta:hover { background: rgba(255,255,255,0.1); }
+
+    .plan-card.featured .plan-cta {
+      background: var(--white);
+      color: var(--accent);
+      border-color: var(--white);
+    }
+
+    .plan-card.featured .plan-cta:hover {
+      background: var(--fg);
+      color: var(--white);
+      border-color: var(--fg);
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-section { background: var(--white); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .testimonial {
+      padding: 2.5rem;
+      background: var(--bg);
+    }
+
+    .testimonial-quote {
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--mid);
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .author-plan {
+      font-size: 0.75rem;
+      color: var(--mid);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--fg);
+      color: rgba(255,255,255,0.6);
+      padding: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand-name {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      color: var(--white);
+      letter-spacing: 0.12em;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      max-width: 28ch;
+    }
+
+    .footer-col-heading {
+      font-size: 0.67rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-legal a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-legal a:hover { color: rgba(255,255,255,0.65); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-brand">TIDE</a>
+    <ul class="nav-links">
+      <li><a href="#">Origins</a></li>
+      <li><a href="#">Process</a></li>
+      <li><a href="#">Plans</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#" class="btn">Subscribe →</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Single-Origin · Monthly · Freshly Roasted</p>
+        <h1 class="hero-title">The world's finest<br>beans, carried<br>to your <em>door.</em></h1>
+        <p class="hero-body">Each month we travel to a single origin — one farm, one harvest, one story — roast to order, and ship within 48 hours. Coffee as it was meant to be experienced.</p>
+        <div class="hero-actions">
+          <a href="#" class="btn">Start Your Subscription</a>
+          <a href="#" class="btn btn-ghost">Explore Origins</a>
+        </div>
+        <p class="hero-note">Cancel or pause anytime · Ships every 30 days</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="ring-core">
+          <span class="ring-core-text">
+            <span class="ring-core-origin">Ethiopia</span>
+            <span class="ring-core-sub">Yirgacheffe</span>
+          </span>
+        </div>
+        <div class="ring-dot ring-dot-top"></div>
+        <div class="ring-dot ring-dot-right"></div>
+        <span class="ring-float-label top">May 2026</span>
+        <span class="ring-float-label right">Ships<br>May 15</span>
+      </div>
+    </section>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-num">38</span>
+        <span class="stat-desc">Origins<br>sourced</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4.9</span>
+        <span class="stat-desc">Average<br>rating</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">48h</span>
+        <span class="stat-desc">Roast to<br>ship window</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">12K+</span>
+        <span class="stat-desc">Subscribers<br>worldwide</span>
+      </div>
+    </div>
+
+    <section class="process-section">
+      <p class="section-eyebrow">The process</p>
+      <h2 class="section-title">Intentional, from<br>field to cup</h2>
+      <div class="process-grid">
+        <div>
+          <span class="step-num">01</span>
+          <h3 class="step-title">We source directly</h3>
+          <p class="step-body">Every month our team selects a single farm or cooperative that meets our quality and ethics standard. No blends, no brokers, no shortcuts.</p>
+        </div>
+        <div>
+          <span class="step-num">02</span>
+          <h3 class="step-title">Roasted to order</h3>
+          <p class="step-body">We don't pre-roast and store. Your bag is roasted the week of your ship date, ensuring peak freshness on arrival — not weeks later.</p>
+        </div>
+        <div>
+          <span class="step-num">03</span>
+          <h3 class="step-title">Ships in 48 hours</h3>
+          <p class="step-body">Once roasted, your order ships within 48 hours. Whole bean or ground, with tasting notes and brewing guidance enclosed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="origin-layout">
+        <div>
+          <p class="section-eyebrow">May 2026</p>
+          <span class="origin-badge">Current selection</span>
+          <h2 class="origin-name">Konga Cooperative<br>Yirgacheffe</h2>
+          <p class="origin-sub">Ethiopia · Altitude 1,950–2,100m · Natural Process</p>
+
+          <div class="origin-details">
+            <div>
+              <p class="detail-label">Roast level</p>
+              <p class="detail-value">Light</p>
+            </div>
+            <div>
+              <p class="detail-label">Process</p>
+              <p class="detail-value">Natural</p>
+            </div>
+            <div>
+              <p class="detail-label">Varietal</p>
+              <p class="detail-value">Heirloom</p>
+            </div>
+            <div>
+              <p class="detail-label">Harvest</p>
+              <p class="detail-value">Nov 2025</p>
+            </div>
+            <div class="notes-row">
+              <p class="detail-label">Tasting notes</p>
+              <div class="tasting-notes">
+                <span class="note">Blueberry</span>
+                <span class="note">Jasmine</span>
+                <span class="note">Dark chocolate</span>
+                <span class="note">Brown sugar</span>
+                <span class="note">Bergamot</span>
+              </div>
+            </div>
+          </div>
+
+          <a href="#" class="btn">Get This Month's Bean</a>
+        </div>
+
+        <div class="origin-art">
+          <div class="art-bg-circle"></div>
+          <div class="art-terrain">
+            <div class="art-terrain-line"></div>
+            <div class="art-terrain-line"></div>
+            <div class="art-terrain-line"></div>
+            <div class="art-terrain-line"></div>
+            <div class="art-terrain-line"></div>
+            <div class="art-terrain-line"></div>
+          </div>
+          <div class="art-pin"></div>
+          <span class="art-coord">6°N 38°E</span>
+          <div class="art-altitude">
+            <span class="art-altitude-num">2,050m</span>
+            <span class="art-altitude-label">Altitude</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="plans-section">
+      <p class="section-eyebrow">Subscriptions</p>
+      <h2 class="section-title">Choose your rhythm</h2>
+      <p class="section-body">All plans include freshly roasted single-origin beans, detailed tasting notes, and brewing recommendations. Cancel anytime.</p>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <p class="plan-name">Solo</p>
+          <p class="plan-desc">For the solo drinker or someone just starting their single-origin journey.</p>
+          <div class="plan-price">
+            <span class="plan-price-amount">$22</span>
+            <span class="plan-price-period">per month · 200g</span>
+          </div>
+          <ul class="plan-features">
+            <li>200g whole bean or ground</li>
+            <li>Monthly origin selection</li>
+            <li>Tasting notes &amp; brew guide</li>
+            <li>Free standard shipping</li>
+          </ul>
+          <a href="#" class="plan-cta">Start Solo</a>
+        </div>
+
+        <div class="plan-card featured">
+          <span class="plan-popular">Most popular</span>
+          <p class="plan-name">Ritual</p>
+          <p class="plan-desc">For the dedicated home brewer who doesn't want to run out mid-month.</p>
+          <div class="plan-price">
+            <span class="plan-price-amount">$38</span>
+            <span class="plan-price-period">per month · 400g</span>
+          </div>
+          <ul class="plan-features">
+            <li>400g whole bean or ground</li>
+            <li>Monthly origin selection</li>
+            <li>Tasting notes &amp; brew guide</li>
+            <li>Free priority shipping</li>
+            <li>Early access to rare lots</li>
+          </ul>
+          <a href="#" class="plan-cta">Start Ritual</a>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-name">Household</p>
+          <p class="plan-desc">Enough for two coffee lovers, or one very dedicated one.</p>
+          <div class="plan-price">
+            <span class="plan-price-amount">$58</span>
+            <span class="plan-price-period">per month · 1kg</span>
+          </div>
+          <ul class="plan-features">
+            <li>1kg whole bean or ground</li>
+            <li>Monthly origin selection</li>
+            <li>Tasting notes &amp; brew guide</li>
+            <li>Free priority shipping</li>
+            <li>Early access to rare lots</li>
+            <li>Bi-annual origin report</li>
+          </ul>
+          <a href="#" class="plan-cta">Start Household</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials-section">
+      <p class="section-eyebrow">From subscribers</p>
+      <h2 class="section-title">What people say</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <p class="testimonial-quote">"I've tried every coffee subscription out there. Tide is the only one that makes me genuinely excited when the bag arrives. The sourcing is impeccable."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MK</div>
+            <div>
+              <p class="author-name">Maya K.</p>
+              <p class="author-plan">Ritual · 18 months</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">"The freshness is undeniable. I've started noticing tasting notes I never could before — the bergamot in this month's Ethiopia is extraordinary."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">TR</div>
+            <div>
+              <p class="author-name">Tom R.</p>
+              <p class="author-plan">Household · 8 months</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p class="testimonial-quote">"Simple, honest, and delicious. Tide makes the decision for me every month and it's always the right one."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SR</div>
+            <div>
+              <p class="author-name">Sara R.</p>
+              <p class="author-plan">Solo · 12 months</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand-name">TIDE</span>
+        <p class="footer-tagline">Single-origin coffee subscriptions. Sourced responsibly, roasted fresh, delivered monthly.</p>
+      </div>
+      <div>
+        <p class="footer-col-heading">Product</p>
+        <ul class="footer-links">
+          <li><a href="#">How it works</a></li>
+          <li><a href="#">Origins</a></li>
+          <li><a href="#">Plans</a></li>
+          <li><a href="#">Gift subscriptions</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-heading">Company</p>
+        <ul class="footer-links">
+          <li><a href="#">Our story</a></li>
+          <li><a href="#">Sourcing ethics</a></li>
+          <li><a href="#">Journal</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-heading">Support</p>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Manage subscription</a></li>
+          <li><a href="#">Shipping info</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tide Coffee. All rights reserved.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
