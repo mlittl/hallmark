@@ -2875,6 +2875,277 @@ body:not(.easter-open) > footer {
   .hero__mock { transform: none; }
 }
 
+/* H8 — Specimen card hero. Foundry-style typographic plate on the
+   right: an oversized italic Fraunces "ℋ" (Script Capital H, U+210B)
+   sitting on a bordered card with a thin rule + a small spec strip.
+   Editorial signature instead of SaaS chrome. */
+.hero--specimen {
+  display: grid;
+  grid-template-columns: minmax(20rem, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  padding-block: var(--space-2xl) var(--space-xl);
+  align-items: center;
+}
+
+.hero--specimen .hero__copy { display: grid; gap: 0; }
+.hero--specimen .hero__display { max-width: 16ch; margin: 0; }
+.hero--specimen .hero__lede { max-width: 42ch; }
+
+.hero__specimen {
+  position: relative;
+  margin: 0;
+  display: grid;
+  align-content: end;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  background: var(--color-paper-2);
+  border: var(--rule-card, 1px) solid var(--color-rule-2);
+  border-radius: var(--radius-card, 0);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.hero__specimen-plate {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-feature-settings: "tnum";
+  align-self: start;
+}
+
+.hero__specimen-glyph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Fraunces", "Tiempos", ui-serif, Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(12rem, 24vw, 22rem);
+  line-height: 0.85;
+  color: var(--color-ink);
+  opacity: 0.92;
+  letter-spacing: -0.05em;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144;
+  pointer-events: none;
+  user-select: none;
+  /* Asymmetric placement — break the card frame slightly. */
+  transform: translate(0.05em, 0.05em);
+}
+
+.hero__specimen-rule {
+  position: relative;
+  z-index: 1;
+  height: 1px;
+  background: var(--color-rule-2);
+  margin-block-start: auto;
+}
+
+.hero__specimen-spec {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+  color: var(--color-ink-2);
+  letter-spacing: 0;
+  font-feature-settings: "tnum";
+}
+
+@media (max-width: 60rem) {
+  .hero--specimen { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .hero__specimen { aspect-ratio: 5 / 4; }
+  .hero__specimen-glyph { font-size: clamp(8rem, 32vw, 16rem); }
+}
+
+/* H9 — Bloom hero. Layered watercolor wash + oversized italic
+   wordmark + small geometric accents. Painterly composition for
+   warm-rose / playful themes (Plume). */
+.hero--bloom {
+  display: grid;
+  grid-template-columns: minmax(20rem, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-2xl);
+  padding-block: var(--space-2xl) var(--space-xl);
+  align-items: center;
+}
+
+.hero--bloom .hero__copy { display: grid; gap: 0; }
+.hero--bloom .hero__display { max-width: 16ch; margin: 0; }
+.hero--bloom .hero__lede { max-width: 42ch; }
+
+.hero__bloom-stage {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 5 / 6;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.hero__bloom-wash {
+  position: absolute;
+  inset: -8% -12% -8% -8%;
+  width: auto;
+  height: auto;
+  color: var(--color-accent);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(0.5px);
+}
+
+.hero__bloom-glyph {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-serif, "Newsreader"), ui-serif, Georgia, serif;
+  font-size: clamp(4rem, 9vw, 7.5rem);
+  line-height: 1;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  user-select: none;
+  font-optical-sizing: auto;
+}
+
+.hero__bloom-glyph em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.hero__bloom-dot {
+  position: absolute;
+  z-index: 2;
+  bottom: 12%;
+  right: 22%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-ink);
+}
+
+.hero__bloom-line {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  right: 8%;
+  width: 1px;
+  height: 38%;
+  background: var(--color-ink);
+  opacity: 0.5;
+}
+
+.hero__bloom-circle {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  left: 12%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--color-ink);
+  opacity: 0.6;
+}
+
+@media (max-width: 60rem) {
+  .hero--bloom { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .hero__bloom-stage { aspect-ratio: 4 / 3; }
+  .hero__bloom-glyph { font-size: clamp(3rem, 14vw, 5rem); }
+}
+
+/* H10 — Orbit hero. Concentric rings + glowing centre dot.
+   Atmospheric composition for warm-glow themes (Halo). The rings
+   slow-rotate via @keyframes; reduced-motion stops them. */
+.hero--orbit {
+  display: grid;
+  grid-template-columns: minmax(20rem, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  padding-block: var(--space-2xl) var(--space-xl);
+  align-items: center;
+}
+
+.hero--orbit .hero__copy { display: grid; gap: 0; }
+.hero--orbit .hero__display { max-width: 16ch; margin: 0; }
+.hero--orbit .hero__lede { max-width: 42ch; }
+
+.hero__orbit-stage {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.hero__orbit-rings {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  color: var(--color-rule-2);
+  animation: orbit-spin 80s linear infinite;
+}
+
+.hero__orbit-rings svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__orbit-rings { animation: none; }
+}
+
+.hero__orbit-dot {
+  position: relative;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow:
+    0 0 0 4px color-mix(in oklch, var(--color-accent) 18%, transparent),
+    0 0 22px 4px color-mix(in oklch, var(--color-accent) 35%, transparent);
+}
+
+.hero__orbit-rule {
+  position: absolute;
+  z-index: 2;
+  bottom: 7%;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: var(--color-rule-2);
+}
+
+.hero__orbit-spec {
+  position: absolute;
+  z-index: 2;
+  bottom: 2%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-feature-settings: "tnum";
+}
+
+@media (max-width: 60rem) {
+  .hero--orbit { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .hero__orbit-stage { aspect-ratio: 1.4 / 1; max-width: 24rem; margin: 0 auto; }
+}
+
 /* ───────────── FOOTER ARCHETYPES ───────────── */
 
 .foot { display: grid; gap: var(--space-md); padding-block: var(--space-2xl) var(--space-xl); border-block-start: var(--rule-hair) solid var(--color-rule); }

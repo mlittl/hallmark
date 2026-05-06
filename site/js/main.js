@@ -56,7 +56,7 @@ const STORAGE_KEY = "hallmark-theme";
    variety: switching themes literally rebuilds the page, not just
    recolours it. See skill/references/component-cookbook.md. */
 const ARCHETYPES = {
-  specimen: { hero: "marquee", footer: "colophon" },
+  specimen: { hero: "specimen", footer: "colophon" },
   newsprint: { hero: "split", footer: "colophon" },
   atelier: { hero: "quote-led", footer: "colophon" },
   garden: { hero: "letter", footer: "colophon" },
@@ -76,8 +76,8 @@ const ARCHETYPES = {
   coral: { hero: "split", footer: "colophon" },
   violet: { hero: "split", footer: "colophon" },
   aurora: { hero: "marquee", footer: "colophon" },
-  halo: { hero: "clipped", footer: "colophon" },
-  plume: { hero: "clipped", footer: "colophon" },
+  halo: { hero: "orbit", footer: "colophon" },
+  plume: { hero: "bloom", footer: "colophon" },
   editorial: { hero: "split", footer: "colophon" },
 };
 

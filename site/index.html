@@ -1274,6 +1274,98 @@
     </div>
   </template>
 
+  <!-- H8 — Specimen card. Two-column hero with a foundry-style
+       typographic plate on the right: a giant italic Fraunces ℋ
+       with a small spec strip. Editorial signature, not SaaS chrome. -->
+  <template id="hero-specimen">
+    <div class="hero hero--specimen">
+      <div class="hero__copy">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display" data-text="{{title}}">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+        <div class="hero__cta">
+          <p class="label">{{ctaLabel}}</p>
+          <pre class="code"
+            data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+        </div>
+      </div>
+      <figure class="hero__specimen" aria-hidden="true">
+        <span class="hero__specimen-plate">{{captionA}}</span>
+        <span class="hero__specimen-glyph">ℋ</span>
+        <div class="hero__specimen-rule"></div>
+        <p class="hero__specimen-spec">Fraunces · italic · 144pt<br/>display optical · ss01</p>
+      </figure>
+    </div>
+  </template>
+
+  <!-- H9 — Bloom. Two-column hero with a layered watercolor + brushstroke
+       composition on the right: soft transparent SVG wash + oversized
+       italic wordmark + small geometric accents. Painterly, no chrome. -->
+  <template id="hero-bloom">
+    <div class="hero hero--bloom">
+      <div class="hero__copy">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display hero__display--small">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+        <div class="hero__cta">
+          <pre class="code"
+            data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+        </div>
+      </div>
+      <figure class="hero__bloom-stage" aria-hidden="true">
+        <svg class="hero__bloom-wash" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <radialGradient id="bloomGrad" cx="0.42" cy="0.36" r="0.72">
+              <stop offset="0%" stop-color="currentColor" stop-opacity="0.85"/>
+              <stop offset="55%" stop-color="currentColor" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <path d="M 80 60 Q 60 140 90 220 Q 50 280 80 360 Q 110 410 200 420 Q 320 440 340 360 Q 380 280 340 220 Q 380 130 320 80 Q 240 30 180 60 Q 130 30 80 60 Z"
+                fill="url(#bloomGrad)"/>
+        </svg>
+        <span class="hero__bloom-glyph"><em>Hallmark.</em></span>
+        <span class="hero__bloom-dot" aria-hidden="true"></span>
+        <span class="hero__bloom-line" aria-hidden="true"></span>
+        <span class="hero__bloom-circle" aria-hidden="true"></span>
+      </figure>
+    </div>
+  </template>
+
+  <!-- H10 — Orbit. Two-column hero with concentric rings + a glowing
+       center dot. Slow rotation gives the page life without noise.
+       Reserved for atmospheric warm-glow themes (Halo). -->
+  <template id="hero-orbit">
+    <div class="hero hero--orbit">
+      <div class="hero__copy">
+        <p class="hero__eyebrow"><span class="mark" aria-hidden="true"></span>{{eyebrow}}</p>
+        <h1 class="hero__display hero__display--small">{{title}}</h1>
+        <p class="hero__lede">{{lede}}</p>
+        <div class="hero__cta">
+          <pre class="code"
+            data-copy-source><span class="prompt">$</span><span data-copy-text>npx skills add hallmark</span><button class="code__copy" type="button" data-copy-btn aria-label="Copy install command"><span class="code__copy-default">Copy</span><span class="code__copy-done">Copied</span></button></pre>
+        </div>
+      </div>
+      <figure class="hero__orbit-stage" aria-hidden="true">
+        <div class="hero__orbit-rings">
+          <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
+            <g fill="none" stroke="currentColor" stroke-linecap="round">
+              <circle cx="200" cy="200" r="190" stroke-width="0.6" opacity="0.35"/>
+              <circle cx="200" cy="200" r="155" stroke-width="0.8" opacity="0.5"/>
+              <circle cx="200" cy="200" r="118" stroke-width="1"   opacity="0.7"/>
+              <circle cx="200" cy="200" r="82"  stroke-width="1.4" opacity="0.85"/>
+              <circle cx="200" cy="200" r="48"  stroke-width="1.8" opacity="1"/>
+              <line x1="200" y1="10" x2="200" y2="22" stroke-width="1.2" stroke="var(--color-accent)"/>
+            </g>
+          </svg>
+        </div>
+        <span class="hero__orbit-dot pulse" aria-hidden="true"></span>
+        <div class="hero__orbit-rule"></div>
+        <p class="hero__orbit-spec">{{captionA}} · {{captionB}}</p>
+      </figure>
+    </div>
+  </template>
+
   <!-- ─────────── FOOTER ARCHETYPES ─────────── -->
 
   <!-- The COLOPHON — a single editorial footer for every theme. The
