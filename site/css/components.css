@@ -802,25 +802,47 @@
 .code__copy[data-state="copied"] .code__copy-default { display: none; }
 .code__copy[data-state="copied"] .code__copy-done { display: inline; }
 
-/* Mobile · stack the copy button beneath the command instead of
-   absolute-positioning over it. On coarse-pointer devices the button
-   is always visible (no hover state); overlaying the right edge of a
-   long command makes the text unreadable. Pattern from GitHub /
-   Vercel / npmjs / MDN — command on its own line with horizontal
-   scroll, copy button as a full-width tap target underneath. */
+/* Mobile · drop the copy button entirely and make the whole pre
+   tap-to-copy. The button at narrow widths overflowed the frame; on
+   coarse-pointer devices a full-width tap target is the right
+   pattern (matches `gh repo clone` / npmjs / Vercel install panes).
+   The pre keeps its flex + center alignment so the command sits
+   vertically centred regardless of frame height. */
 @media (max-width: 45rem) {
-  .code {
-    display: block;
-    padding-block: var(--space-sm) var(--space-sm);
+  .code__copy { display: none; }
+
+  .code[data-copy-source] { cursor: pointer; }
+
+  /* Transient "Copied ✓" badge inside the pre, anchored top-right.
+     Replaces the button's label-swap on mobile. Fades automatically
+     when JS removes data-state after 2.2 s. */
+  .code[data-copy-source][data-state="copied"] {
+    position: relative;
   }
-  .code .prompt { margin-inline-end: var(--space-2xs); }
-  .code__copy {
-    position: static;
-    transform: none;
-    width: 100%;
-    margin-block-start: var(--space-sm);
-    justify-content: center;
-    min-height: 32px;
+  .code[data-copy-source][data-state="copied"]::after {
+    content: "Copied ✓";
+    position: absolute;
+    top: 50%;
+    right: var(--space-sm);
+    transform: translateY(-50%);
+    padding: 0.25rem 0.55rem;
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background: var(--color-paper);
+    border: var(--rule-hair) solid var(--color-accent);
+    border-radius: var(--radius-input, 0);
+    pointer-events: none;
+    animation: copy-flash var(--dur-short) var(--ease-out);
+  }
+  @keyframes copy-flash {
+    from { opacity: 0; transform: translateY(-50%) scale(0.96); }
+    to   { opacity: 1; transform: translateY(-50%) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .code[data-copy-source][data-state="copied"]::after { animation: none; }
   }
 }
 

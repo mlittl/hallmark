@@ -647,37 +647,63 @@ function swapArchetypes(theme) {
   attachCopyButtons(slotEls.hero);
 }
 
-/* — Copy-to-clipboard (silent success, label swap pattern) ————— */
+/* — Copy-to-clipboard (silent success, label swap pattern) —————
+   Two click surfaces:
+   - The Copy button (visible on desktop) — explicit affordance.
+   - The whole pre[data-copy-source] — falls back to a tappable area
+     on mobile where the button is hidden by CSS.
+   Both call the same async copy + state-flash routine. We bind once
+   per element via `data-copy-bound` so re-attached templates don't
+   double-bind. */
+async function copyFromSource(source) {
+  if (!source) return;
+  const textNode = source.querySelector("[data-copy-text]");
+  const text = textNode ? textNode.textContent.trim() : "";
+  if (!text) return;
+
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) { }
+    document.body.removeChild(ta);
+  }
+
+  // Flash both the source and any visible button so the right
+  // surface (mobile pseudo-element vs desktop button label) animates.
+  source.dataset.state = "copied";
+  source.setAttribute("aria-live", "polite");
+  const btn = source.querySelector("[data-copy-btn]");
+  if (btn) btn.dataset.state = "copied";
+
+  clearTimeout(source._copyTimer);
+  source._copyTimer = setTimeout(() => {
+    delete source.dataset.state;
+    if (btn) delete btn.dataset.state;
+  }, 2200);
+}
+
 function attachCopyButtons(scope = document) {
-  const btns = scope.querySelectorAll("[data-copy-btn]:not([data-copy-bound])");
+  // Bind the whole pre — works on mobile where the button is hidden.
+  const sources = scope.querySelectorAll("[data-copy-source]:not([data-copy-bound])");
+  sources.forEach((source) => {
+    source.dataset.copyBound = "true";
+    source.addEventListener("click", () => copyFromSource(source));
+  });
+  // Button click is also handled — stop propagation so the source
+  // listener doesn't double-fire (single copy per click).
+  const btns = scope.querySelectorAll("[data-copy-btn]:not([data-copy-btn-bound])");
   btns.forEach((btn) => {
-    btn.dataset.copyBound = "true";
-    btn.addEventListener("click", async () => {
-      const source = btn.closest("[data-copy-source]");
-      const textNode = source && source.querySelector("[data-copy-text]");
-      const text = textNode ? textNode.textContent.trim() : "";
-      if (!text) return;
-
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch (err) {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.position = "fixed";
-        ta.style.left = "-9999px";
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch (e) { }
-        document.body.removeChild(ta);
-      }
-
-      btn.dataset.state = "copied";
-      btn.setAttribute("aria-live", "polite");
-      clearTimeout(btn._copyTimer);
-      btn._copyTimer = setTimeout(() => {
-        delete btn.dataset.state;
-      }, 2200);
+    btn.dataset.copyBtnBound = "true";
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      copyFromSource(btn.closest("[data-copy-source]"));
     });
   });
 }
