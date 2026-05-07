@@ -84,15 +84,28 @@
               border-color var(--dur-micro) var(--ease-out);
 }
 
-.banner__install:hover {
-  background: var(--color-ink);
-  color: var(--color-paper);
-  border-color: var(--color-ink);
+/* Hover scoped to true mouse devices so a tap on touch never sticks
+   the inverted hover state across the rest of the session. */
+@media (hover: hover) and (pointer: fine) {
+  .banner__install:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
 }
 
 .banner__install:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+/* Released after click — the JS blur handler removes :focus, but we
+   also belt-and-brace via :focus:not(:focus-visible) so any browser
+   that synthesises mouse-focus on click can't keep an inverted look. */
+.banner__install:focus:not(:focus-visible) {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-rule-2);
 }
 
 @media (max-width: 50rem) {
@@ -2305,6 +2318,16 @@ body:not(.easter-open) > footer {
 [data-theme="atelier"] .hero__quote p,
 [data-theme="atelier"] .hero__salutation {
   font-variation-settings: "opsz" 144, "SOFT" 70;
+}
+
+/* Hero quote uses the upright display face (matching the "Atelier"
+   wordmark in the banner and every section title), not the italic
+   serif default. Atelier's voice is workshop-declarative — the
+   header reads as a statement, not a quotation. */
+[data-theme="atelier"] .hero__quote p {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: var(--display-weight, 900);
 }
 
 /* Old-style figures in body text — reads as hand-set, not synthesised */

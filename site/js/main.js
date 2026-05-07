@@ -191,7 +191,7 @@ const COPY = {
     cta: "Request the manual",
     stat: "12",
     qualifier: "themes",
-    quote: "Restraint, repeated, becomes a signature.",
+    quote: "A workshop, not a template.",
     attrib: "Studio note",
     salutation: "A note from the studio.",
     letterBody: "We do not believe in defaults. The default is the average; we are looking for the specific. Every page Hallmark touches is a small refusal of the average, in favour of a page that knows what it is.",
@@ -708,6 +708,23 @@ function attachCopyButtons(scope = document) {
   });
 }
 attachCopyButtons();
+
+/* — Release :hover / :focus on the sticky Install pill after click.
+   The banner is position: sticky, so when smooth-scroll lands the
+   page on #install the cursor is still over the pill and Safari /
+   Chrome can keep the inverted hover stuck. Blur + a one-frame
+   pointer-events nudge forces the browser to release both states.
+   No layout side-effects; the pill is back to normal as soon as the
+   pointer next moves. */
+document.querySelectorAll('.banner__install').forEach((el) => {
+  el.addEventListener('click', () => {
+    requestAnimationFrame(() => {
+      el.blur();
+      el.style.pointerEvents = 'none';
+      setTimeout(() => { el.style.pointerEvents = ''; }, 60);
+    });
+  });
+});
 
 /* — GitHub star count — cached in localStorage for 1h ——————————
    Hits the public GitHub API once on first paint, caches the count
