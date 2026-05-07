@@ -359,6 +359,7 @@ The non-negotiables live in [`references/`](references/). **Be precise about wha
 - [`custom-craft.md`](references/custom-craft.md) — load only when an enrichment archetype requires construction (CSS art, SVG, declarative animation, etc.).
 - [`assets.md`](references/assets.md) — load only when an enrichment archetype needs an external asset (icons, illustration, photography, Lottie).
 - [`custom-theme.md`](references/custom-theme.md) — load only when Step 2.6 routes to custom.
+- [`design-md.md`](references/design-md.md) — load only when the user explicitly asks Hallmark to lock the system into a portable file (phrases: *"lock the system"*, *"give me a design.md"*, *"make this portable"*, etc.). Opt-in; never fires on a vanilla build.
 
 **Load-at-the-end:**
 - [`slop-test.md`](references/slop-test.md) — load at Step 7 (the gate-check after build), not earlier.
@@ -403,7 +404,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 - **Diversification** · differs from Pastel on display style + accent hue
 ```
 
-**Six required bullets, one optional:**
+**Six required bullets, one optional, plus a CTA line:**
 
 1. **Macrostructure** — the named pick from [`macrostructures.md`](references/macrostructures.md).
 2. **Theme** — for catalog: name + one-line palette summary (paper colour band · accent hue · display style). For custom: `custom (vibe: "<4–8 words>" · paper oklch(<L%> <C> <H>) · accent oklch(<L%> <C> <H>) <one-word hue label> · <display face> + <body face>)`.
@@ -412,6 +413,12 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 5. **Motion** — microinteraction primitives separated by ` · `, or *none — typography only*. Always under three primitives per the [`microinteractions.md`](references/microinteractions.md) hard rules.
 6. **Slop test** — `65 / 65 ✓` if all gates pass, or `N / 65 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
 7. **Diversification** *(optional, only when `.hallmark/log.json` has prior entries)* — what axes differ vs the previous run.
+
+**Then one quiet CTA line, italicised, after the bullets:**
+
+> *System portable? Say `lock the system` to extract this build's tokens + voice into a `design.md`.*
+
+Skip the CTA line when (a) the build is component-scope, or (b) `design.md` already exists at the project root (the system is already locked). See [`design-md.md`](references/design-md.md) for the full opt-in flow.
 
 **Three more sample preview blocks** for the model to imitate, varied across macrostructure types:
 
@@ -481,6 +488,7 @@ Always:
 - **Append to project memory.** After you write the stamp, update (or create) `.hallmark/log.json` at the project root. Append a new entry at the **front** of the array: `{ "date": "<YYYY-MM-DD>", "macrostructure": "<name>", "theme": "<name>", "enrichment": "<E# name or 'none'>", "brief": "<one-line summary>" }`. **Custom entries** also carry `"theme": "custom"` plus `"theme_axes": "<paper-band> / <display-style> / <accent-hue>"` and an optional `"vibe": "<4–8 words>"` — see [`custom-theme.md`](references/custom-theme.md) § F. Trim the file to the last 20 entries (rotate the oldest off). Create `.hallmark/` and the file if they don't exist; respect any existing `.gitignore` (the user may or may not want this committed). This file is what Step 2.5 reads on the next run.
 - **Always emit `tokens.css`.** After writing the page CSS, also write `tokens.css` at the project root containing every `--color-*`, `--font-*`, `--space-*`, `--text-*`, `--ease-*`, `--dur-*`, `--rule-*`, and `--radius-*` token used in the build. The page CSS imports `tokens.css` (or, on framework projects, the project's existing entry-point includes it) — the page CSS must reference tokens by name, never inline raw values. Even single-page builds get a `tokens.css`. This is what makes the design system portable to the next project. Load [`export-formats.md`](references/export-formats.md) at this point only when the project warrants additional formats — see below.
 - **Multi-format exports on `design.md` projects.** If a `design.md` exists at the project root (a system-managed project), append all four export formats — `tokens.css`, Tailwind v4 `@theme`, DTCG `tokens.json`, shadcn/ui CSS variables — into `design.md`'s `## Exports` section. Load [`export-formats.md`](references/export-formats.md) for the canonical mapping from Hallmark tokens to each format. Single-page projects skip this step (they get only `tokens.css`).
+- **Opt-in `design.md` (lock-the-system flow).** If the user explicitly asks Hallmark to lock the build's design system into a portable file (phrases: *"lock the system"*, *"give me a design.md"*, *"make this portable"*, etc.), load [`design-md.md`](references/design-md.md) and follow it. Page-scope only; component-scope skips. **The default verb does NOT auto-emit `design.md`** — users iterate freely first, then ask for it once the system is settled. If `design.md` already exists, refresh its `## Exports` section instead of overwriting. The Step 5 preview block carries a one-line CTA surfacing this option after every page-build.
 
 ### 7. The slop test
 

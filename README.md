@@ -114,6 +114,7 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 - **SaaS page sequence.** Hero → social proof → features → testimonials → pricing → FAQ → CTA → footer. Real prices, not "contact sales for pricing." Specific testimonials with role + company.
 - **Wordmark may use a different display face.** A Geist-bodied SaaS page can set its wordmark in Fraunces. Same-family collapse on Bento / Stat-Led / Workbench / Marquee Hero is the new "un-branded" tell.
 - **`study` extracts DNA, not pixels.** Refusal heuristics, type-role vocabulary (no font ID guessing), confirmation step before any code. Three worked examples in [`docs/study-examples.md`](docs/study-examples.md).
+- **Opt-in `design.md` lock-the-system flow.** Iterate freely on the first builds; when the system is settled, say *"lock the system"* (or *"give me a design.md"*) and Hallmark extracts the build's tokens + voice into a portable design system at the project root. From that point on every Hallmark run defers to it, the diversification rule inverts to consistency, and the file becomes the single source of truth for scaling the design across a real app. Phrase-triggered, never auto-emitted — no churn across iterations. See [`skill/references/design-md.md`](skill/references/design-md.md).
 
 ---
 
