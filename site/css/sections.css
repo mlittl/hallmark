@@ -589,11 +589,12 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 500;
-  font-size: var(--text-2xl);
-  color: var(--color-rule-2);
-  letter-spacing: 0;
+  font-size: clamp(3.5rem, 5vw + 0.5rem, 6rem);
+  line-height: 0.9;
+  color: var(--color-muted);
+  letter-spacing: -0.01em;
   user-select: none;
-  padding-block-start: 0.15em;
+  padding-block-start: 0.05em;
   font-feature-settings: "tnum";
 }
 
@@ -612,7 +613,7 @@
   font-family: var(--font-mono);
   font-style: normal;
   font-weight: 500;
-  font-size: var(--text-xl);
+  font-size: clamp(3rem, 4.5vw + 0.4rem, 5rem);
 }
 
 .skill-row__head-body {
@@ -1155,6 +1156,13 @@
   grid-template-columns: 1fr;
   border-bottom: 0;
   padding-bottom: var(--space-2xl);
+}
+/* Negative space carries the rhythm — no rules between sections. */
+[data-theme="atelier"] .section + .section {
+  padding-block-start: var(--space-3xl);
+}
+[data-theme="atelier"] .section__pull {
+  border-block-start: 0;
 }
 [data-theme="atelier"] .section__title {
   max-width: 22ch;

@@ -205,12 +205,12 @@
   --color-paper:    oklch(95%  0.030 130);
   --color-paper-2:  oklch(92%  0.034 130);
   --color-paper-3:  oklch(87%  0.038 130);
-  --color-rule:     oklch(78%  0.030 130);
-  --color-rule-2:   oklch(64%  0.034 135);
-  --color-muted:    oklch(50%  0.045 150);
-  --color-neutral:  oklch(36%  0.055 155);
-  --color-ink-2:    oklch(28%  0.055 158);
-  --color-ink:      oklch(22%  0.060 160);
+  --color-rule:     oklch(72%  0.034 130);
+  --color-rule-2:   oklch(56%  0.040 135);
+  --color-muted:    oklch(38%  0.055 152);
+  --color-neutral:  oklch(28%  0.060 158);
+  --color-ink-2:    oklch(20%  0.062 160);
+  --color-ink:      oklch(14%  0.065 160);
   --color-accent:   #B6485E;
   --color-accent-ink: oklch(55% 0.14 18);
   --color-focus:    #B6485E;
