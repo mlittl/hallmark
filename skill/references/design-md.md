@@ -2,17 +2,33 @@
 
 Loaded by [`SKILL.md`](../SKILL.md) Step 6 ONLY when the user explicitly asks Hallmark to lock the current build's design system into a portable file. The default verb does NOT auto-emit `design.md`. The user iterates freely until they say the system is settled, then asks for it.
 
+This file is **also** loaded by [`study.md`](study.md) when the user — after a successful `study` diagnosis — asks for the DNA to be emitted as a portable system. The format below is shared between the two paths; the only differences are spelled out in § Two emission paths (default vs study) and in [`study.md`](study.md) § Emitting a `design.md` from `study`.
+
 ## Triggers (phrase-only — no new verb)
 
 Fire ONLY when the user says one of:
 
-- *"lock the system"* / *"lock the design system"*
-- *"give me a design.md"* / *"write a design.md"*
-- *"extract this to a design system"* / *"extract the tokens"*
-- *"make this portable"*
+- *"lock the system"* / *"lock the design system"* / *"lock the DNA"* / *"lock this DNA"*
+- *"give me a design.md"* / *"write a design.md"* / *"export this as a design.md"*
+- *"extract this to a design system"* / *"extract the tokens"* / *"extract the DNA"*
+- *"make this portable"* / *"make the DNA portable"*
 - *"I want to use this in another project"*
 
 For everything else — including the default build, the redesign verb on a single page, and free iteration on the same brief — skip. The single-page redesign and default verb stay token-portable via `tokens.css`; `design.md` is the explicit lock-in step.
+
+## Two emission paths (default vs study)
+
+The same `design.md` format is emitted from two different entry points. They differ in which signals seed the file and in how strict the refusal layer is.
+
+| | **Default-verb path** (lock the system) | **Study-verb path** (lock the DNA) |
+| --- | --- | --- |
+| **Trigger context** | After at least one build the user has iterated on and is satisfied with | After a successful `study` diagnosis (image or URL) |
+| **Source of tokens** | The build's in-memory token state | The studied DNA — exact from CSS in URL mode, estimated from bands in image mode |
+| **Refusal layer** | None — the user owns the build they iterated on | Tighter — see [`study.md`](study.md) § Emission-refusal layer. URL mode requires attestation; third-party URLs are refused |
+| **`## Provenance` block** | Omitted (the system is the user's own work) | Required — records source mode, URL or "image", date, attestation answer, confidence note |
+| **`## Notes` block** | Optional — covers any decisions worth remembering | Required — carries the diagnosis's "anti-patterns to NOT carry over" list |
+
+Both paths produce a `design.md` Hallmark can read on subsequent runs; the file format is uniform once written.
 
 ## Scope
 

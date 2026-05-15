@@ -30,15 +30,16 @@ If Hallmark is wired correctly, you'll see Long Document · Linen (warm-paper ro
 
 |  | Hallmark | [frontend-design](https://github.com/anthropics/skills) (Anthropic) | [Open Design](https://github.com/nexu-io/open-design) | [Dembrandt](https://github.com/dembrandt/dembrandt) |
 | --- | --- | --- | --- | --- |
-| **Source of taste** | extracts DNA from a screenshot you admire (`study` verb) | art-director brief + ban list | menu of 72 brand presets (Linear, Stripe, Vercel, Notion…) | scrapes a live URL, emits computed tokens |
-| **Output unit** | macrostructure + theme + custom-craft | bans + brief framing | preset application | DTCG `tokens.json` |
-| **Refuses font ID** | yes — names role, never guesses | n/a | n/a | n/a (computes from CSS) |
-| **Refuses pixel-clone** | yes — DNA only, never pixels | n/a | n/a | n/a (full token export) |
+| **Source of taste** | extracts DNA from a screenshot OR a URL (`study` verb) — image mode names roles + candidates; URL mode names exact fonts + tokens | art-director brief + ban list | menu of 72 brand presets (Linear, Stripe, Vercel, Notion…) | scrapes a live URL, emits computed tokens |
+| **Output unit** | macrostructure + theme + custom-craft, optional portable `design.md` | bans + brief framing | preset application | DTCG `tokens.json` |
+| **Refuses font ID** | image mode: yes — names role only; URL mode: names what the page declares | n/a | n/a | n/a (computes from CSS) |
+| **Refuses pixel-clone** | yes — DNA only, never pixels (both modes) | n/a | n/a | n/a (full token export) |
+| **Refuses third-party extraction** | yes — paid templates / competitors / unrelated sites auto-refused; `design.md` emission has a tighter layer with URL-mode attestation | n/a | n/a | n/a (extracts anything) |
 | **Tactile-rebellion alignment** | warm-paper, custom-craft, slopless canon | strong | medium | none — token-only |
 | **Pages by archetype** | 21 named macrostructures, picked per brief | by brief | 5 deterministic directions | n/a |
 | **Verbs** | 4 (default · `audit` · `redesign` · `study`) | 1 | 31 | 1 (CLI) |
 
-Hallmark's edge is **`study`** — every other tool ships a preset menu or a scraper. Hallmark is the only one that takes a screenshot of a design you admire, names what it sees, refuses paid-template-marketplace listings, and rebuilds your content with the extracted DNA. Three worked study examples in [`docs/study-examples.md`](docs/study-examples.md).
+Hallmark's edge is **`study`** — every other tool ships a preset menu or a scraper. Hallmark is the only one that takes a screenshot *or* a URL of a design you admire, names what it sees (roles in image mode, exact fonts + tokens in URL mode), refuses paid-template-marketplace listings outright, and either rebuilds your content with the extracted DNA or emits a portable `design.md` you can hand to another AI tool — with a tighter refusal layer for the portable spec than for the diagnosis itself. Three worked study examples in [`docs/study-examples.md`](docs/study-examples.md).
 
 ---
 
@@ -49,7 +50,7 @@ Hallmark's edge is **`study`** — every other tool ships a preset menu or a scr
 | *(default)* | Build new UI. Asks for audience + use + tone (skippable — the skill states what it inferred). Picks a macrostructure, applies the rule-set, runs the slop test before handing back. |
 | `hallmark audit <target>` | Score existing code against the named anti-patterns + structural sameness. Punch list, no edits. |
 | `hallmark redesign <target> [--mood <name>]` | Throw out the structure, keep copy + IA + brand, rebuild with a deliberately different fingerprint. |
-| **`hallmark study <screenshot>`** | The differentiator. Extract the **DNA** from a design the user admires — macrostructure, archetypes, type-pairing role, colour anchor — and produce a diagnosis report. Optionally rebuild *the user's* content using the extracted DNA. **Refuses paid templates and competitor pages. Names font roles, never font IDs. Never copies pixels.** |
+| **`hallmark study <screenshot \| URL>`** | The differentiator. Extract the **DNA** from a design the user admires — macrostructure, archetypes, type-pairing, colour anchor — and produce a diagnosis report. Accepts either an attached screenshot or a URL to a live page. After the diagnosis the user can optionally rebuild *their* content using the extracted DNA, **or** lock the DNA into a portable `design.md` other AI tools (Cursor, v0, Bolt) can read directly. **URL mode** reads HTML / CSS via WebFetch — names exact fonts and exact colour values, can't judge rhythm, and falls back to asking for a screenshot if the page is auth-walled or a JS-only shell. **Refuses paid templates and competitor pages. Image mode names font roles (never font IDs); URL mode names actual fonts (the page declares them). Never copies pixels. `design.md` emission has a tighter refusal layer than the diagnosis itself — URL-mode emission asks the user to attest the source is theirs or a public reference for their own brand.** |
 
 ---
 
@@ -113,8 +114,8 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 - **Microinteractions default-on for SaaS-shaped archetypes.** Bento Grid, Stat-Led, Workbench, Marquee Hero pages ship with 2–3 purposeful microinteractions (number reveal, pricing lift, marquee, stagger) without the user having to ask. Editorial / Manifesto / Letter / Quote-Led pages stay still.
 - **SaaS page sequence.** Hero → social proof → features → testimonials → pricing → FAQ → CTA → footer. Real prices, not "contact sales for pricing." Specific testimonials with role + company.
 - **Wordmark may use a different display face.** A Geist-bodied SaaS page can set its wordmark in Fraunces. Same-family collapse on Bento / Stat-Led / Workbench / Marquee Hero is the new "un-branded" tell.
-- **`study` extracts DNA, not pixels.** Refusal heuristics, type-role vocabulary (no font ID guessing), confirmation step before any code. Three worked examples in [`docs/study-examples.md`](docs/study-examples.md).
-- **Opt-in `design.md` lock-the-system flow.** Iterate freely on the first builds; when the system is settled, say *"lock the system"* (or *"give me a design.md"*) and Hallmark extracts the build's tokens + voice into a portable design system at the project root. From that point on every Hallmark run defers to it, the diversification rule inverts to consistency, and the file becomes the single source of truth for scaling the design across a real app. Phrase-triggered, never auto-emitted — no churn across iterations. See [`skill/references/design-md.md`](skill/references/design-md.md).
+- **`study` extracts DNA, not pixels.** Refusal heuristics, type-role vocabulary (no font ID guessing in image mode), confirmation step before any code. Accepts a screenshot *or* a URL — URL mode reads HTML / CSS via WebFetch and names exact fonts + exact tokens (trades the rhythm pass for accuracy on everything else), with a graceful screenshot fallback when the URL is auth-walled or a JS-only shell. Three worked examples in [`docs/study-examples.md`](docs/study-examples.md).
+- **Opt-in `design.md` lock-the-system flow — two entry points.** Iterate freely on the first builds; when the system is settled, say *"lock the system"* (or *"give me a design.md"*) and Hallmark extracts the build's tokens + voice into a portable design system at the project root. **Or**, after a `study` diagnosis, say *"lock the DNA"* and Hallmark emits the same `design.md` format seeded from the studied source — URL mode populates exact tokens + fonts; image mode populates estimated bands + candidate fonts. From that point on every Hallmark run defers to the file, the diversification rule inverts to consistency, and the file becomes the single source of truth for scaling the design across a real app. The study-mode emission carries a tighter refusal layer than the diagnosis itself — third-party URLs require user attestation (your own site / public reference for your own brand), competitors and paid templates are auto-refused. Phrase-triggered from either entry point, never auto-emitted. See [`skill/references/design-md.md`](skill/references/design-md.md).
 
 ---
 

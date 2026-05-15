@@ -271,6 +271,10 @@ If you adopt this DNA, the closest theme in the catalog is [theme name].
 That's a candidate, not a requirement — your content might point elsewhere.
 
 Want me to build with this DNA, or change one axis first?
+
+Or — say `lock the DNA` (or `give me a design.md`) if you want a portable
+`design.md` of this DNA that you can hand to another AI tool. Opt-in,
+never auto.
 ```
 
 ### URL-mode template
@@ -299,9 +303,14 @@ If you adopt this DNA, the closest theme in the catalog is [theme name].
 That's a candidate, not a requirement — your content might point elsewhere.
 
 Want me to build with this DNA, or change one axis first?
+
+Or — say `lock the DNA` (or `give me a design.md`) if you want a portable
+`design.md` of this DNA. URL-mode emission asks you to confirm the source
+is yours or a public reference for your own brand before writing — that
+extra friction is intentional.
 ```
 
-The last line is the **confirmation question** in either mode. Wait for the user before building.
+The "Want me to build" line is the **confirmation question** for code generation. The "lock the DNA" line is the **emission CTA** for portable design system output. Both are opt-in; wait for the user before doing either. See § Emitting a `design.md` from `study` below for the emission flow.
 
 ---
 
@@ -388,12 +397,80 @@ If any limit is being violated, say so plainly in the diagnosis report — *"I c
 
 ---
 
+## Emitting a `design.md` from `study`
+
+After the diagnosis, the user has a third option alongside "build with this DNA" and "stop here": **emit a portable `design.md`** that captures the DNA as a system other AI tools (Cursor, v0, Bolt, future Hallmark runs) can read directly. This is the same `design.md` format produced by the default verb's "lock the system" flow — but seeded from the studied DNA rather than from a build the user iterated on.
+
+### Trigger phrases
+
+Fire ONLY when the user says one of these *after* a diagnosis:
+
+- *"lock the DNA"* / *"lock this DNA"*
+- *"give me a design.md"* / *"write a design.md"* / *"export this as a design.md"*
+- *"make this portable"* / *"make the DNA portable"*
+
+If the user just confirms the diagnosis without naming emission, **do not emit**. The CTA in the diagnosis surfaces the option; the trigger phrase confirms intent.
+
+### The emission-refusal layer (tighter than diagnosis refusal)
+
+Diagnosis refusal asks: *"can I read this without crossing the line into cloning a competitor or copying a paid template?"* The answer is usually yes — reading is cheap and educational.
+
+Emission refusal asks: *"can I package this DNA as a portable system the user (or any AI tool the user hands the file to) will then use as their own design language?"* That's meaningfully more extractive than a diagnosis. The user already has the diagnosis; the file is a separate, durable artifact that travels.
+
+The two refusal layers do not match. A reference can clear the diagnosis bar and still fail the emission bar.
+
+**Image mode — emission is allowed by default.** The user owns the screenshot they attached. They can be trusted to have rights to extract from it (their own work, a personal moodboard, a public reference they have permission to learn from). Emit without asking.
+
+**URL mode — emission requires explicit attestation.** Before writing the file, ask one short question and wait for the answer:
+
+> *Before I write the file — `design.md` emission packages this DNA as a portable spec other AI tools can use, which is more extractive than a diagnosis. Is this URL:*
+>
+> *(a) your own site*
+> *(b) a public reference for your own brand (you have permission to learn from it)*
+> *(c) something else (a competitor, a designer you admire, a stranger's site you stumbled on)*
+>
+> *Reply (a), (b), or (c).*
+
+Then dispatch on the answer:
+
+| Answer | Action |
+| --- | --- |
+| (a) "my own site" | Emit. Note in the file's `## Provenance` block: *"Extracted from `<URL>` — user-owned source, <date>."* |
+| (b) "public reference for own brand" | Emit, but include a `## Provenance` block: *"Extracted from `<URL>` as a public reference for the user's brand on <date>. The DNA is structural; specific tokens may need to be regenerated to match the user's brand identity rather than the source's."* |
+| (c) "something else" | **Refuse.** *"I won't emit a `design.md` from a third-party site I'm not authorised to extract from. The diagnosis is yours — that's a learning tool. The portable spec needs a source you can attest authorship of, or a public reference for your own brand. If you want a design.md anyway, take a screenshot of your own moodboard or your own existing site, and I'll study that instead."* |
+
+If the user has already disclosed source attribution earlier in the conversation (e.g., during the initial "is this your own work / public reference / competitor" check, they answered "my own site"), do not re-ask — carry that attestation forward. The ask is only needed when status is unknown.
+
+The image-mode refusal table at the top of this file still applies in both modes. A source that already failed the diagnosis refusal (paid template, declared competitor, soft-refused signature work) is auto-refused at emission — do not re-ask.
+
+### What gets written
+
+Use the format defined in [`design-md.md`](design-md.md) § Format, with these `study`-mode adjustments:
+
+1. **Source mode informs token values.** URL mode populates the `## Tokens` block with exact OKLCH / hex values from the source's CSS, and the `## System` block with the exact fonts named in `@font-face` / Google Fonts / `next/font`. Image mode populates the same blocks with the schema's bands rendered into best-guess OKLCH (centre of band) and 1–2 candidate font names from the canon — flag these as estimated.
+2. **Add a `## Provenance` block.** Inserted between `## System` and `## Tokens`. Carries: the source mode, the URL (URL mode only) or "image (user-attached)" (image mode), the date of extraction, the attestation answer if any, and a one-line note about confidence:
+   - URL mode: *"Tokens are exact (extracted from source CSS). Fonts are exact (extracted from source font declarations). Rhythm is unknown — HTML alone can't judge density."*
+   - Image mode: *"Tokens are estimated from source-image colour bands. Fonts are role-based with named candidates from the Hallmark canon. Rhythm is from a vision pass on the source."*
+3. **Add a `## Notes` block** at the end with the anti-patterns the diagnosis flagged as "do NOT carry over." Future Hallmark runs reading the file should see these as part of the system's identity.
+4. **The stamp at the top of the file** carries `studied: yes` and `DNA-source: <mode>` plus the URL or "image" tag, mirroring the macrostructure stamp pattern.
+
+### After the file is written
+
+Same post-emission behaviour as the default verb's lock-the-system flow (per [`design-md.md`](design-md.md) § After the file is written):
+
+- Subsequent Hallmark runs read `design.md` first; diversification inverts to consistency.
+- If the user genuinely needs a different system for a future page, amend `design.md` with a `## Variants` section.
+- One-line confirmation back to the user: *"design.md written. The system is now locked to the extracted DNA. Future runs will defer to it."*
+
+---
+
 ## When `study` should hand off
 
-`study` is the diagnosis verb. It is not for fresh builds and not for refining existing pages.
+`study` is the diagnosis verb. It is not for fresh builds and not for refining existing pages. After the diagnosis, the user has three options — and `study` itself stops after any one of them:
 
-- If after the diagnosis the user says *"now build me the same kind of page for my brand"*: hand off to the **default** verb with the schema filled in as inferred design-context, and build per the standard flow — but with the studied DNA stamped.
+- If the user says *"now build me the same kind of page for my brand"*: hand off to the **default** verb with the schema filled in as inferred design-context, and build per the standard flow — but with the studied DNA stamped.
 - If the user says *"now refactor my existing site to match this DNA"*: hand off to **`hallmark redesign`** with the schema attached. Redesign preserves the user's content; study supplied the new shape.
+- If the user says *"lock the DNA"* / *"give me a design.md"*: emit the file per § Emitting a `design.md` from `study` above. The emitted file becomes the new system; subsequent runs defer to it.
 - If the user only wanted the diagnosis and is satisfied: stop. The diagnosis report is a complete deliverable on its own.
 
-Do not chain verbs without the user's explicit go-ahead. The diagnosis is the contract; the build is a separate decision.
+Do not chain verbs or emit files without the user's explicit go-ahead. The diagnosis is the contract; the build and the file are separate decisions.
