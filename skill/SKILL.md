@@ -252,7 +252,7 @@ Once the three are settled (asked or inferred), restate them in one sentence and
 
 ### 2. Pick a macrostructure FIRST
 
-Before loading any visual ruleset, **pick one of the twenty-one named macrostructures in [`references/macrostructures.md`](references/macrostructures.md).** Each macrostructure is a complete page-shape — heading placement, body composition, divider language, button voice, image treatment, reveal — bundled as a single named choice. Picking one named macrostructure is faster and more varied than choosing six independent axes from scratch.
+Before loading any visual ruleset, **read the slim index at [`references/macrostructures.md`](references/macrostructures.md) and pick one of the twenty-one named macrostructures.** The index is one-line-per-macro; pick a name, then **load ONLY that one per-macro file** from `references/macrostructures/` (e.g. `references/macrostructures/05-workbench.md`). Do not load the whole catalogue — that's ~37 KB of dead weight for a single pick. Each macrostructure is a complete page-shape — heading placement, body composition, divider language, button voice, image treatment, reveal — bundled as a single named choice. Picking one named macrostructure is faster and more varied than choosing six independent axes from scratch.
 
 **Diversification rule (mandatory).** Before you pick:
 
@@ -276,7 +276,7 @@ If the brief is genuinely vague (no theme, no tone), do **not** default. Offer t
 
 The macrostructure picks five of the six structural axes for you; you only need to pick the reveal yourself. The deeper axis catalogue is still in [`references/structure.md`](references/structure.md) when you need to deviate from the macrostructure's defaults.
 
-**Pick a nav archetype (N1–N9) and a footer archetype (Ft1–Ft8) at this step.** They are not optional chrome; they are part of the page's structural fingerprint. Read the routing tables in [`references/component-cookbook.md`](references/component-cookbook.md) § Navigation and § Footers — the genre's default plus the acceptable alternates. State both picks alongside the macrostructure: *"Macrostructure: Marquee Hero. Nav: N5 Floating pill. Footer: Ft5 Statement. Theme: Bloom."*
+**Pick a nav archetype (N1–N10) and a footer archetype (Ft1–Ft8) at this step.** They are not optional chrome; they are part of the page's structural fingerprint. Read the slim index at [`references/component-cookbook.md`](references/component-cookbook.md) and the routing tables at its bottom — the genre's default plus the acceptable alternates. Then **load ONLY the picked archetype files** from `references/components/` (e.g. `components/n5-floating-pill.md` + `components/ft5-statement.md`). A typical build loads 5–7 archetype files total (1 hero + 1 section head + 1–2 features + 1 CTA + 1 footer + 1 nav). Do not load the cookbook end-to-end — that's ~55 KB of archetypes you won't use. State both picks alongside the macrostructure: *"Macrostructure: Marquee Hero. Nav: N5 Floating pill. Footer: Ft5 Statement. Theme: Bloom."*
 
 **Default away from N1 and Ft3.** N1 (wordmark + 4–5 inline links + button-right at full width) and Ft3 (4 columns of links + social row + tiny copyright) are the most-recognised AI fingerprints. Reach for N5–N9 and Ft1/Ft2/Ft4/Ft5/Ft6/Ft7/Ft8 by default; reach for N1 only when the page genuinely has 2 destinations and the genre allows it; reach for Ft3 only on a genuine docs root or hub.
 
@@ -335,34 +335,37 @@ The diversification rule is theme-route-blind: a custom run that follows another
 
 ### 3. Load the visual ruleset
 
-The non-negotiables live in [`references/`](references/). **Be precise about what to load when.** Loading every file every time costs ~40k tokens; loading only what's needed costs ~15k. Discipline matters.
+The non-negotiables live in [`references/`](references/). **Be precise about what to load when. Discipline matters — over-eager loading is the largest avoidable cost of running Hallmark.**
 
-**Always-load (the eager bundle, ~3 files):**
+**Always-load (eager — 1 file):**
 - The genre file picked in Step 1 — [`genres/editorial.md`](references/genres/editorial.md), [`genres/modern-minimal.md`](references/genres/modern-minimal.md), [`genres/atmospheric.md`](references/genres/atmospheric.md), or [`genres/playful.md`](references/genres/playful.md). Scopes everything downstream.
-- [`macrostructures.md`](references/macrostructures.md) — 21 named whole-page shapes; you must pick one before writing code (Step 2 already required this).
-- [`component-cookbook.md`](references/component-cookbook.md) — 40 component archetypes (9 hero shapes, 6 feature blocks, 4 CTA shapes, 4 testimonials, **8 footer archetypes**, **9 nav archetypes**) composable into any macrostructure. Per-genre routing tables for nav and footer live at the bottom of the file.
+
+**Index-then-pick (read the slim index, then load only the picks):**
+- [`macrostructures.md`](references/macrostructures.md) — slim index of the 21 macros. Pick one name from the index, then load ONLY `references/macrostructures/<NN-slug>.md` for that pick. **Never load the whole index plus more than one per-macro file in a single build.** ~30 lines per per-macro file vs. 660 lines for the old monolith.
+- [`component-cookbook.md`](references/component-cookbook.md) — slim index of 46 component archetypes (9 heroes, 5 section heads, 6 features, 4 CTAs, 4 testimonials, 8 footers, 10 navs) + the nav + footer routing tables at the bottom. Pick your archetype codes (H#, S#, F#, C#, T#, Ft#, N#) from the index, then load ONLY the matching `references/components/<code>-<slug>.md` files. A typical build loads 5–7 archetype files. **Loading the cookbook end-to-end or pre-loading more than one archetype per category is the single biggest token waste in the skill — don't.**
 
 **Load-per-build (universal rules — load every build):**
-- [`typography.md`](references/typography.md) — fonts, scale, pairing, weights, measure
+- [`typography.md`](references/typography.md) — fonts, scale, pairing, weights, measure, hero headline sizing
 - [`color.md`](references/color.md) — OKLCH, palette construction, accent discipline
 - [`layout-and-space.md`](references/layout-and-space.md) — 4 pt scale, grid-breaks, asymmetry, depth
 - [`motion.md`](references/motion.md) — durations, easings, what to animate, reduced-motion
 - [`copy.md`](references/copy.md) — verbs, labels, error structure, link text
 - [`anti-patterns.md`](references/anti-patterns.md) — the named tells you must not emit
 
-**Load-conditionally (only when the page actually needs it):**
+**Load-conditionally (only when the page actually needs it — be honest, do not pre-load "for safety"):**
 - [`microinteractions.md`](references/microinteractions.md) — load whenever the output has *any* interactive element (buttons, inputs, modals, tabs, dropdowns, toasts, drag handles, copy buttons). That is most pages.
 - [`interaction-and-states.md`](references/interaction-and-states.md) — load when the page has stateful UI (forms, command palettes, optimistic updates).
 - [`responsive.md`](references/responsive.md) — load when mobile is in scope.
 - [`structure.md`](references/structure.md) — load only when deviating from a named macrostructure.
-- [`hero-enrichment.md`](references/hero-enrichment.md) — load at Step 4 if the brief asks for enrichment.
+- [`hero-enrichment.md`](references/hero-enrichment.md) — **do NOT load at Step 4 unless the image-need check in the next paragraph returns YES.** Most builds are typography-only and never touch this file. The decision is one quick read of the brief, not a defensive auto-load.
 - [`custom-craft.md`](references/custom-craft.md) — load only when an enrichment archetype requires construction (CSS art, SVG, declarative animation, etc.).
 - [`assets.md`](references/assets.md) — load only when an enrichment archetype needs an external asset (icons, illustration, photography, Lottie).
-- [`custom-theme.md`](references/custom-theme.md) — load only when Step 2.6 routes to custom.
+- [`custom-theme.md`](references/custom-theme.md) — load only when Step 2.6 routes to custom. The full custom branch (palette construction, font pairing, axis computation) lives there; SKILL.md only carries the dispatch.
 - [`design-md.md`](references/design-md.md) — load only when the user explicitly asks Hallmark to lock the system into a portable file (phrases: *"lock the system"*, *"give me a design.md"*, *"make this portable"*, etc.). Opt-in; never fires on a vanilla build.
+- [`preview-examples.md`](references/preview-examples.md) — load only if you need a worked example of the Step 5 preview block format. The bullet list in Step 5 itself is normally enough; reach for the file only when picking unusual macrostructures / custom themes.
 
-**Load-at-the-end:**
-- [`slop-test.md`](references/slop-test.md) — load at Step 7 (the gate-check after build), not earlier.
+**Load-at-the-end (Step 7 only):**
+- [`slop-test.md`](references/slop-test.md) — **strictly Step 7, after Build.** The 66 gates are a post-emit check, not a pre-emit reference. Pre-loading slop-test.md costs ~7K tokens for nothing — the gates inform fixes, not generation. If a gate fails at Step 7, fix and re-test; do not consult the file earlier "to know what to avoid" — that's what `anti-patterns.md` is for.
 - [`contract.md`](references/contract.md) — load at handoff time for output-contract + scope rules.
 - [`export-formats.md`](references/export-formats.md) — load at Step 6 only when the project warrants multi-format exports (i.e. has a `design.md`). Single-page builds emit `tokens.css` from the in-memory token state and don't need this file.
 
@@ -400,7 +403,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 - **Enrichment** · none (typography only)
 - **Sections** · Hero · Logos · Stats · Features · Testimonials · Pricing · FAQ · CTA · Footer
 - **Motion** · counter · pricing-lift · pulse-once
-- **Slop test** · 65 / 65 ✓ (run after Build)
+- **Slop test** · 66 / 66 ✓ (run after Build)
 - **Diversification** · differs from Linen on display style + accent hue
 ```
 
@@ -411,7 +414,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 3. **Enrichment** — the chosen archetype + tier, or *none (typography only)*.
 4. **Sections** — section names separated by ` · `, in DOM order.
 5. **Motion** — microinteraction primitives separated by ` · `, or *none — typography only*. Always under three primitives per the [`microinteractions.md`](references/microinteractions.md) hard rules.
-6. **Slop test** — `65 / 65 ✓` if all gates pass, or `N / 65 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
+6. **Slop test** — `66 / 66 ✓` if all gates pass, or `N / 66 — fails: <gate numbers>` if any are open. Run the slop test BEFORE writing this row; the slop test is Step 7.
 7. **Diversification** *(optional, only when `.hallmark/log.json` has prior entries)* — what axes differ vs the previous run.
 
 **Then one quiet CTA line, italicised, after the bullets:**
@@ -420,51 +423,7 @@ Before emitting any code, output a tight summary of what you're about to ship. T
 
 Skip the CTA line when (a) the build is component-scope, or (b) `design.md` already exists at the project root (the system is already locked). See [`design-md.md`](references/design-md.md) for the full opt-in flow.
 
-**Three more sample preview blocks** for the model to imitate, varied across macrostructure types:
-
-*Long Document (editorial, motion-cut):*
-> **Hallmark · v1.0.0**
->
-> - **Macrostructure** · Long Document
-> - **Theme** · Linen (cool slate paper · steel-blue accent · geometric sans)
-> - **Enrichment** · Tier-B hand-built SVG (a 60-line coffee bean with `@property --rise` 6 s breathing-loop)
-> - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
-> - **Motion** · breathing-loop on bean only (respects `prefers-reduced-motion`)
-> - **Slop test** · 65 / 65 ✓
-> - **Diversification** · first run for this project
-
-*Bento Grid (SaaS, motion-on):*
-> **Hallmark · v1.0.0**
->
-> - **Macrostructure** · Bento Grid
-> - **Theme** · Linen (cool slate paper · steel-blue accent · geometric sans)
-> - **Enrichment** · E1 Clipped-Edge Demo Video, Tier-A CSS-art trace waterfall
-> - **Sections** · Hero · 6-tile Bento (stat · sparkline · quote · code · integrations · spotlight) · Index Footer
-> - **Motion** · counter · pricing-lift · CSS marquee on integrations strip
-> - **Slop test** · 65 / 65 ✓
-> - **Diversification** · differs from Plain on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
-
-*Manifesto (declarative, no enrichment):*
-> **Hallmark · v1.0.0**
->
-> - **Macrostructure** · Manifesto
-> - **Theme** · Manifesto (dark · Inter Tight 900 · single red bleed)
-> - **Enrichment** · none (typography only — voice carries the brand)
-> - **Sections** · Masthead · Title · Five Declarations · Bleed Band · What We Refuse · Working Rules · Practice · Reading · Colophon
-> - **Motion** · none — typography only
-> - **Slop test** · 65 / 65 ✓
-> - **Diversification** · differs from Linen on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
-
-*Custom (Coffeebox archival café):*
-> **Hallmark · v1.0.0**
->
-> - **Macrostructure** · Long Document
-> - **Theme** · custom (vibe: "archival warmth, hand-set, no varnish" · paper oklch(94% 0.020 65) · accent oklch(58% 0.16 35) terracotta · Fraunces italic display + Source Serif 4 body)
-> - **Enrichment** · Tier-A pure-CSS coffee bean (60-line SVG, breathing-loop optional)
-> - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
-> - **Motion** · breathing-loop on bean (with reduced-motion fallback)
-> - **Slop test** · 65 / 65 ✓
-> - **Diversification** · custom axes: light / italic-serif / chromatic-terracotta — differs from previous catalog Linen on accent hue + display style
+Four worked sample preview blocks (Long Document, Bento Grid, Manifesto, Custom) live in [`references/preview-examples.md`](references/preview-examples.md) — load that file only if the bullet-list spec above isn't scaffolding enough on its own. Most builds don't need it.
 
 If any slop-test gate fails when you reach Step 7, return to the relevant Build step, fix it, and **re-emit the preview block** with the corrected slop-test row. The preview is the durable summary; it's wrong to ship if it lies.
 
@@ -494,7 +453,7 @@ Always:
 
 ### 7. The slop test
 
-Before handing back, run the output through the 65-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
+Before handing back, run the output through the 66-gate slop test in [`references/slop-test.md`](references/slop-test.md). Every answer must be **no**. Load that file at this step (not earlier — it isn't needed until handoff). The active genre matters: some gates are universal, some are genre-scoped (atmospheric loosens the radial-bloom gate; modern-minimal loosens the zero-chroma neutral gate; etc.). The full per-genre overrides are listed inline in `slop-test.md`.
 
 Run the slop test BEFORE writing the Slop test row in the Step 5 preview block — that row reflects the actual outcome of this step.
 
