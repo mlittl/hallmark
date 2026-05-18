@@ -221,7 +221,7 @@ Use no more than five sizes on a single page. If you need more hierarchy, use we
 ## Body text rules
 
 - Minimum 16px. Below 14px is accessibility-hostile.
-- Line-height 1.5–1.65 on body copy, tighter (1.1–1.3) on display.
+- Line-height 1.5–1.65 on body copy, tighter (1.1–1.3) on display. **Floor for all-caps display heads (`text-transform: uppercase` on `.hero__display` / `.section__title` / `h1` / `h2`) is `1.0` — recommended `1.02–1.08`.** Below 1.0 the cap-tops of line N+1 collide with the baseline of line N (no descenders to cushion the gap); the comma + cap-D on a wrapped "PROMPT, / DIFFERENT" fuse into a single glyph blob. Condensed display faces (Anton, Inter Tight 900, Bebas Neue) make this worse. Gate 67 auto-fails the pattern.
 - Measure 45–75 characters (`max-width: 65ch`).
 - Never all-caps body copy. Never justified text without hyphenation. Never letter-spacing above 0.05em on body.
 

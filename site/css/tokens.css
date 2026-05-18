@@ -185,7 +185,11 @@
   --tracking-tight:   -0.02em;
   --tracking-label:   0.04em;
 
-  --lh-tight: 0.94;
+  /* Manifesto runs uppercase Anton on display heads — line-height < 1.0 makes
+     cap-tops of line N+1 collide with the comma / baseline of line N (visible
+     on multi-line section titles like "SAME PROMPT, TWO / DIFFERENT OUTPUTS").
+     1.02 is the safe floor for all-caps condensed display. */
+  --lh-tight: 1.02;
   --lh-snug:  1.08;
 
   --section-gap: 5.5rem;
@@ -625,7 +629,9 @@
   --tracking-tight:   -0.018em;
   --tracking-label:   0.10em;
 
-  --lh-tight: 0.94;
+  /* Sport runs uppercase Inter Tight on display heads — same collision risk
+     as Manifesto when titles wrap to two lines. 1.02 floor for all-caps. */
+  --lh-tight: 1.02;
   --lh-snug:  1.06;
 
   --section-gap: 5.5rem;
