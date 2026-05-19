@@ -116,7 +116,11 @@ Each page is its own self-contained HTML + CSS — no shared theme, no shared la
 npx skills add nutlope/hallmark
 ```
 
-Or copy [`SKILL.md`](SKILL.md) + [`references/`](references/) into `~/.claude/skills/hallmark/` (Claude Code) or `.cursor/rules/hallmark.mdc` (Cursor — body of `SKILL.md`, no frontmatter).
+Or copy [`SKILL.md`](SKILL.md) + [`references/`](references/) into one of:
+
+- **Claude Code** — `~/.claude/skills/hallmark/`
+- **Cursor** — `.cursor/rules/hallmark.mdc` (body of `SKILL.md`, no frontmatter)
+- **Codex** — `~/.codex/skills/hallmark/` (personal, all projects) or `.codex/skills/hallmark/` (project-scoped, commit to repo)
 
 ## Updating
 
