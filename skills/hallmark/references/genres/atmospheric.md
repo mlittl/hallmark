@@ -8,7 +8,9 @@ Brief mentions any of: *AI tool, generative, music, video, image, voice, late-ni
 
 ## Themes that belong
 
-`Bloom` (canonical), `Midnight`, `Terminal`. Three dark-paper themes; the rotation walks them when atmospheric is active.
+`Bloom` (canonical light-paper), `Midnight`, `Terminal`, `Aurora`, `Lumen`. Five themes; the rotation walks them when atmospheric is active.
+
+`Lumen` is the premium AI-tool register — Modal / Anthropic / Together / ElevenLabs / Cluely / Adept / Granola. One focal CSS artefact + classical italic-serif headline + mono technical eyebrow. **Two palette drops** (Night Foundry — dark amber-gold, emits; Day Foundry — light indigo, refracts). The only atmospheric theme with a serif display and the only one whose canvas treatment is one *built* artefact rather than two diffuse blooms.
 
 ## Voice
 
@@ -29,8 +31,8 @@ Brief mentions any of: *AI tool, generative, music, video, image, voice, late-ni
 
 ## What this genre disallows
 
-- **Light-paper aesthetics** — the canvas is dark. Don't sneak white sections in.
-- **Italic serif body** — atmospheric stays sans top-to-bottom.
+- **Light-paper aesthetics** — the *default* canvas is dark. Bloom and Lumen's Day Foundry are the documented light-paper exceptions; both still emit/refract light from a focal canvas treatment. Don't sneak white sections into a dark-paper build.
+- **Italic in headers** — banned globally (a top AI tell). Atmospheric display is roman; Lumen ships Instrument Serif as a **roman** headline face, with the verb landmark carried by accent colour + a drawn underline, never italics. Body stays Geist Sans.
 - **Hairlines** — atmospheric uses elevated cards (`paper-2`, `paper-3`) instead of hairline-on-paper.
 - **Multiple accent hues** — one warm bloom + one secondary (pink/red) is the maximum. No teal-and-amber juggling.
 - **Glassmorphism** — banned. Atmospheric is *atmospheric*, not glass.
@@ -43,6 +45,8 @@ Brief mentions any of: *AI tool, generative, music, video, image, voice, late-ni
 - *"A canvas, then a tool."*
 - *"Generate, refine, ship — between Tuesday and Wednesday."*
 - *"The instrument is dark. The output is yours."*
+- *"Built to think in real time."* — Lumen voice; the verb is the landmark via accent colour + underline, never italics.
+- *"A single primitive that scales down to zero."* — Lumen voice; technical, declarative.
 
 ## Nav and footer voice
 

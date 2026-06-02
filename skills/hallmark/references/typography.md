@@ -55,7 +55,7 @@ Three sources, in priority order:
 
 | Family | Source | Voice | Best for |
 | --- | --- | --- | --- |
-| **Fraunces** | Google | Variable serif, deeply expressive italic, optical-size axis | Editorial, Salon, Atelier, brand-heavy |
+| **Fraunces** | Google | Variable serif, deeply expressive italic, optical-size axis | Editorial, Atelier, brand-heavy |
 | **Newsreader** | Google | Roman serif with optical-size + italic | Editorial, magazine, long-form |
 | **Instrument Serif** | Google | Tight contrast, italic available, smart for short heads | Brand, atelier, intimate editorial |
 | **Cormorant Garamond** | Google | Classical, high contrast, luxury register | Luxury, fashion, fine arts |
@@ -137,7 +137,7 @@ Each tone gets two rows: a **free baseline** (Google Fonts / Fontshare; works ou
 
 ## Wordmark / logo typography
 
-The wordmark in the navbar and footer **may use a different display face than the body**. On tone-rich themes (Editorial, Salon, Atelier, Linen, Quiet) it **should** — collapsing the wordmark into the body family flattens the visual hierarchy and the page reads as un-branded.
+The wordmark in the navbar and footer **may use a different display face than the body**. On tone-rich themes (Editorial, Atelier, Specimen) it **should** — collapsing the wordmark into the body family flattens the visual hierarchy and the page reads as un-branded.
 
 ```css
 :root {

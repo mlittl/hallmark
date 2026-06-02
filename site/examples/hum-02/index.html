@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" data-theme="hum">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sprout — Reading, one happy step at a time.</title>
+  <meta name="description" content="Sprout teaches kids aged 4–7 to read with ten-minute phonics lessons, a friendly guide, and no ads, ever." />
+  <meta name="theme-color" content="#faf6ee" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- ─── Nav · N1b canonical three-section (Hum-styled) ─── -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#" aria-label="Sprout — home">
+        <span class="sprout-mark" aria-hidden="true"><span class="sprout-mark__face"></span></span>
+        Sprout
+      </a>
+      <nav class="nav__center" aria-label="Primary">
+        <div class="nav__item nav__item--menu">
+          <button class="nav__link" aria-expanded="false">How it works <span class="nav__caret"></span></button>
+          <div class="nav__dropdown" role="menu">
+            <a class="nav__dropitem" href="#"><b>The lessons</b><i>Ten minutes, every day</i></a>
+            <a class="nav__dropitem" href="#"><b>Phonics path</b><i>From letters to little books</i></a>
+            <a class="nav__dropitem" href="#"><b>Meet Sprout</b><i>The friendly guide</i></a>
+          </div>
+        </div>
+        <a class="nav__link" href="#families">For families</a>
+        <a class="nav__link" href="#schools">For schools</a>
+        <a class="nav__link" href="#stories">Stories</a>
+      </nav>
+      <div class="nav__right">
+        <a class="btn btn--text" href="#">Sign in</a>
+        <a class="btn btn--pear btn--small" href="#">Try free</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ─── Hero · centred + full-width bento ─── -->
+    <section class="hero">
+      <div class="hero__head">
+        <p class="eyebrow"><span class="eyebrow__dot eyebrow__dot--mint"></span> Ages 4–7 · no ads, ever</p>
+        <h1 class="hero__title">Reading, one happy <span class="hero__em">step</span> at a time.</h1>
+        <p class="hero__lede">
+          Sprout turns learning to read into a ten-minute habit kids ask for — friendly
+          phonics, a guide who cheers them on, and not a single advertisement.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--pear btn--lg" href="#">Start free for 14 days</a>
+          <a class="btn btn--ghost btn--lg" href="#how">See a lesson →</a>
+        </div>
+      </div>
+
+      <!-- Bento grid — the product, shown abstractly -->
+      <div class="bento" aria-label="What's inside Sprout">
+        <article class="bento__tile bento__tile--word" data-accent="mint">
+          <p class="tile__kicker">Today's word</p>
+          <p class="tile__word">bloom</p>
+          <p class="tile__phonics"><span>b</span><span>l</span><span class="is-hot">oo</span><span>m</span></p>
+          <p class="tile__say">say it: <b>b — l — oo — m</b></p>
+        </article>
+
+        <article class="bento__tile bento__tile--guide" data-accent="lavender">
+          <div class="guide" aria-hidden="true">
+            <span class="guide__leaf"></span>
+            <span class="guide__body"><span class="guide__face"></span></span>
+          </div>
+          <p class="tile__guide-line">"Hi, I'm Sprout! Ready for today's word?"</p>
+        </article>
+
+        <article class="bento__tile bento__tile--streak" data-accent="pear">
+          <p class="tile__kicker">On a roll</p>
+          <p class="tile__big"><span class="count" data-to="12">12</span><span class="tile__unit">days</span></p>
+          <p class="tile__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></p>
+        </article>
+
+        <article class="bento__tile bento__tile--learned" data-accent="cyan">
+          <p class="tile__kicker">Words learned</p>
+          <p class="tile__big"><span class="count" data-to="47">47</span></p>
+          <p class="tile__sub">three new this week</p>
+        </article>
+
+        <article class="bento__tile bento__tile--game" data-accent="coral">
+          <p class="tile__kicker">Today's game</p>
+          <p class="tile__game-title">Catch the rhyme</p>
+          <div class="rhyme" aria-hidden="true">
+            <span class="rhyme__chip">cat</span>
+            <span class="rhyme__chip rhyme__chip--match">hat</span>
+            <span class="rhyme__chip">dog</span>
+            <span class="rhyme__chip rhyme__chip--match">bat</span>
+          </div>
+        </article>
+
+        <article class="bento__tile bento__tile--parent" data-accent="mint">
+          <p class="tile__kicker">For grown-ups</p>
+          <p class="tile__parent">A weekly note on what your reader is finding easy — and what to gently practise.</p>
+          <p class="tile__parent-meta">Sundays · 30-second read</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── How a lesson works · 3 steps ─── -->
+    <section class="section section--band" id="how" aria-labelledby="how-title">
+      <header class="section__head section__head--center">
+        <p class="eyebrow"><span class="eyebrow__dot eyebrow__dot--pear"></span> A lesson, start to finish</p>
+        <h2 class="section__title" id="how-title">Ten minutes. Three little moves.</h2>
+      </header>
+      <div class="steps">
+        <article class="step" data-accent="mint">
+          <span class="step__num">1</span>
+          <h3 class="step__title">Meet the word</h3>
+          <p class="step__body">Sprout introduces one word with a picture and a sound. No reading pressure — just hello.</p>
+        </article>
+        <article class="step" data-accent="cyan">
+          <span class="step__num">2</span>
+          <h3 class="step__title">Sound it out</h3>
+          <p class="step__body">Tap each part to hear it. The word lights up as your reader blends the sounds together.</p>
+        </article>
+        <article class="step" data-accent="coral">
+          <span class="step__num">3</span>
+          <h3 class="step__title">Play it back</h3>
+          <p class="step__body">A 60-second game locks it in — catch the rhyme, build the word, feed it to Sprout.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── Parents ─── -->
+    <section class="section" id="families" aria-labelledby="fam-title">
+      <header class="section__head">
+        <p class="eyebrow"><span class="eyebrow__dot eyebrow__dot--lavender"></span> What families say</p>
+        <h2 class="section__title" id="fam-title">The first app they ask to use.</h2>
+      </header>
+      <ul class="quotes">
+        <li class="quote" data-accent="pear">
+          <p class="quote__text">"My four-year-old does her 'Sprout lesson' before breakfast. She thinks it's a game. It is, mostly."</p>
+          <p class="quote__by"><b>Hana</b> · parent of one · 60-day streak</p>
+        </li>
+        <li class="quote" data-accent="cyan">
+          <p class="quote__text">"No ads, no upsells aimed at a six-year-old. That's why I trust it on his tablet."</p>
+          <p class="quote__by"><b>Marcus</b> · parent of two</p>
+        </li>
+        <li class="quote" data-accent="mint">
+          <p class="quote__text">"The Sunday note tells me exactly what to read with her. I stopped guessing."</p>
+          <p class="quote__by"><b>Priya</b> · parent of one</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ─── Pricing ─── -->
+    <section class="section section--band" id="schools" aria-labelledby="price-title">
+      <header class="section__head section__head--center">
+        <p class="eyebrow"><span class="eyebrow__dot eyebrow__dot--coral"></span> Pricing</p>
+        <h2 class="section__title" id="price-title">Free to start. Kind to families.</h2>
+      </header>
+      <div class="plans">
+        <article class="plan" data-accent="cyan">
+          <p class="plan__name">Family</p>
+          <p class="plan__price"><span class="plan__num">$7</span><span class="plan__unit">/month</span></p>
+          <p class="plan__note">Up to three little readers. Cancel anytime.</p>
+          <ul class="plan__list"><li>3 reader profiles</li><li>The full phonics path</li><li>Weekly parent note</li><li>Offline lessons</li></ul>
+          <a class="btn btn--ghost btn--block" href="#">Start free</a>
+        </article>
+        <article class="plan plan--feature" data-accent="pear">
+          <span class="plan__badge">Loved most</span>
+          <p class="plan__name">Family · yearly</p>
+          <p class="plan__price"><span class="plan__num">$60</span><span class="plan__unit">/year</span></p>
+          <p class="plan__note">Two months free. Same gentle everything.</p>
+          <ul class="plan__list"><li>Everything in Family</li><li>Two months on us</li><li>Printable little books</li><li>A real sticker pack, by post</li></ul>
+          <a class="btn btn--pear btn--block" href="#">Start free</a>
+        </article>
+        <article class="plan" data-accent="mint">
+          <p class="plan__name">Classroom</p>
+          <p class="plan__price"><span class="plan__num">Free</span><span class="plan__unit">for teachers</span></p>
+          <p class="plan__note">Up to 30 readers. Funded by the family plans.</p>
+          <ul class="plan__list"><li>30 reader profiles</li><li>Class progress board</li><li>No ads, no data resale</li><li>Email a human, same day</li></ul>
+          <a class="btn btn--ghost btn--block" href="#">Verify as a teacher</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__statement">Grow a reader.</p>
+      <div class="footer__meta">
+        <a class="footer__brand" href="#"><span class="sprout-mark sprout-mark--sm" aria-hidden="true"><span class="sprout-mark__face"></span></span> Sprout</a>
+        <p class="footer__col"><span>Sprout Learning, PBC</span><span>Made by parents + teachers</span><span>Utrecht &amp; Austin</span></p>
+        <p class="footer__col"><a href="#">For families</a><a href="#">For schools</a><a href="#">Our promise on ads</a><a href="#">hello@sprout.kids</a></p>
+        <p class="footer__col footer__copy">© 2024 — 2026 Sprout<br /><span class="footer__hash">B-Corp · COPPA-safe</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

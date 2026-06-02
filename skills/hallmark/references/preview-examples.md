@@ -8,22 +8,22 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > **Hallmark · v1.0.0**
 >
 > - **Macrostructure** · Long Document
-> - **Theme** · Linen (cool slate paper · steel-blue accent · geometric sans)
+> - **Theme** · Newsprint (cool slate paper · steel-blue accent · geometric sans)
 > - **Enrichment** · Tier-B hand-built SVG (a 60-line coffee bean with `@property --rise` 6 s breathing-loop)
 > - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
 > - **Motion** · breathing-loop on bean only (respects `prefers-reduced-motion`)
-> - **Slop test** · 69 / 69 ✓
+> - **Slop test** · 70 / 70 ✓
 > - **Diversification** · first run for this project
 
 *Bento Grid (SaaS, motion-on):*
 > **Hallmark · v1.0.0**
 >
 > - **Macrostructure** · Bento Grid
-> - **Theme** · Linen (cool slate paper · steel-blue accent · geometric sans)
+> - **Theme** · Newsprint (cool slate paper · steel-blue accent · geometric sans)
 > - **Enrichment** · E1 Clipped-Edge Demo Video, Tier-A CSS-art trace waterfall
 > - **Sections** · Hero · 6-tile Bento (stat · sparkline · quote · code · integrations · spotlight) · Index Footer
 > - **Motion** · counter · pricing-lift · CSS marquee on integrations strip
-> - **Slop test** · 69 / 69 ✓
+> - **Slop test** · 70 / 70 ✓
 > - **Diversification** · differs from Plain on paper hue (light-cool vs pure-white) + accent (indigo vs ink-blue)
 
 *Manifesto (declarative, no enrichment):*
@@ -34,8 +34,8 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > - **Enrichment** · none (typography only — voice carries the brand)
 > - **Sections** · Masthead · Title · Five Declarations · Bleed Band · What We Refuse · Working Rules · Practice · Reading · Colophon
 > - **Motion** · none — typography only
-> - **Slop test** · 69 / 69 ✓
-> - **Diversification** · differs from Linen on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
+> - **Slop test** · 70 / 70 ✓
+> - **Diversification** · differs from Newsprint on paper band (dark vs light) + display style (display-heavy vs geometric-sans)
 
 *Custom (Coffeebox archival café):*
 > **Hallmark · v1.0.0**
@@ -45,5 +45,5 @@ Four sample Step 5 preview blocks for the model to imitate, varied across macros
 > - **Enrichment** · Tier-A pure-CSS coffee bean (60-line SVG, breathing-loop optional)
 > - **Sections** · Masthead · Letter · Three Notes · Visit · Colophon
 > - **Motion** · breathing-loop on bean (with reduced-motion fallback)
-> - **Slop test** · 69 / 69 ✓
-> - **Diversification** · custom axes: light / italic-serif / chromatic-terracotta — differs from previous catalog Linen on accent hue + display style
+> - **Slop test** · 70 / 70 ✓
+> - **Diversification** · custom axes: light / italic-serif / chromatic-terracotta — differs from previous catalog Newsprint on accent hue + display style

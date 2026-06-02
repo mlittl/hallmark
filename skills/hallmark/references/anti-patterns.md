@@ -136,6 +136,12 @@ Headline centred, body centred, button centred, section after section of centred
 
 **Fix.** Bias the layout. Wide left margin, narrow right. Or the reverse. Breaking symmetry once is enough.
 
+### Italic headers
+
+A roman headline with one word flipped to italic — *"Built to think in real time"* — or an all-italic display face used on every heading. The italicised emphasis-word-in-a-header is among the most reliable AI tells: it reads as "trying to look editorial" and appears on a huge share of generated pages.
+
+**Fix.** Headers are roman (`font-style: normal`). Carry emphasis with weight, an accent colour, or a drawn underline beneath the word. Keep italic for body-copy emphasis inside running paragraphs only.
+
 ### Eyebrow on every section
 
 Every section starts with an uppercase mono-cap eyebrow — `01 / EXAMPLES`, `02 / WHAT'S INSIDE`, `03 / INSTALL`, `01 · THE TOUR` — above (or worse, *beside*) its heading. The labels look like editorial chapters but read as a tic. The page becomes a list of *labelled lists.*

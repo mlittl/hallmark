@@ -8,7 +8,11 @@ Brief mentions any of: *SaaS, enterprise, API, platform, developer tool, infra, 
 
 ## Themes that belong
 
-`Quiet` (canonical). Future themes can be added to this genre — anything monochrome or near-monochrome with Geist / Inter-class sans display and pill CTAs.
+`Coral` (canonical) — warm-grey paper, single warm coral accent, Geist throughout, soft pill CTAs. The "Stripe-not-Linear" warmth.
+
+`Cobalt` — the cool dev-tool / API / docs register (the GitBook + Firecrawl school, executed **cobalt-on-light, not orange**). Cool engineered near-white paper, one electric cobalt signal accent, Space Grotesk display + Inter body + JetBrains Mono code, ruler-drawn hairlines, tight 6 px radii, a bordered ⌘K nav, and a live code/API request–response hero. The technical, instrument-panel sibling to Coral's warmth — the rotation walks Coral ⇄ Cobalt when modern-minimal is active.
+
+The two differ on every axis a glance registers: Coral is warm-grey + coral + Geist + pills; Cobalt is cool-white + electric blue + Space Grotesk/mono + tight-radius bordered controls. Future themes can join this genre too — anything monochrome or near-monochrome with an Inter-class sans display and a single restrained accent.
 
 ## Voice
 
