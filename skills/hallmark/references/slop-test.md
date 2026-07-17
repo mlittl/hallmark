@@ -1,4 +1,4 @@
-# Slop test — 58 gates + pre-emit self-critique
+# Slop test — 60 gates + pre-emit self-critique
 
 Run this list before handing back any output. Every answer must be **no**. Update the Step 5 preview block's `Slop test` row to reflect the actual outcome of this run.
 
@@ -8,7 +8,7 @@ Some gates are **universal** (apply to every genre); some are **genre-scoped** (
 
 ## Pre-emit self-critique (six axes)
 
-Run this **before** the gate list, not after. Score the planned output 1–5 on each axis. Anything **< 3 on any axis triggers a revision pass** before the gate sweep — don't bring known weakness into a fifty-eight-gate review.
+Run this **before** the gate list, not after. Score the planned output 1–5 on each axis. Anything **< 3 on any axis triggers a revision pass** before the gate sweep — don't bring known weakness into a sixty-gate review.
 
 Two passes is normal. Three is a sign the brief is wrong, not the design — re-read the brief.
 
@@ -143,7 +143,15 @@ The CSS stamp at Step 6 should record the result alongside contrast: `· nav: N#
 
 Universal — apply to every genre. The page must not invent facts about the user's product, team, or market.
 
-46. **Invented metric.** Does the page contain any quantitative claim — "10× faster", "saves 5 hours per week", "trusted by 50,000+ teams", "99.9 % uptime", "+47 % conversion" — that the user did not supply, that has no source, and that the model fabricated to fill a stat-led layout, comparison row, or proof bar? If yes, fail. The fix is one of: replace the number with `—` and a labelled grey block, replace it with a question to the user ("metric to confirm"), or rebuild the section without the proof slot. Stat-led macrostructures are slop the moment their stats become decorative. **A stat is also never the hero's *sole* headline** — a lead figure carries the hero only alongside a worded headline; a giant number with no words as the dominant hero text is a bare-number tell, so pair it with a line that says what it means. *(See [anti-patterns.md § Invented metrics](anti-patterns.md).)*
+46. **Invented metric.** Does the page contain any quantitative claim — "10× faster", "saves 5 hours per week", "trusted by 50,000+ teams", "99.9 % uptime", "+47 % conversion" — that the user did not supply, that has no source, and that the model fabricated to fill a stat-led layout, comparison row, or proof bar? If yes, fail. The fix is one of: replace the number with a labelled grey block reading "metric to confirm" (no fabricated figure, no em-dash glyph as a fake number), replace it with a question to the user ("metric to confirm"), or rebuild the section without the proof slot. Stat-led macrostructures are slop the moment their stats become decorative. **A stat is also never the hero's *sole* headline** — a lead figure carries the hero only alongside a worded headline; a giant number with no words as the dominant hero text is a bare-number tell, so pair it with a line that says what it means. *(See [anti-patterns.md § Invented metrics](anti-patterns.md).)*
+
+## Voice · copy quality
+
+Universal — apply to every genre. Site-facing copy must sound written by a human for this brief, not by a model padding a layout.
+
+58. **Robotic / AI-sounding copy.** Does any site-facing string (hero, lede, section body, nav label, button, footer blurb, empty state, error, testimonial, feature blurb) use banned LLM openers or filler from [copy.md](copy.md) § Banned opening lines / Microcopy bans — e.g. "Built for the modern team", "Unleash your…", "Where X meets Y", "Empower…", "In today's digital landscape", "Supercharge…", "Reimagine…", "seamless", "innovative solutions", "next-generation", "leverage", "utilize", "robust", "cutting-edge", "best-in-class", "holistic", "unlock", "journey", "delve" — or generic marketing that names no concrete noun, verb, place, or deliverable from the brief? If yes, fail. Replace with a tone-specific line from [copy.md](copy.md) § Voice samples, or ask the user for one specific noun/verb/place. *(See [anti-patterns.md § Robotic / AI-sounding copy](anti-patterns.md).)*
+
+59. **Em dashes in site copy.** Does any rendered marketing or UI copy contain U+2014 (`—`), HTML `&mdash;` / `&#8212;`, or a double-hyphen stand-in (`--`) used as punctuation? If yes, fail. Em dashes are a reliable LLM tic in shipping sites. Prefer a period, comma, colon, or a short second sentence. En-dashes (`–`, U+2013) remain allowed for numeric ranges only (`10–20`). *(See [anti-patterns.md § Em dashes](anti-patterns.md) and [copy.md](copy.md) § Proper typography.)*
 
 ## Re-drawn UI chrome
 
@@ -163,7 +171,7 @@ Universal. Buttons, links, and nav items must remain readable as single-line aff
 
 49. **Two-line clickable text.** Does any button label, primary nav link, footer link, tab label, breadcrumb, or CTA text wrap to two or more lines at any viewport between 320 px and 1920 px? If yes, fail. Clickable text reading on two lines looks broken — visitors read it as a styling error, not as intentional. The fix is one of: shorten the label (the best fix; "Get started free" → "Start free"), set `white-space: nowrap` on the affordance and let the parent reflow, drop a non-essential nav item at narrow widths via `hidden=until-found`, or collapse the nav into a sheet/menu. Never let a CTA or nav link wrap. *(See [responsive.md § Clickable text — never wraps](responsive.md).)*
 
-The CSS stamp at Step 6 should record results: `· honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30)`. Any failure must be fixed before shipping.
+The CSS stamp at Step 6 should record results: `· honest: pass (46) · voice: pass (58–59) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30)`. Any failure must be fixed before shipping.
 
 ## Mobile-responsiveness — the non-negotiables
 

@@ -212,7 +212,23 @@ A stat-led layout, comparison row, or proof bar carrying numbers the user never 
 
 **Why it fails.** Audiences read invented stats as fast as they read invented testimonials. A page that lies on its proof bar can't be trusted on its claims either, and the AI tell is unmistakable: every fabricated number reads "this was generated, not written".
 
-**Fix.** Three options, in order of preference: (1) replace the number with `—` and a labelled grey block ("metric to confirm" or "stat pending"); (2) ask the user for the real number and pause the run; (3) rebuild the section without the proof slot — a stat-led macrostructure with no real stats is the wrong macrostructure. The number-shaped hole is honest; the fabricated number is slop. *(Slop-test gate 46.)*
+**Fix.** Three options, in order of preference: (1) replace the number with a labelled grey block reading "metric to confirm" or "stat pending" (no fabricated figure; do **not** use an em-dash glyph as a fake number); (2) ask the user for the real number and pause the run; (3) rebuild the section without the proof slot — a stat-led macrostructure with no real stats is the wrong macrostructure. The number-shaped hole is honest; the fabricated number is slop. *(Slop-test gate 46.)*
+
+### Robotic / AI-sounding copy
+
+Hero, lede, section body, CTAs, or chrome that reads like default LLM marketing: "Built for the modern team", "Unleash your…", "Where X meets Y", "In today's digital landscape", "leverage", "utilize", "robust", "cutting-edge", "unlock the power", "your journey starts here", or any line that could sit on any product without naming a concrete noun, verb, place, or deliverable from the brief.
+
+**Why it fails.** Audiences pattern-match this register as generated within a glance. It is the verbal twin of the purple-gradient hero: distribution-default filler with no brief-specific gravity.
+
+**Fix.** Rewrite from [copy.md](copy.md) § Voice samples for the active tone, or ask the user one question that elicits a specific noun/verb/place. Prefer short declarative sentences. *(Slop-test gate 58.)*
+
+### Em dashes in site copy
+
+U+2014 (`—`), `&mdash;`, or `--` used as punctuation in any rendered marketing or UI string. Em-dash pile-ups (two or more per paragraph, or one in every sentence) are an especially loud LLM tic.
+
+**Why it fails.** Em dashes are over-represented in model-written marketing copy. On a shipping site they read as generated cadence, not editorial craft.
+
+**Fix.** Prefer a period, comma, colon, or a short second sentence. En-dashes (`–`) remain fine for numeric ranges only (`10–20`). Never "fix" `--` into `—`. *(Slop-test gate 59.)*
 
 ### Generic emoji as feature icon
 
@@ -356,11 +372,11 @@ A spinner appears for 50ms while a fast action completes.
 
 **Fix.** Curly quotes: `"Hello"`, `'word'`.
 
-### Double-hyphen dashes
+### Double-hyphen / em-dash punctuation
 
-`--` in body copy where an em-dash belongs.
+`--` or `—` (U+2014) in body or UI copy used as interruption punctuation.
 
-**Fix.** `—` (U+2014).
+**Fix.** Prefer a period, comma, or colon. En-dash for ranges only (`10–20`). Do not "upgrade" `--` into an em dash. *(Slop-test gate 59; see also Major § Em dashes in site copy.)*
 
 ### Three periods instead of ellipsis
 

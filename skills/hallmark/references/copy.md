@@ -52,16 +52,18 @@ Three beats:
 - Stock placeholder names: Jane Doe, John Smith, Lorem Ipsum (unless the page is a lorem-ipsum tool).
 - Startup clichés in product copy: Acme, Nexus, Unleash, Seamless, Supercharge, Transform, Elevate, Empower, Delight, Magical.
 - Marketing copy that promises a feeling without naming a feature. "Experience the power of ___" is empty.
+- Robotic / LLM filler verbs and adjectives: leverage, utilize, robust, cutting-edge, best-in-class, next-generation, holistic, seamless, innovative, unlock, delve, journey (as metaphor for product use), landscape (as in "digital landscape"), ecosystem (unless the product literally is one).
+- Em dashes (`—`) and double-hyphen stand-ins (`--`) in any site-facing string. Prefer periods, commas, or colons. *(Slop-test gate 59.)*
 
 ## Proper typography
 
 - Curly quotes: `"Hello"`, `'word'`.
-- Em-dash for interruption: `—` (U+2014). En-dash for ranges: `10–20` (U+2013). Never `--`.
+- **No em dashes in site copy.** Never U+2014 (`—`), never `&mdash;`, never `--` as punctuation. Break into two sentences, use a comma, or use a colon. En-dash for ranges only: `10–20` (U+2013).
 - Ellipsis: `…` (U+2026). Never `...`.
 - Apostrophe: `’`. Never the prime `'`.
 - Non-breaking space before units: `10 kg`, `5 min` (use `&nbsp;` or U+00A0).
 
-If the text is loaded from a CMS, configure Smart Quotes in the CMS. If it's hard-coded, write it correctly.
+If the text is loaded from a CMS, configure Smart Quotes in the CMS but **disable em-dash substitution**. If it's hard-coded, write it correctly without em dashes.
 
 ---
 
@@ -164,7 +166,7 @@ Three voice patterns: *extreme abbreviation*, *principle as opening*, *refusal o
 
 ## Banned opening lines (anti-patterns)
 
-These phrases appear across distribution-default LLM copy and reach for none of the specificity above. **Banned outright** — if you find yourself reaching for one, replace it with one of the patterns from the tone above.
+These phrases appear across distribution-default LLM copy and reach for none of the specificity above. **Banned outright** — if you find yourself reaching for one, replace it with one of the patterns from the tone above. *(Slop-test gate 58.)*
 
 | Phrase | Why it fails |
 | --- | --- |
@@ -178,5 +180,10 @@ These phrases appear across distribution-default LLM copy and reach for none of 
 | *"Seamless integration"* | "Seamless" has no antonym; signals non-specificity |
 | *"In today's digital landscape"* | Temporal hand-wave; assumes the reader needs orientation |
 | *"Next-generation"* | Implies predecessor inadequacy; offers no differentiation |
+| *"Leverage your data / AI / stack"* | Consultant-speak; never names the concrete action |
+| *"Unlock the power of…"* | Empty energy metaphor; no product mechanics |
+| *"Your journey starts here"* | Motivational-poster register; no specificity |
+| *"Delve into…"* | Model-favoured verb; readers never say this |
+| *"A robust, end-to-end platform"* | Stacked filler adjectives; says nothing |
 
 If the brief gives you nothing to work with for an opening line, *say so to the user* and ask one question that elicits a specific noun, verb, or place. The user knows their product; the model is not allowed to invent specificity.

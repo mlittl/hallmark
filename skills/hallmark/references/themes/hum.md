@@ -283,7 +283,7 @@ No two Hum builds may share the same **back half**. The failure mode is a bespok
 - **Modify ink with opacity, not new hexes** — body ~88–90% of `--color-ink`, links 95%, hover 100%. Fewer literal colours, used consistently.
 - **Layer shadows** (a tight contact shadow + a soft ambient one), varied by elevation — never one `--shadow-card` on everything.
 - **Tight tracking on display, sentence case, ≤3 type levels.** Big heads get negative letter-spacing; body stays neutral.
-- **Voice:** max one em-dash per paragraph (the em-dash pile-up is the clearest "AI wrote this" tic — prefer periods). Honest metrics only; never decorative big-number theatre.
+- **Voice:** zero em dashes in site copy (em dashes are a clear "AI wrote this" tic — prefer periods, commas, or colons). Honest metrics only; never decorative big-number theatre.
 
 ## Voice fixtures
 

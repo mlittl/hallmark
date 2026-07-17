@@ -216,7 +216,7 @@ Use no more than five sizes on a single page. If you need more hierarchy, use we
 - Match fallback metrics with `size-adjust`, `ascent-override`, `descent-override`, `line-gap-override` to prevent CLS.
 - Tabular numbers on any data display: `font-variant-numeric: tabular-nums;`.
 - Oldstyle figures for body copy where the face supports them: `font-variant-numeric: oldstyle-nums;`.
-- Proper typographic punctuation: `" " — … ‘ ’`. Never straight quotes, never `--` or `...`.
+- Proper typographic punctuation: curly quotes and ellipsis (`" " … ‘ ’`). Never straight quotes, never `...`. **Never em dashes (`—`) or `--` as punctuation in site copy** — prefer periods, commas, or colons. En-dashes only for numeric ranges (`10–20`).
 
 ## Body text rules
 

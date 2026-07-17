@@ -124,7 +124,7 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | **T3 Single huge quote** | Quote face: serif italic · roman display · italic mono | Width: full-bleed · 60ch · 40ch | Attribution position: same line · separate band |
 | **T4 Numbered stat strip** | Layout: 3-up · 4-up · 5-up · 6-up | Number weight: display · body large | Qualifier position: under · inline · above |
 | **Ft1 Mast-headed** | Wordmark size: display 3xl · display 2xl · xl | Tagline: italic serif · roman body · none | Links row: inline · 2-line stack |
-| **Ft2 Inline single line** | Order: wordmark/links/credit · credit/wordmark/links | Separator: middot · pipe · em-dash · vertical rule | Density: dense · spaced |
+| **Ft2 Inline single line** | Order: wordmark/links/credit · credit/wordmark/links | Separator: middot · pipe · vertical rule (never em-dash) | Density: dense · spaced |
 | **Ft3 Index columns** | Columns: 3 · 4 · 5 | Heading style: small caps · italic · monospace | Bullet: hairline · none |
 | **Ft4 Dense colophon** | Family: monospace · serif · sans | Layout: single block · paragraphs · log-style | Includes: build hash · date · attribution |
 | **N1 Wordmark + 2 links** | Position: left/right split · centred · right-flush | Links: text · text+icon · pill | Sticky: yes · no |
@@ -143,7 +143,7 @@ When you pick an archetype, **state the knob values you chose** in the macrostru
 | **Ft5 Statement** | Sentence width: 28 ch · 38 ch · 50 ch | Wordmark position: under sentence · top-right · none | Rule above meta: hairline · double · none |
 | **Ft6 Letter close** | Signoff: italic · roman · monogram | Postscript: yes · no | Width: 40 ch · 60 ch · 80 ch |
 | **Ft7 Newsletter-first** | Layout: stacked · inline · split (form left · meta right) | Submit style: filled · outline · arrow link | Privacy line: yes · no |
-| **Ft8 Marquee scroll** | Speed: 24 s · 32 s · 48 s | Direction: left · right · alternate (rare) | Glyph: middot · em-dash · slash |
+| **Ft8 Marquee scroll** | Speed: 24 s · 32 s · 48 s | Direction: left · right · alternate (rare) | Glyph: middot · slash · pipe (never em-dash) |
 
 **Anti-pattern:** picking the same knob values across two different outputs is the same kind of templating as picking the same archetype. If your last Bento was `tiles=6, spans=irregular, accent=corner-only`, the next one must change at least one knob.
 
